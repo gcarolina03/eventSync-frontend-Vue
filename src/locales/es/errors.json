@@ -1,0 +1,10 @@
+{
+  "errors": {
+    "emailInvalid": "Correo Electrónico Invalido",
+    "emailRequired": "Correo Electrónico es obligatorio",
+    "passwordRequired": "Contraseña es obligatoria",
+    "passwordLong": "La contraseña debe contener al menos 6 caracteres",
+    "login": "Tu Correo Electrónico o Contraseña es incorrecto",
+    "default": "Algo ha salido mal. Por favor vuelve a intentarlo"
+  }
+}

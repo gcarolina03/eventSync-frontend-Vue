@@ -1,0 +1,12 @@
+{
+  "categoriesList": {
+    "all": "All",
+    "production": "Production",
+    "photographer": "Photographer",
+    "location": "Location",
+    "eventStaff": "Event Staff",
+    "entertaintment": "Entertaintment",
+    "catering": "Catering",
+    "decor": "Decor"
+  }
+}

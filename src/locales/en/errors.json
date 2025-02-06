@@ -1,0 +1,10 @@
+{
+  "errors": {
+    "emailInvalid": "Invalid email",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "passwordLong": "Password must be at least 6 characters",
+    "login": "Your email or Password is incorrect",
+    "default": "Something went wrong. Please try again"
+  }
+}
