@@ -19,9 +19,13 @@ const props = defineProps({
     type: String,
     default: null,
   },
-  type: {
+  buttonStyle: {
     type: String,
     default: 'button',
+  },
+  type: {
+    type: String,
+    default: '',
   },
   disabled: {
     type: Boolean,
@@ -35,7 +39,7 @@ const props = defineProps({
 
 const buttonClass = computed(() => {
   let baseClass = '';
-  switch (props.type) {
+  switch (props.buttonStyle) {
     case 'transparent':
       baseClass = 'text-white sm:border cursor-pointer font-bold border-white rounded-lg px-5 py-2.5 hover:bg-dark hover:border-dark';
       break;
@@ -43,7 +47,7 @@ const buttonClass = computed(() => {
       baseClass = "text-primary border cursor-pointer border-white bg-white font-bold rounded-lg px-5 py-2.5 hover:bg-dark hover:border-dark hover:text-white";
       break;
     case 'purple':
-      baseClass = 'w-full bg-secondary text-white py-3 rounded-lg font-medium transition-all hover:bg-secondary-dark focus:ring-2 focus:ring-secondary focus:ring-opacity-50 cursor-pointer';
+      baseClass = 'w-full bg-secondary text-white py-3 rounded-lg transition-all hover:bg-secondary-dark focus:ring-2 focus:ring-secondary focus:ring-opacity-50 cursor-pointer';
       break;
     case 'menu':
       baseClass = 'block py-2 font-bold text-gray-400 hover:text-light'

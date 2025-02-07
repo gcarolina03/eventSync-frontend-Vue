@@ -1,6 +1,6 @@
 <template>
-  <div class="flex justify-center items-center px-4">
-    <div class="rounded-lg bg-white/30 border transform translate-y-[-50%] absolute top-[50%] border-gray-300 bg-opacity-50 p-5 w-9/12 lg:w-2/5 xl:w-1/5 pt-[80px] px-10 shadow-lg max-sm:px-8">
+  <main class="flex flex-grow justify-center items-center px-4 text-base">
+    <div class="h-full rounded-lg bg-white/30 border border-gray-300 bg-opacity-50 p-5 w-9/12 lg:w-2/5 xl:w-2/6 pt-12 px-10 shadow-lg max-sm:px-8">
       <h1 class="text-2xl lg:text-3xl font-medium text-center">{{ $t("authTitles.welcomeLogin") }}</h1>
       <p class="text-sm text-center">{{ $t("authTitles.subtitleLogin") }}</p>
 
@@ -13,13 +13,9 @@
         <!-- Error Message -->
         <ErrorMsg v-if="showError" :message="errorMsg" @hide="hideErrorMsg" />
         <!-- Submit Button -->
-        <button 
-          class="w-full bg-secondary text-white py-3 rounded-lg font-medium transition-all hover:bg-secondary-dark focus:ring-2 focus:ring-secondary focus:ring-opacity-50"
-          type="submit" 
-          @click.prevent="handleSubmit(submit)"
-        >
+         <ButtonComp buttonStyle="purple" type="submit" additionalClass="text-sm lg:text-base" @click.prevent="handleSubmit(submit)">
           {{ $t('login') }}
-        </button>
+         </ButtonComp>
       </Form>
 
       <!-- Links de Ayuda -->
@@ -27,7 +23,7 @@
         <p>{{ $t("haveAccount") }} <router-link to="/signup" class="underline text-primary hover:text-primary-dark">{{ $t("signup") }}</router-link></p>
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script setup>
@@ -36,8 +32,11 @@ import { Form } from 'vee-validate'
 import * as yup from 'yup'
 import { useI18n } from 'vue-i18n'
 import { useStore } from '@/store'
+/* COMPONENTS */
 import Input from '@/components/forms/Input.vue'
 import ErrorMsg from '@/components/common/ErrorMsg.vue'
+import ButtonComp from '@/components/common/Button.vue'
+
 
 const { t } = useI18n()
 const store = useStore()

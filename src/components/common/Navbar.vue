@@ -11,16 +11,16 @@
     <!-- Enlaces de navegación -->
     <div :class="['lg:flex lg:items-center lg:justify-center', showMenu ? 'block' : 'hidden']" class="w-full lg:w-auto mt-4 lg:mt-0">
       <div class="flex flex-col lg:flex-row lg:gap-6 items-center">
-        <ButtonComp to="/" :type="navClass('/')">
+        <ButtonComp to="/" :buttonStyle="navClass('/')">
           {{ $t('home') }}
         </ButtonComp>
         <div class="hidden lg:inline-block h-[20px] w-0.5 bg-neutral-100 opacity-40"></div> <!-- separador -->
-        <ButtonComp to="/services" :type="navClass('/services')">
+        <ButtonComp to="/services" :buttonStyle="navClass('/services')">
           {{ $t('services') }}
         </ButtonComp>
         <template v-if="user">
           <div class="hidden lg:inline-block h-[20px] w-0.5 bg-neutral-100 opacity-40"></div> <!-- separador -->
-          <ButtonComp to="/events" :type="navClass('/events')">
+          <ButtonComp to="/events" :buttonStyle="navClass('/events')">
             {{ $t('events') }}
           </ButtonComp>
         </template>
@@ -28,12 +28,12 @@
     </div>
 
     <!-- Botones de autenticación o UserMenu -->
-    <div class="flex items-center lg:w-auto flex-row sm:gap-4" :class="[showMenu ? 'w-full justify-center' : '']">
+    <div class="flex items-center lg:w-auto flex-row sm:gap-4" :class="[showMenu ? 'w-full justify-center' : 'hidden sm:block']">
       <template v-if="!router.user">
         <!-- <ButtonComp to="/signup" type="transparent" class="sm:text-base">
           {{ $t('signup') }}
         </ButtonComp> -->
-        <ButtonComp to="/login" type="white" additionalClass="sm:text-base">
+        <ButtonComp to="/login" :buttonStyle="!showMenu ? 'white' : navClass('/login')" additionalClass="sm:text-base">
           {{ $t('login') }}
         </ButtonComp>
       </template>
@@ -43,9 +43,9 @@
     </div>
 
     <!-- Botón de menú hamburguesa -->
-    <button v-show="!showMenu" @click="toggleMenu" class="lg:hidden text-white cursor-pointer focus:outline-none">
+    <div v-show="!showMenu" @click="toggleMenu" class="lg:hidden text-white cursor-pointer focus:outline-none">
       <Icon icon="bars" className="h-6 w-6" />
-    </button>
+    </div>
   </nav>
 </template>
 
@@ -66,6 +66,6 @@ const toggleMenu = () => {
 
 
 const navClass = (path) => {
-  return currentPath == path ? 'menuActive' : 'menu'; // Asignar la clase activa o normal
+  return currentPath == path ? 'menuActive' : 'menu';
 };
 </script>
