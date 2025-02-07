@@ -14,7 +14,9 @@ onMounted(() => {
 </script>
 
 <template>
+	<div class="flex flex-col min-h-screen">
 		<Navbar />
 		<RouterView />
 		<Footer />
+	</div>
 </template>
