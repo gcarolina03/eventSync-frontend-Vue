@@ -4,7 +4,12 @@
     "emailRequired": "Correo Electrónico es obligatorio",
     "passwordRequired": "Contraseña es obligatoria",
     "passwordLong": "La contraseña debe contener al menos 6 caracteres",
+    "passwordMismatch": "Las contraseñas no coinciden",
     "login": "Tu Correo Electrónico o Contraseña es incorrecto",
-    "default": "Algo ha salido mal. Por favor vuelve a intentarlo"
+    "default": "Algo ha salido mal. Por favor vuelve a intentarlo",
+    "firstNameRequired": "Nombre es obligatorio",
+    "firstNameShort": "El nombre es muy corto",
+    "fileInvalid": "Tipo de archivo invalido. Por favor selecciona una imagen JPEG/JPG o PNG",
+    "emailExist": "Usuario ya registrado!"
   }
 }

@@ -4,7 +4,11 @@
     "emailRequired": "Email is required",
     "passwordRequired": "Password is required",
     "passwordLong": "Password must be at least 6 characters",
+    "passwordMismatch": "Passwords do not match",
     "login": "Your email or Password is incorrect",
-    "default": "Something went wrong. Please try again"
+    "default": "Something went wrong. Please try again",
+    "firstnameRequired": "First Name is required",
+    "fileInvalid": "Invalid file type. Please select a JPEG/JPG or PNG image",
+    "emailExist": "User already registered!"
   }
 }

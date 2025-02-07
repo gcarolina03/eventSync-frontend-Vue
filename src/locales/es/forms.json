@@ -1,4 +1,7 @@
 {
   "email": "Correo Electrónico",
-  "password": "Contraseña"
+  "password": "Contraseña",
+  "confirmPassword": "Repite Contraseña",
+  "firstname": "Nombre",
+  "lastname": "Apellidos"
 }
