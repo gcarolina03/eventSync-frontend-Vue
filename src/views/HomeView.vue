@@ -1,8 +1,8 @@
 <template>
-  <div class="w-full h-full relative px-8 pt-10">
-    <p class="font-bold text-[30px]">{{ $t("dashboardTitle") }}</p>
+  <main class="w-full flex-grow relative px-8 pt-10">
+    <p class="font-bold text-base md:text-xl lg:text-4xl">{{ $t("dashboardTitle") }}</p>
     <CategoriesList :categories="store.categories" :activeCategory="store.activeCategory" @set-category="store.setActiveCategory" />
-  </div>
+  </main>
 </template>
 
 <script setup>
