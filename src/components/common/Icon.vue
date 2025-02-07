@@ -19,6 +19,7 @@ import CirclePlusSvg from '@/assets/icons/circle-plus.svg?raw'
 import CircleUserSvg from '@/assets/icons/circle-user.svg?raw'
 import ClockSvg from '@/assets/icons/clock.svg?raw'
 import CouchSvg from '@/assets/icons/couch.svg?raw'
+import ExclamationRoundSvg from '@/assets/icons/exclamation-round.svg?raw'
 import EyeSlashSvg from '@/assets/icons/eye-slash.svg?raw'
 import EyeSvg from '@/assets/icons/eye.svg?raw'
 import FaceSmileSvg from '@/assets/icons/face-smile.svg?raw'
@@ -61,6 +62,7 @@ const allowedIcons = {
   "circle-user": CircleUserSvg,
   "clock": ClockSvg,
   "couch": CouchSvg,
+  "exclamation-round": ExclamationRoundSvg,
   "eye-slash": EyeSlashSvg,
   "eye": EyeSvg,
   "face-smile": FaceSmileSvg,
