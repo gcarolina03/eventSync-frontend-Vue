@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center md:order-2 relative">
     <!-- Botón para abrir menú de usuario -->
-    <button type="button" class="flex px-3 border border-white text-white py-2 mr-2 gap-2 items-center text-sm rounded-full" @click="handleShow">
+    <button type="button" class="flex p-2  text-white gap-2 items-center text-sm rounded-full" @click="handleShow">
       <span class="sr-only">{{ $t('userMenu.open') }}</span>
       <Icon icon="bars" class="h-2 w-2" />
       <Icon icon="circle-user" class="h-5 w-5" />
