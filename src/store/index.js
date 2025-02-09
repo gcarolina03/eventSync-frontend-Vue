@@ -4,12 +4,18 @@ import { ref } from 'vue'
 import { useStorage } from '@vueuse/core'
 
 export const useStore = defineStore('store', () => {
+  const language = useStorage('language', 'es', localStorage)
   const token = useStorage('token', null, localStorage)
   const user = useStorage('user.profile', null, localStorage, {
     serializer: { read: JSON.parse, write: JSON.stringify },
   })
 
-  /* AUTH-------------------------------------- */
+  /* LANGUAGE -------------------------------------- */
+  const updateLanguage = (newLanguage) => {
+    language.value = newLanguage;
+  }
+
+  /* AUTH ------------------------------------------ */
   const login = async (email, password) => {
     try {
       const { data } = await api.post('/auth/login', { email, password })
@@ -50,7 +56,7 @@ export const useStore = defineStore('store', () => {
     token.value = null
   }
 
-  /* USERS -------------------------------------- */
+  /* USERS ----------------------------------------- */
   const fetchProfile = async () => {
     try {
       if (!token.value) return
@@ -66,7 +72,7 @@ export const useStore = defineStore('store', () => {
     }
   }
 
-  /* CATEGORIES -------------------------------------- */
+  /* CATEGORIES ------------------------------------ */
   const categories = ref([])
   const activeCategory = ref('all')
 
@@ -87,7 +93,7 @@ export const useStore = defineStore('store', () => {
     activeCategory.value = id
   }
 
-  /* SERVICES  -------------------------------------- */
+  /* SERVICES  ------------------------------------- */
   const services = ref([])
 
   const fetchServices = async () => {
@@ -99,7 +105,7 @@ export const useStore = defineStore('store', () => {
     }
   }
 
-  /* SERVICE REVIEWS ----- */
+  /* SERVICE REVIEWS ------------------------------- */
   const giveReview = async (serviceId, thumb) => {
     try {
       const { data } = await api.post(
@@ -135,6 +141,9 @@ export const useStore = defineStore('store', () => {
   }
 
   return {
+    /* LANGUAGE */
+    language,
+    updateLanguage,
     /* AUTH */
     user,
     token,

@@ -18,9 +18,11 @@ import FooterEs from '@/locales/es/footer.json'
 import ErrorsEs from '@/locales/es/errors.json'
 import FormsEs from '@/locales/es/forms.json'
 
-export default createI18n({
+const defaultLocale = localStorage.getItem('language') || 'es'
+
+const i18n = createI18n({
   legacy: false,
-  locale: 'es',
+  locale: defaultLocale,
   fallbackLocale: 'en',
   messages: {
     en: {
@@ -43,3 +45,5 @@ export default createI18n({
     },
   },
 })
+
+export default i18n
