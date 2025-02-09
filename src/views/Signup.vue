@@ -83,7 +83,7 @@ const schema = yup.object({
 		.email(t("errors.emailInvalid"))
 		.required(t("errors.emailRequired")),
 	password: yup.string()
-		.min(8, t("errors.passwordLong"))
+		.min(6, t("errors.passwordLong"))
 		.required(t("errors.passwordRequired")),
 	confirm_password: yup.string()
 		.oneOf([yup.ref('password')], t("errors.passwordMismatch"))
