@@ -18,7 +18,7 @@
         <ButtonComp to="/services" :buttonStyle="navClass('/services')">
           {{ $t('services') }}
         </ButtonComp>
-        <template v-if="user">
+        <template v-if="router.user">
           <div class="hidden lg:inline-block h-[20px] w-0.5 bg-neutral-100 opacity-40"></div> <!-- separador -->
           <ButtonComp to="/events" :buttonStyle="navClass('/events')">
             {{ $t('events') }}
@@ -38,7 +38,7 @@
         </ButtonComp>
       </template>
       <template v-else>
-        <!-- <UserMenu :user="user" :handleShow="changeShowMenu" :menu="showMenu" /> -->
+        <!-- <UserMenu :user="router.user" :handleShow="changeShowMenu" :menu="showMenu" /> -->
       </template>
     </div>
 
