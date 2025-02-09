@@ -1,5 +1,13 @@
 {
   "home": "Home",
   "services": "Services",
-  "events": "Events"
+  "events": "Events",
+  "userMenu": {
+    "open": "Open user menu",
+    "currentlyIn": "Currently in",
+    "profile": "Profile",
+    "myEvents": "My events",
+    "myServices": "My services",
+    "logout": "Logout"
+  }
 }

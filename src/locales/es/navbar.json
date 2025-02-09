@@ -1,5 +1,13 @@
 {
   "home": "Inicio",
   "services": "Servicios",
-  "events": "Eventos"
+  "events": "Eventos",
+  "userMenu": {
+    "open": "Abrir menú de usuario",
+    "currentlyIn": "Actualmente dentro",
+    "profile": "Perfil",
+    "myEvents": "Mis eventos",
+    "myServices": "Mis servicios",
+    "logout": "Cerrar sesión"
+  }
 }

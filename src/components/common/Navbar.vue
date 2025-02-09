@@ -9,7 +9,8 @@
     </div>
 
     <!-- Enlaces de navegación -->
-    <div :class="['lg:flex lg:items-center lg:justify-center', showMenu ? 'block' : 'hidden']" class="w-full lg:w-auto mt-4 lg:mt-0">
+    <div :class="['lg:flex lg:items-center lg:justify-center', showMenu ? 'block' : 'hidden']"
+      class="w-full lg:w-auto mt-4 lg:mt-0">
       <div class="flex flex-col lg:flex-row lg:gap-6 items-center">
         <ButtonComp to="/" :buttonStyle="navClass('/')">
           {{ $t('home') }}
@@ -18,7 +19,7 @@
         <ButtonComp to="/services" :buttonStyle="navClass('/services')">
           {{ $t('services') }}
         </ButtonComp>
-        <template v-if="router.user">
+        <template v-if="store.user">
           <div class="hidden lg:inline-block h-[20px] w-0.5 bg-neutral-100 opacity-40"></div> <!-- separador -->
           <ButtonComp to="/events" :buttonStyle="navClass('/events')">
             {{ $t('events') }}
@@ -28,8 +29,9 @@
     </div>
 
     <!-- Botones de autenticación o UserMenu -->
-    <div class="flex items-center lg:w-auto flex-row sm:gap-4" :class="[showMenu ? 'w-full justify-center' : 'hidden sm:block']">
-      <template v-if="!router.user">
+    <div class="flex items-center lg:w-auto flex-row sm:gap-4"
+      :class="[showMenu ? 'w-full justify-center' : 'hidden sm:block']">
+      <template v-if="!store.user">
         <!-- <ButtonComp to="/signup" type="transparent" class="sm:text-base">
           {{ $t('signup') }}
         </ButtonComp> -->
@@ -37,9 +39,7 @@
           {{ $t('login') }}
         </ButtonComp>
       </template>
-      <template v-else>
-        <!-- <UserMenu :user="router.user" :handleShow="changeShowMenu" :menu="showMenu" /> -->
-      </template>
+      <UserMenu v-else :user="store.user" :handleShow="toggleUserMenu" :menu="showUserMenu" />
     </div>
 
     <!-- Botón de menú hamburguesa -->
@@ -50,20 +50,26 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useStore } from '@/store';
+/* COMPONENTS */
 import Icon from '@/components/common/Icon.vue'
 import ButtonComp from '@/components/common/Button.vue'
+import UserMenu from '@/components/common/UserMenu.vue'
 
 let currentPath = useRoute().path;
-const router = useStore();
+const store = useStore();
 const showMenu = ref(false);
+const showUserMenu = ref(false);
 
 const toggleMenu = () => {
   showMenu.value = !showMenu.value;
 };
 
+const toggleUserMenu = () => {
+  showUserMenu.value = !showUserMenu.value;
+};
 
 const navClass = (path) => {
   return currentPath == path ? 'menuActive' : 'menu';
