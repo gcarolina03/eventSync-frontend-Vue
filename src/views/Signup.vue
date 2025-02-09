@@ -28,8 +28,7 @@
 				<InputComp name="email" type="email" :placeholder="t('email') + '*'" />
 
 				<!-- Password Input -->
-				<InputComp name="password" type="password" :placeholder="t('password') + '*'"
-					@culikitakati="console.log('culikitakati')" />
+				<InputComp name="password" type="password" :placeholder="t('password') + '*'" />
 				<InputComp name="confirm_password" type="password" :placeholder="t('confirmPassword') + '*'" />
 
 				<!-- Select file -->
