@@ -1,38 +1,69 @@
 <template>
-  <div class="relative w-full">
-    <Field :name="name" :type="isPassword && isVisible ? 'text' : type" class="w-full h-10 border border-gray-800 rounded px-3" :placeholder="placeholder" />
-    <div v-if="isPassword" class="absolute inset-y-0 right-0 mr-4 flex items-center cursor-pointer" @click="toggleVisibility">
-      <Icon icon="eye" v-if="isVisible" class="text-gray-400" />
-      <Icon icon="eye-slash" v-else class="text-gray-400" />
-    </div>
-  </div>
-  <!-- Mostrar mensaje de error -->
-   <ErrorMessage v-slot="{ message }" :name="name">
-    <div class="flex items-center text-red-500 text-sm gap-1">
-      <Icon icon="exclamation-round" className="w-3 color-red-500" />
-      <p>{{ message }}</p>
-    </div>
-  </ErrorMessage>
+	<div class="relative w-full">
+		<Field :name="name" :type="type" :class="inputClass" :placeholder="placeholder" :accept="accept" @change="checkChange" />
+		<div v-if="isPassword" class="absolute inset-y-0 right-0 mr-4 flex items-center cursor-pointer"
+			@click="togglePasswordVisibility">
+			<Icon icon="eye" v-if="isVisible" class="text-gray-400" />
+			<Icon icon="eye-slash" v-else class="text-gray-400" />
+		</div>
+	</div>
+	<!-- Mostrar mensaje de error -->
+	<ErrorMessage v-slot="{ message }" :name="name">
+		<div class="flex items-center text-red-500 text-sm gap-1">
+			<Icon icon="exclamation-round" className="w-3 color-red-500" />
+			<p>{{ message }}</p>
+		</div>
+	</ErrorMessage>
 </template>
 
 <script setup>
-import { ref, defineProps } from 'vue'
+import { ref, defineProps, computed } from 'vue'
 import { Field, ErrorMessage } from 'vee-validate'
 import Icon from '@/components/common/Icon.vue'
 
 const props = defineProps({
-  name: String,
-  type: {
-    type: String,
-    default: 'text'
-  },
-  placeholder: String
+	name: String,
+	type: {
+		type: String,
+		default: 'text'
+	},
+	placeholder: String,
+	accept: {
+		type: String,
+		default: ''
+	},
+	additionalClass: {
+		type: String,
+		default: ''
+	}
 })
 
 const isPassword = props.type == 'password'
 const isVisible = ref(false)
 
-const toggleVisibility = () => {
-  isVisible.value = !isVisible.value
+const togglePasswordVisibility = () => {
+	isVisible.value = !isVisible.value;
+};
+
+const inputClass = computed(() => {
+	let baseClass = '';
+	switch (props.type) {
+		case 'file':
+			baseClass = 'block w-full text-sm text-gray-500 border border-gray-200 rounded-lg cursor-pointer bg-gray-50 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white';
+			break;
+		case 'text':
+		case 'password':
+		default:
+			baseClass = 'w-full h-10 border border-gray-800 rounded px-3';
+			break;
+	}
+
+	return `${baseClass} ${props.additionalClass}`;
+});
+
+const emit = defineEmits(['fileChange'])
+
+const checkChange = (event) => {
+	emit('fileChange', event)
 }
 </script>
