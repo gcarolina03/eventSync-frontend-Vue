@@ -37,7 +37,7 @@ export const useStore = defineStore('store', () => {
       formData.append('password', password)
       formData.append('avatar', selectedFile)
 
-      const { data } = await api.post('/api/auth/signup', formData)
+      const { data } = await api.post('/auth/signup', formData)
 
       if (data.token) {
         token.value = data.token
