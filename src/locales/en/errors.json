@@ -7,7 +7,8 @@
     "passwordMismatch": "Passwords do not match",
     "login": "Your email or Password is incorrect",
     "default": "Something went wrong. Please try again",
-    "firstnameRequired": "First Name is required",
+    "firstNameRequired": "First Name is required",
+    "firstNameShort": "First Name is too short",
     "fileInvalid": "Invalid file type. Please select a JPEG/JPG or PNG image",
     "emailExist": "User already registered!"
   }
