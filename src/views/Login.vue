@@ -1,6 +1,6 @@
 <template>
 	<main class="flex flex-grow justify-center items-center px-4 text-base">
-		<div class="bg-white/30 border border-gray-300 shadow-lg rounded-lg p-6 w-full max-w-md lg:max-w-lg xl:max-w-md">
+		<div class="bg-white/30 border border-gray-300 shadow-custom2 rounded-lg p-6 w-full max-w-md lg:max-w-lg xl:max-w-md">
 			<h1 class="text-2xl lg:text-3xl font-medium text-center">{{ $t("authTitles.welcomeLogin") }}</h1>
 			<p class="text-sm text-center">{{ $t("authTitles.subtitleLogin") }}</p>
 
