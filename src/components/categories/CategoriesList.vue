@@ -1,43 +1,63 @@
 <template>
-  <div :class="[direction == 'vertical' ? 'flex flex-col' : 'flex flex-col lg:flex-row']">
+  <div class="flex" :class="[direction == 'vertical' ? 'flex-col' : 'flex-col lg:flex-row']">
     <!-- Menú desplegable para móviles -->
-    <div class="md:hidden mt-6">
-      <button @click="isOpen = !isOpen" class="bg-white shadow rounded-lg px-6 py-4 w-full text-left font-semibold text-sm lg:text-base">
-        {{ activeCategory ? $t("categoriesList." + activeCategory) : $t("categoriesList.all") }}
+    <div class="md:hidden md:mt-6">
+      <button @click="isOpen = !isOpen"
+        class="flex gap-6 bg-white shadow rounded-lg px-6 py-4 w-full text-left font-semibold text-sm lg:text-base">
+        <Icon :icon="extendedCategories.find(cat => cat._id == activeCategory)?.icon" className="w-4 h-[1em]" />
+        {{
+        activeCategory == -1
+        ? $t("categoriesList.all")
+        : $t("categoriesList." + extendedCategories.find(cat => cat._id == activeCategory)?.title)
+        }}
       </button>
       <div v-if="isOpen" class="mt-2 bg-white shadow rounded-lg">
         <ul class="">
-          <li @click="$emit('set-category', 'all')" :class="['py-4 font-semibold hover:bg-gray-100 flex gap-6 items-center px-6 text-sm lg:text-base', activeCategory == 'all' ? 'bg-gray-100' : 'cursor-pointer']">
-            {{ $t("categoriesList.all") }}
-          </li>
-          <li v-for="category in categories" :key="category._id" @click="$emit('set-category', category._id)" :class="['py-4 font-semibold hover:bg-gray-100 flex gap-6 items-center px-6', activeCategory == category._id ? 'bg-gray-100' : 'cursor-pointer', 'text-sm lg:text-base']">
-            <Icon :icon="category.icon" />
-            <span>{{ $t("categoriesList." + category.title )}}</span>
+          <li v-for="category in extendedCategories" :key="category._id" @click="$emit('set-category', category._id)"
+            :class="[
+              'py-4 font-semibold hover:bg-gray-100 flex gap-6 items-center px-6 text-sm lg:text-base',
+              activeCategory == category._id ? 'bg-gray-100' : 'cursor-pointer'
+            ]">
+            <Icon :icon="category.icon" className="w-4 h-[1em]" />
+            {{ $t("categoriesList." + category.title) }}
           </li>
         </ul>
       </div>
     </div>
 
     <!-- Menú horizontal para pantallas grandes -->
-    <ul class="hidden md:inline-flex" :class="[direction == 'vertical' ? 'flex-col' : 'md:items-center flex-row bg-white shadow mt-6 rounded-lg overflow-x-auto']">
-      <li @click="$emit('set-category', 'all')" class="font-semibold  hover:bg-gray-100 flex gap-6 items-center px-6" :class="[direction == 'horizontal' ?'py-4 border-r-2' : 'py-5 border-b-2 border-t-2', activeCategory == 'all' ? 'bg-gray-100' : 'cursor-pointer', 'text-base lg:text-xl']">
-        {{ $t("categoriesList.all") }}
-      </li>
-      <li v-for="category in categories" :key="category._id" @click="$emit('set-category', category._id)" class="font-semibold  hover:bg-gray-100 flex gap-6 items-center px-6" :class="[direction == 'horizontal' ?'py-4 border-r-2' : 'py-5 border-b-2', activeCategory == category._id ? 'bg-gray-100' : 'cursor-pointer', 'text-base lg:text-xl']">
-          <Icon :icon="category.icon" :className="['h-6 flex items-center', 'xl:h-full']"/>
-        <span class="hidden xl:inline">{{ $t("categoriesList." + category.title )}}</span>
+    <ul class="hidden md:inline-flex"
+      :class="[direction == 'vertical' ? 'flex-col' : 'md:items-center flex-row bg-white shadow mt-6 rounded-lg overflow-x-auto']">
+      <li v-for="(category, index) in extendedCategories" :key="category._id"
+        @click="$emit('set-category', category._id)"
+        class="flex items-center justify-center md:justify-normal md:gap-4 font-semibold hover:bg-gray-100 px-4 lg:px-6 text-base lg:text-xl"
+        :class="[
+          direction == 'horizontal' ? 'py-4 border-r-1' : 'py-5 border-b-2 border-t-1',
+          activeCategory == category._id ? 'bg-gray-100' : 'cursor-pointer',
+          index == extendedCategories.length - 1 ? 'rounded-b-lg' : '',
+          index == 0 ? 'rounded-t-lg' : ''
+        ]">
+        <Icon :icon="category.icon" className="flex items-center h-6 xl:h-full" />
+        <span :class="[direction == 'horizontal' ? '' : 'hidden xl:inline']">
+          {{ $t("categoriesList." + category.title) }}
+        </span>
       </li>
     </ul>
+
+
   </div>
 </template>
 
 <script setup>
+import { defineProps, ref, computed } from 'vue'
 import Icon from '@/components/common/Icon.vue'
-import { defineProps, ref } from 'vue'
 
-defineProps({
+const props = defineProps({
   categories: Array,
-  activeCategory: String,
+  activeCategory: {
+    type: [String, Number],
+    default: -1 // -1 (o "all") es categoría activa por defecto
+  },
   direction: {
     type: String,
     default: 'horizontal'
@@ -45,5 +65,16 @@ defineProps({
 })
 
 const isOpen = ref(false)
+
+const extendedCategories = computed(() => {
+  return [
+    {
+      _id: -1,
+      title: 'all',
+      icon: 'no-filter'
+    },
+    ...props.categories
+  ]
+})
 
 </script>
