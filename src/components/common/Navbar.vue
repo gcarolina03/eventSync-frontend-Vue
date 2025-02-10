@@ -23,7 +23,7 @@
     </div>
     <!-- Botones de autenticación o UserMenu -->
     <div class="flex items-center lg:w-auto flex-row sm:gap-4"
-      :class="[showMenu ? 'w-full justify-center' : 'hidden sm:block']">
+      :class="[showMenu ? 'w-full justify-center' : 'hidden lg:block']">
       <template v-if="!store.user">
         <!-- <ButtonComp to="/signup" type="transparent" class="sm:text-base">
           {{ $t('signup') }}
