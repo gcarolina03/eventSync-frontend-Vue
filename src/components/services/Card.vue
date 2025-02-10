@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white border border-gray-200 rounded-lg relative h-[400px] w-[300px] shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
+    class="bg-white border border-gray-200 rounded-lg relative h-[400px] w-[300px] shadow-custom">
     <div class="bg-[#9CC0FA] rounded-t-lg relative h-[180px]">
       <div v-if="props.editMode" @click="props.edit(props.data)"
         class="cursor-pointer z-10 absolute top-[-10px] left-[-10px] gap-2 h-8 py-2 text-sm rounded-lg font-bold bg-gray-300 hover:bg-gray-400 text-gray-700 px-4">
