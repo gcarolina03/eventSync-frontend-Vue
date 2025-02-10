@@ -13,7 +13,7 @@
       </button>
       <div v-if="isOpen" class="mt-2 bg-white shadow rounded-lg">
         <ul class="">
-          <li v-for="category in extendedCategories" :key="category._id" @click="$emit('set-category', category._id)"
+          <li v-for="category in extendedCategories" :key="category._id" @click="handleSetCategory(category._id)"
             :class="[
               'py-4 font-semibold hover:bg-gray-100 flex gap-6 items-center px-6 text-sm lg:text-base',
               activeCategory == category._id ? 'bg-gray-100' : 'cursor-pointer'
@@ -29,7 +29,7 @@
     <ul class="hidden md:inline-flex"
       :class="[direction == 'vertical' ? 'flex-col' : 'md:items-center flex-row bg-white shadow mt-6 rounded-lg overflow-x-auto']">
       <li v-for="(category, index) in extendedCategories" :key="category._id"
-        @click="$emit('set-category', category._id)"
+        @click="handleSetCategory(category._id)"
         class="flex items-center justify-center md:justify-normal md:gap-4 font-semibold hover:bg-gray-100 px-4 lg:px-6 text-base lg:text-xl"
         :class="[
           direction == 'horizontal' ? 'py-4 border-r-1' : 'py-5 border-b-2 border-t-1',
@@ -50,31 +50,32 @@
 
 <script setup>
 import { defineProps, ref, computed } from 'vue'
+import { useStore } from '@/store';
+/* COMPONENTS */
 import Icon from '@/components/common/Icon.vue'
 
 const props = defineProps({
   categories: Array,
-  activeCategory: {
-    type: [String, Number],
-    default: -1 // -1 (o "all") es categoría activa por defecto
-  },
   direction: {
     type: String,
     default: 'horizontal'
   }
 })
 
-const isOpen = ref(false)
+const store = useStore()
+const isOpen = ref(false) // Flag for Dropdown on mobile
 
 const extendedCategories = computed(() => {
   return [
-    {
-      _id: -1,
-      title: 'all',
-      icon: 'no-filter'
-    },
+    { _id: -1, title: 'all', icon: 'no-filter' },
     ...props.categories
   ]
 })
 
+const activeCategory = computed(() => store.activeCategory)
+
+const handleSetCategory = (categoryId) => {
+  store.setActiveCategory(categoryId)
+  isOpen.value = false // Close dropdown on mobile
+}
 </script>
