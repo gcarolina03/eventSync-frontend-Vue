@@ -3,12 +3,12 @@
     <!-- Botón para abrir menú de usuario -->
     <button type="button" class="flex p-2  text-white gap-2 items-center text-sm rounded-full" @click="handleShow">
       <span class="sr-only">{{ $t('userMenu.open') }}</span>
-      <Icon icon="bars" class="h-2 w-2" />
-      <Icon icon="circle-user" class="h-5 w-5" />
+      <Icon icon="circle-user" class="h-6 w-6" />
     </button>
 
     <!-- Dropdown menu -->
-    <div class="z-50 absolute top-5 right-2 my-4 text-base list-none bg-white rounded-lg shadow" :class="{ hidden: !menu }">
+    <div class="z-50 absolute top-5 right-2 my-4 text-base list-none bg-white rounded-lg shadow"
+      :class="{ hidden: !menu }">
       <p class="px-4 py-3 text-xs">{{ $t('userMenu.currentlyIn') }}</p>
       <div class="px-4 py-3 flex flex-row gap-4 w-[250px]">
         <img class="w-10 h-10 rounded-full" :src="user.img_url" alt="user avatar" />

@@ -9,25 +9,18 @@
     </div>
 
     <!-- Enlaces de navegación -->
-    <div :class="['lg:flex lg:items-center lg:justify-center', showMenu ? 'block' : 'hidden']"
+    <div :class="['lg:flex lg:items-center lg:justify-center', showMenu ? 'block' : 'hidden ml-[-20px]']"
       class="w-full lg:w-auto mt-4 lg:mt-0">
       <div class="flex flex-col lg:flex-row lg:gap-6 items-center">
-        <ButtonComp to="/" :buttonStyle="navClass('/')">
-          {{ $t('home') }}
-        </ButtonComp>
-        <div class="hidden lg:inline-block h-[20px] w-0.5 bg-neutral-100 opacity-40"></div> <!-- separador -->
-        <ButtonComp to="/services" :buttonStyle="navClass('/services')">
-          {{ $t('services') }}
-        </ButtonComp>
-        <template v-if="store.user">
-          <div class="hidden lg:inline-block h-[20px] w-0.5 bg-neutral-100 opacity-40"></div> <!-- separador -->
-          <ButtonComp to="/events" :buttonStyle="navClass('/events')">
-            {{ $t('events') }}
+        <div v-for="(link, index) in links" :key="link.name" :class="[
+          !showMenu && index !== links.length - 1 ? 'w-full border-r-2 border-neutral-100 border-opacity-40 pr-5' : ''
+        ]">
+          <ButtonComp :to="link.path" :buttonStyle="navClass(link.path)">
+            {{ $t(link.name) }}
           </ButtonComp>
-        </template>
+        </div>
       </div>
     </div>
-
     <!-- Botones de autenticación o UserMenu -->
     <div class="flex items-center lg:w-auto flex-row sm:gap-4"
       :class="[showMenu ? 'w-full justify-center' : 'hidden sm:block']">
@@ -50,28 +43,52 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { useStore } from '@/store';
 /* COMPONENTS */
 import Icon from '@/components/common/Icon.vue'
 import ButtonComp from '@/components/common/Button.vue'
 import UserMenu from '@/components/common/UserMenu.vue'
 
-let currentPath = useRoute().path;
+const route = useRoute();
+const router = useRouter();
 const store = useStore();
 const showMenu = ref(false);
 const showUserMenu = ref(false);
-
+const links = [
+  {
+    path: '/',
+    name: 'home',
+  },
+  {
+    path: '/services',
+    name: 'services',
+  },
+  {
+    path: '/events',
+    name: 'events',
+  }
+]
 const toggleMenu = () => {
   showMenu.value = !showMenu.value;
 };
 
 const toggleUserMenu = () => {
-  showUserMenu.value = !showUserMenu.value;
+  const isSmallScreen = window.innerWidth < 1024;
+
+  if (isSmallScreen) {
+    router.push('/myprofile');
+  } else {
+    showUserMenu.value = !showUserMenu.value;
+  }
 };
 
 const navClass = (path) => {
-  return currentPath == path ? 'menuActive' : 'menu';
+  return route.path == path ? 'menuActive' : 'menu';
 };
+
+watch(() => route.path, (to) => {
+  console.log(route.path)
+});
 </script>
