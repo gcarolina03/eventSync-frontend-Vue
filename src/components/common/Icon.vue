@@ -1,5 +1,5 @@
 <template>
-  <div :class="props.className" aria-hidden="true" v-html="iconComponent"></div>
+  <div :class="props.className" v-html="iconComponent"></div>
 </template>
 
 <script setup>
@@ -28,6 +28,7 @@ import GitSvg from '@/assets/icons/git.svg?raw'
 import GroupPeopleSvg from '@/assets/icons/group-people.svg?raw'
 import LinkedinSvg from '@/assets/icons/linkedin.svg?raw'
 import MapSvg from '@/assets/icons/map.svg?raw'
+import NoFilterSvg from '@/assets/icons/no-filter.svg?raw'
 import PencilSvg from '@/assets/icons/pencil.svg?raw'
 import ProductionSvg from '@/assets/icons/production.svg?raw'
 import QuoteSvg from '@/assets/icons/quote.svg?raw'
@@ -71,6 +72,7 @@ const allowedIcons = {
   "group-people": GroupPeopleSvg,
   "linkedin": LinkedinSvg,
   "map": MapSvg,
+  "no-filter": NoFilterSvg,
   "pencil": PencilSvg,
   "production": ProductionSvg,
   "quote": QuoteSvg,
