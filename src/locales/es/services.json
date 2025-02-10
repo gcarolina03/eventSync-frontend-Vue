@@ -2,5 +2,8 @@
   "servicesCard": {
     "request": "Solicitar"
   },
-  "noServices": "Lo sentimos, no hay servicios con este filtro. Inténtelo de nuevo"
+  "noServices": "Lo sentimos, no hay servicios con este filtro. Inténtelo de nuevo",
+  "filter": "Filtrar",
+  "ourServices": "Nuestros Servicios",
+  "servicesDescription": "Descubre una amplia gama de servicios de primera categoría ofrecidos por profesionales registrados en nuestra plataforma. Desde decoración hasta fotografía, nuestros expertos ofrecen resultados excepcionales. Cada proveedor de servicios es cuidadosamente evaluado, garantizando la excelencia en cada paso del camino. ¡Explora nuestra selección en constante crecimiento y encuentra la combinación perfecta para tu próximo evento!"
 }

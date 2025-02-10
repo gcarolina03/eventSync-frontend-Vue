@@ -2,5 +2,8 @@
   "servicesCard": {
     "request": "Request"
   },
-  "noServices": "Sorry, there are any services with this filter. Try Again"
+  "noServices": "Sorry, there are any services with this filter. Try Again",
+  "filter": "Filter",
+  "ourServices": "Our Services",
+  "servicesDescription": "Discover a wide range of top-notch services offered by registered professionals on our platform. From decor to photography, our experts deliver exceptional results. Each service provider is carefully vetted, ensuring excellence every step of the way. Explore our ever-growing selection and find the perfect match for your next event!"
 }
