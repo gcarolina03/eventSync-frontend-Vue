@@ -47,7 +47,7 @@ export const useStore = defineStore('store', () => {
       return data
     } catch (error) {
       console.error('Cannot Sign up:', error)
-      throw error
+      throw error.response.data
     }
   }
 
