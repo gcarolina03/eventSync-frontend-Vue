@@ -74,7 +74,7 @@ export const useStore = defineStore('store', () => {
 
   /* CATEGORIES ------------------------------------ */
   const categories = ref([])
-  const activeCategory = ref('all')
+  const activeCategory = ref("-1")
 
   const fetchCategories = async () => {
     try {
@@ -83,7 +83,13 @@ export const useStore = defineStore('store', () => {
           token: token.value,
         },
       })
-      categories.value = data.categories
+
+      if (data.success) {
+        categories.value = data.categories
+      } else {
+        console.error('Cannot get categories', data)
+      }
+
     } catch (error) {
       console.error('Cannot get categories', error)
     }
@@ -99,7 +105,12 @@ export const useStore = defineStore('store', () => {
   const fetchServices = async () => {
     try {
       const { data } = await api.get('/services')
-      services.value = data.services
+
+      if(data.success) {
+        services.value = data.services
+      } else {
+        console.error('Cannot get services', data)
+      }
     } catch (error) {
       console.error('Cannot get services', error)
     }
