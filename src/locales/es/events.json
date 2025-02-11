@@ -1,0 +1,11 @@
+{ 
+  "eventsCard": {
+    "see": "Ver"
+  },
+  "yourEvenst": "Tus eventos",
+  "createNewEvent": "Crear nuevo evento",
+  "updateEventTitle": "Actualiza tu evento...",
+  "newEventTitle": "Nuevo evento...",
+  "updateEventSubtitle": "Mira los detalles",
+  "newEventSubtitle": "Necesitas algunos detalles para empezar"
+}

@@ -3,5 +3,13 @@
   "password": "Contraseña",
   "confirmPassword": "Repite Contraseña",
   "firstname": "Nombre",
-  "lastname": "Apellidos"
+  "lastname": "Apellidos",
+  "title": "Título",
+  "date": "Fecha",
+  "startTime": "Hora de Inicio",
+  "endTime": "Hora de Fin",
+  "buttons": {
+    "update": "Actualizar",
+    "start": "Comenzar"
+  }
 }

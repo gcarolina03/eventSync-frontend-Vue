@@ -3,5 +3,13 @@
   "password": "Password",
   "confirmPassword": "Confirm Password",
   "firstname": "First Name",
-  "lastname": "Last Name"
+  "lastname": "Last Name",
+  "title": "Title",
+  "date": "Date",
+  "startTime": "Start Time",
+  "endTime": "End Time",
+  "buttons": {
+    "update": "Update",
+    "start": "Start"
+  }
 }

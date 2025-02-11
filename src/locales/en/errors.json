@@ -10,6 +10,16 @@
     "firstNameRequired": "First Name is required",
     "firstNameShort": "First Name is too short",
     "fileInvalid": "Invalid file type. Please select a JPEG/JPG or PNG image",
-    "emailExist": "User already registered!"
+    "emailExist": "User already registered!",
+    "titleRequired": "Title is required",
+    "dateRequired": "Date is required",
+    "startTimeRequired": "Start Time is required",
+    "endTimeRequired": "End Time is required",
+    "endTimeBefore": "End Time must be after Start Time",
+    "titleInvalid": "Please provide a valid title",
+    "dateInvalid": "Please provide a valid date",
+    "eventNotFound": "Event not found",
+    "eventNotCreated": "Event not created",
+    "eventNotUpdated": "Event not updated"
   }
 }

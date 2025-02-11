@@ -10,6 +10,16 @@
     "firstNameRequired": "Nombre es obligatorio",
     "firstNameShort": "El nombre es muy corto",
     "fileInvalid": "Tipo de archivo invalido. Por favor selecciona una imagen JPEG/JPG o PNG",
-    "emailExist": "Usuario ya registrado!"
+    "emailExist": "Usuario ya registrado!",
+    "titleRequired": "Título es obligatorio",
+    "dateRequired": "Fecha es obligatoria",
+    "startTimeRequired": "Hora de Inicio es obligatoria",
+    "endTimeRequired": "Hora de Fin es obligatoria",
+    "endTimeBefore": "La hora de Fin debe ser despues de la hora de Inicio",
+    "titleInvalid": "Por favor proporciona un título válido",
+    "dateInvalid": "Por favor proporciona una fecha válida",
+    "eventNotFound": "Evento no encontrado",
+    "eventNotCreated": "Evento no creado",
+    "eventNotUpdated": "Evento no actualizado"
   }
 }
