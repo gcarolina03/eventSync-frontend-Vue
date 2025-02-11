@@ -12,7 +12,7 @@ export const useStore = defineStore('store', () => {
 
   /* LANGUAGE -------------------------------------- */
   const updateLanguage = (newLanguage) => {
-    language.value = newLanguage;
+    language.value = newLanguage
   }
 
   /* AUTH ------------------------------------------ */
@@ -72,9 +72,64 @@ export const useStore = defineStore('store', () => {
     }
   }
 
+  /* USER EVENTS ----------------------------------- */
+  const events = ref([])
+  const selectedEvent = ref(null)
+
+  const fetchEvents = async () => {
+    try {
+      if (!token.value) return
+      const { data } = await api.get('/events', {
+        headers: {
+          token: token.value,
+        },
+      })
+      events.value = data.events
+    } catch (error) {
+      console.error('Error fetching user events:', error)
+    }
+  }
+
+  const fetchEvent = async (eventId) => {
+    try {
+      if (!token.value) return
+      const { data } = await api.get(`/events/${eventId}`, {
+        headers: {
+          token: token.value,
+        },  
+      })
+      return data.event
+    } catch (error) {
+      console.error('Error fetching user event:', error)
+    }
+  }
+
+  const createEvent = async (event) => {
+    try {
+      console.log({ event })
+      console.log({ token:token.value })
+      if (!token.value) return
+      const { data } = await api.post('/events', event, {
+        headers: {
+          token: token.value,
+        },
+      })
+      return data.event
+    } catch (error) {
+      console.error('Error creating user event:', error)
+      throw error.response.data
+    }
+  }
+
+  const setSelectedEvent = (event) => {
+    selectedEvent.value = event
+  }
+
+  /* USER SERVICES --------------------------------- */
+
   /* CATEGORIES ------------------------------------ */
   const categories = ref([])
-  const activeCategory = ref("-1")
+  const activeCategory = ref('-1')
 
   const fetchCategories = async () => {
     try {
@@ -89,7 +144,6 @@ export const useStore = defineStore('store', () => {
       } else {
         console.error('Cannot get categories', data)
       }
-
     } catch (error) {
       console.error('Cannot get categories', error)
     }
@@ -106,7 +160,7 @@ export const useStore = defineStore('store', () => {
     try {
       const { data } = await api.get('/services')
 
-      if(data.success) {
+      if (data.success) {
         services.value = data.services
       } else {
         console.error('Cannot get services', data)
@@ -163,6 +217,13 @@ export const useStore = defineStore('store', () => {
     logout,
     /* USER */
     fetchProfile,
+    /* USER EVENTS */
+    events,
+    selectedEvent,
+    fetchEvents,
+    fetchEvent,
+    createEvent,
+    setSelectedEvent,
     /* CATEGORIES */
     categories,
     activeCategory,
