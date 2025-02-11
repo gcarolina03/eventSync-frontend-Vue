@@ -4,6 +4,7 @@ import Login from '@/views/Login.vue'
 import Signup from '@/views/Signup.vue'
 import EventsView from '@/views/EventsView.vue'
 import ServicesView from '@/views/ServicesView.vue'
+import { useStore } from '@/store'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +25,7 @@ const router = createRouter({
           path: '/events',
           name: 'events',
           component: EventsView,
+          meta: { requiresAuth: true },
           children: [
             { path: '/events/:id', name: 'event', component: EventsView },
           ],
@@ -39,6 +41,17 @@ const router = createRouter({
       ],
     },
   ],
+})
+
+router.beforeEach((to, from, next) => {
+  const store = useStore()
+  const isAuthenticated = store.token !== null
+
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next({ name: 'login' }) 
+  } else {
+    next()
+  }
 })
 
 export default router
