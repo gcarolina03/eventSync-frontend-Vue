@@ -9,6 +9,7 @@ export default {
         light: '#7369DC',
         dark: '#312a82',
         text: '#150D2C',
+        'blue-light': '#9CC0FA',
       },
       fontSize: {
         xs: '0.5rem', // 8px
@@ -29,4 +30,3 @@ export default {
   },
   plugins: [],
 }
-
