@@ -60,7 +60,7 @@ const submit = async (values) => {
 		const res = await store.login(values.email, values.password)
 		console.log({ res })
 	} catch (error) {
-		const errorMessage = getErrorMessage(error.message)
+		const errorMessage = getErrorMessage('auth.' + error.message)
 		errorMsg.value = t(`errors.${errorMessage}`)
 		showError.value = true
 	}

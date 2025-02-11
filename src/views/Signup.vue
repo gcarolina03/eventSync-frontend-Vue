@@ -108,7 +108,7 @@ const submit = async (values) => {
 		const res = await store.signup(values.first_name, values.last_name, values.email, values.password, selectedFile.value)
 		console.log({ res })
 	} catch (error) {
-		const errorMessage = getErrorMessage(error.message)
+		const errorMessage = getErrorMessage('auth.' + error.message)
 		errorMsg.value = t(`errors.${errorMessage}`)
 		showError.value = true
 	}
