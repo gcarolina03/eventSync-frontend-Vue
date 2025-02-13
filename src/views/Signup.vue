@@ -46,7 +46,7 @@
 
 			<!-- Links de Ayuda -->
 			<div class="flex flex-col items-center text-sm mt-6 gap-2 text-center">
-				<p>{{ $t("alreadyRegistered") }} <router-link to="/login"
+				<p>{{ $t("alreadyRegistered") }} <router-link to="login"
 						class="underline text-primary hover:text-primary-dark">{{ $t("login") }}</router-link></p>
 			</div>
 		</div>

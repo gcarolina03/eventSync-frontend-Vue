@@ -21,7 +21,7 @@
 
 			<!-- Links de Ayuda -->
 			<div class="flex flex-col items-center text-sm mt-6 gap-2 text-center">
-				<p>{{ $t("haveAccount") }} <router-link to="/signup" class="underline text-primary hover:text-primary-dark">{{
+				<p>{{ $t("haveAccount") }} <router-link to="signup" class="underline text-primary hover:text-primary-dark">{{
 					$t("signup") }}</router-link></p>
 			</div>
 		</div>
@@ -33,6 +33,7 @@ import { ref } from 'vue'
 import { Form } from 'vee-validate'
 import * as yup from 'yup'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import { useStore } from '@/store'
 import getErrorMessage from '@/utils/errors'
 /* COMPONENTS */
@@ -42,6 +43,7 @@ import ButtonComp from '@/components/common/Button.vue'
 
 const { t } = useI18n()
 const store = useStore()
+const router = useRouter()
 
 const showError = ref(false)
 const errorMsg = ref('')
@@ -58,6 +60,7 @@ const schema = yup.object({
 const submit = async (values) => {
 	try {
 		const res = await store.login(values.email, values.password)
+		if(res.success) router.push('/')
 		console.log({ res })
 	} catch (error) {
 		const errorMessage = getErrorMessage('auth.' + error.message)

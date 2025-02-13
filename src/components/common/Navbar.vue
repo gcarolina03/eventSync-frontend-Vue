@@ -28,7 +28,7 @@
         <!-- <ButtonComp to="/signup" type="transparent" class="sm:text-base">
           {{ $t('signup') }}
         </ButtonComp> -->
-        <ButtonComp to="/login" :buttonStyle="!showMenu ? 'white' : navClass('/login')" additionalClass="sm:text-base">
+        <ButtonComp to="login" :buttonStyle="!showMenu ? 'white' : navClass('/auth/login')" additionalClass="sm:text-base">
           {{ $t('login') }}
         </ButtonComp>
       </template>
