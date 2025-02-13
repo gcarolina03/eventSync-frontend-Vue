@@ -27,7 +27,7 @@
     </div>
 
     <ButtonComp :to="`/events/${props.data._id}`" buttonStyle="purple"
-      additionalClass="w-auto px-2 !py-2 absolute right-4 bottom-4 inline-flex text-sm text-center items-center justify-center">
+      additionalClass="!w-auto px-2 !py-2 absolute right-4 bottom-4 inline-flex text-sm text-center items-center justify-center">
       {{ $t('eventsCard.see') }}
       <Icon icon="arrow-right" className="w-3.5 h-3.5 ml-2" />
     </ButtonComp>
