@@ -1,6 +1,6 @@
 <template>
 	<div class="relative w-full">
-		<Field :name="name" :type="isPassword && isVisible ? 'text' : type" :class="inputClass" :placeholder="placeholder" :accept="accept" @change="checkChange" :disabled="disabled" />
+		<Field :name="name" :type="isPassword && isVisible ? 'text' : type" :class="inputClass" :placeholder="placeholder" :accept="accept" @change="checkChange" :min="min" :disabled="disabled" />
 		<div v-if="isPassword" class="absolute inset-y-0 right-0 mr-4 flex items-center cursor-pointer"
 			@click="togglePasswordVisibility">
 			<Icon icon="eye" v-if="isVisible" class="text-gray-400" />
@@ -39,7 +39,11 @@ const props = defineProps({
 	disabled:{
 		type: Boolean,
 		default: false
-	}
+	},
+	min: {
+		type: String,
+		default: ''
+	},
 })
 
 const isPassword = props.type == 'password'
@@ -58,7 +62,7 @@ const inputClass = computed(() => {
 		case 'text':
 		case 'password':
 		default:
-			baseClass = 'w-full h-10 border border-gray-800 rounded px-3';
+			baseClass = 'w-full h-10 border border-gray-400 focus:border-gray-600 focus:ring-0 focus:outline-none rounded-xl px-3';
 			break;
 	}
 
