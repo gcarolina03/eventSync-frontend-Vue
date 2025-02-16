@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import api from '@/services/api'
+import { api, getAddressFromLatLng } from '@/services/api'
 import { ref } from 'vue'
 import { useStorage } from '@vueuse/core'
 
@@ -258,6 +258,20 @@ export const useStore = defineStore('store', () => {
     }
   }
 
+  /* GOGGLE MAPS API ----------------------------- */
+  const getAddress = async (latitude, longitude) => {
+    try {
+      const res = await getAddressFromLatLng(latitude, longitude)
+      if (res.length > 0) {
+        return res
+      } else {
+        throw new Error('Unable to retrieve address.')
+      }
+    } catch (error) {
+      console.error('Cannot get address from lat lng', error)
+    }
+  }
+
   return {
     /* LANGUAGE */
     language,
@@ -290,5 +304,7 @@ export const useStore = defineStore('store', () => {
     fetchServices,
     giveReview,
     updateReview,
+    /* GOOGLE MAPS API */
+    getAddress,
   }
 })
