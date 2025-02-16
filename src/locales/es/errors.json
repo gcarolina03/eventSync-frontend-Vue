@@ -9,7 +9,6 @@
     "default": "Algo ha salido mal. Por favor vuelve a intentarlo",
     "firstNameRequired": "Nombre es obligatorio",
     "firstNameShort": "El nombre es muy corto",
-    "fileInvalid": "Tipo de archivo invalido. Por favor selecciona una imagen JPEG/JPG o PNG",
     "emailExist": "Usuario ya registrado!",
     "titleRequired": "Título es obligatorio",
     "dateRequired": "Fecha es obligatoria",
@@ -22,6 +21,22 @@
     "eventNotCreated": "Evento no creado",
     "eventNotUpdated": "Evento no actualizado",
 		"guestNumberRequired": "Numero de invitados es obligatorio",
-		"guestNameRequired": "Nombre del invitado o familia es obligatorio"
+		"guestNameRequired": "Nombre del invitado o familia es obligatorio",
+		"titleMinLength": "Título debe tener al menos 5 caracteres",
+		"categoryRequired": "Por favor selecciona una categoría",
+		"minCapacity": "La capacidad mínima debe ser al menos 1",
+		"minCapacityRequired": "La capacidad mínima es obligatoria",
+		"maxCapacity": "La capacidad máxima debe ser al menos 1",
+		"maxCapacityRequired": "La capacidad máxima es obligatoria",
+		"maxGreaterThanMin": "La capacidad máxima debe ser mayor que la capacidad mínima",
+		"startRequired": "La hora de Inicio es obligatoria",
+		"endRequired": "La hora de Fin es obligatoria",
+		"endGreaterThanStart": "La hora de Fin debe ser despues de la hora de Inicio",
+		"priceMin": "El precio debe ser al menos 1",
+		"priceRequired": "El precio es obligatorio",
+		"fileSize": "El tamaño del archivo debe ser menor a 5MB",
+		"fileInvalid": "El archivo debe ser una imagen JPEG o PNG",
+		"serviceNotCreated": "Servicio no creado",
+		"serviceNotUpdated": "Servicio no actualizado"
   }
 }

@@ -113,11 +113,11 @@ export const useStore = defineStore('store', () => {
     try {
       if (!token.value) return
       const { data } = await api.post('/events', event, {
-        headers: {
-          token: token.value,
-        },
-      })
-      return data.event
+				headers: {
+					token: token.value,
+				},
+			})
+      return data
     } catch (error) {
       console.error('Error creating user event:', error)
       throw error.response.data
@@ -179,6 +179,73 @@ export const useStore = defineStore('store', () => {
   }
 
   /* USER SERVICES --------------------------------- */
+  const myServices = ref([])
+  const selectedService = ref(null)
+
+  const fetchMyServices = async () => {
+    try {
+      if (!token.value) return
+      const { data } = await api.get('/profile/services', {
+        headers: {
+          token: token.value,
+        },
+      })
+      if (data.success) myServices.value = data.services
+    } catch (error) {
+      console.error('Error fetching user services:', error)
+    }
+  }
+
+  const fetchMyService = async (serviceId) => {
+    try {
+      if (!token.value) return
+      const { data } = await api.get(`/profile/services/${serviceId}`, {
+        headers: {
+          token: token.value,
+        },
+      })
+
+      if (data.success) selectedService.value = data.service
+      return data.service
+    } catch (error) {
+      console.error('Error fetching user service:', error)
+    }
+  }
+
+  const createService = async (service) => {
+    try {
+      if (!token.value) return
+      const { data } = await api.post('/profile/services', service, {
+        headers: {
+          token: token.value,
+        },
+      })
+      return data
+    } catch (error) {
+      console.error('Error creating user service:', error)
+      throw error.response.data
+    }
+  }
+
+  const updateService = async (serviceId, service) => {
+    try {
+      if (!token.value) return
+      const { data } = await api.put(
+        `/profile/services/${serviceId}`,
+        service,
+        {
+          headers: {
+            token: token.value,
+          },
+        }
+      )
+
+      return data
+    } catch (error) {
+      console.error('Error updating user service:', error)
+      throw error.response.data
+    }
+  }
 
   /* CATEGORIES ------------------------------------ */
   const categories = ref([])
@@ -302,6 +369,13 @@ export const useStore = defineStore('store', () => {
     /* GUESTS LIST */
     addGuest,
     removeGuest,
+    /* USER SERVICES */
+    myServices,
+    selectedService,
+    fetchMyServices,
+    fetchMyService,
+    createService,
+    updateService,
     /* CATEGORIES */
     categories,
     activeCategory,

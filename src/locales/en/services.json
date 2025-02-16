@@ -6,5 +6,20 @@
   "noServices": "Sorry, there are any services with this filter. Try Again",
   "filter": "Filter",
   "ourServices": "Our Services",
-  "servicesDescription": "Discover a wide range of top-notch services offered by registered professionals on our platform. From decor to photography, our experts deliver exceptional results. Each service provider is carefully vetted, ensuring excellence every step of the way. Explore our ever-growing selection and find the perfect match for your next event!"
+	"myServices": "My Services",
+	"publishNewService": "Publish a new service",
+  "servicesDescription": "Discover a wide range of top-notch services offered by registered professionals on our platform. From decor to photography, our experts deliver exceptional results. Each service provider is carefully vetted, ensuring excellence every step of the way. Explore our ever-growing selection and find the perfect match for your next event!",
+	"serviceForm": {
+		"newService": "New Service",
+		"newServiceSubtitle": "Fill out the form below to create a new service",
+		"updateService": "Update Service",
+		"updateServiceSubtitle": "Fill out the form below to update the service",
+		"category": "Select a Category",
+		"minCapacity": "Minimum Capacity",
+		"maxCapacity": "Maximum Capacity",
+		"startTime": "Start Time",
+		"endTime": "End Time",
+		"price": "Price",
+		"location": "Location"
+	}
 }

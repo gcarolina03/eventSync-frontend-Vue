@@ -11,6 +11,7 @@
   "buttons": {
     "update": "Update",
     "start": "Start",
-		"action": "Action"
+		"action": "Action",
+		"publish": "Publish"
   }
 }

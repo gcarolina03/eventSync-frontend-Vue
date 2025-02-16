@@ -9,7 +9,6 @@
     "default": "Something went wrong. Please try again",
     "firstNameRequired": "First Name is required",
     "firstNameShort": "First Name is too short",
-    "fileInvalid": "Invalid file type. Please select a JPEG/JPG or PNG image",
     "emailExist": "User already registered!",
     "titleRequired": "Title is required",
     "dateRequired": "Date is required",
@@ -22,6 +21,22 @@
     "eventNotCreated": "Event not created",
     "eventNotUpdated": "Event not updated",
 		"guestNumberRequired": "Number of guests is required",
-		"guestNameRequired": "Guest name or family name is required"
+		"guestNameRequired": "Guest name or family name is required",
+		"titleMinLength": "Title must be at least 5 characters long.",
+    "categoryRequired": "Please select a category.",
+    "minCapacity": "Minimum capacity must be at least 1.",
+    "minCapacityRequired": "Minimum capacity is required.",
+    "maxCapacity": "Maximum capacity must be at least 1.",
+    "maxCapacityRequired": "Maximum capacity is required.",
+    "maxGreaterThanMin": "Maximum capacity must be greater than minimum capacity.",
+    "startRequired": "Start time is required.",
+    "endRequired": "End time is required.",
+    "endGreaterThanStart": "End time must be after start time.",
+    "priceMin": "Price must be at least 1.",
+    "priceRequired": "Price is required.",
+    "fileSize": "File size must be less than 5MB.",
+    "fileInvalid": "File must be a JPEG or PNG image.",
+		"serviceNotCreated": "Service not created",
+		"serviceNotUpdated": "Service not updated"
   }
 }
