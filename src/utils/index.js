@@ -6,7 +6,7 @@ const getDefaultAvatarUrl = () => {
   return 'https://res.cloudinary.com/dhveca8ba/image/upload/v1689175163/jvpcce9vmgjqjzqcc8ec.jpg'
 }
 
-const formatDate = (date) => {
+const formatDate = (date, format = 'es') => {
   if (!date) return
 
   const dateString = date.toString()
@@ -21,8 +21,12 @@ const formatDate = (date) => {
     year: 'numeric',
   })
 
-  const [{ value: monthValue }, , { value: dayValue }, , { value: yearValue }] = formatter.formatToParts(parsedDate)
-  return `${monthValue}-${dayValue}-${yearValue}`
+	const [{ value: monthValue }, , { value: dayValue }, , { value: yearValue }] = formatter.formatToParts(parsedDate)
+	if (format == 'en') {
+		return `${monthValue}-${dayValue}-${yearValue}`
+	} else {
+		return `${dayValue}-${monthValue}-${yearValue}`
+	}
 }
 
 export { isValidFileType, getDefaultAvatarUrl, formatDate }

@@ -12,7 +12,7 @@
 
       <div class="flex gap-2 items-center text-gray-600 mb-1">
         <Icon icon="calendar-days" />
-        <p class="font-normal">{{ formatDate(props.data.event_date) }}</p>
+        <p class="font-normal">{{ formatDate(props.data.event_date, store.language) }}</p>
       </div>
 
       <div class="flex gap-2 items-center text-gray-600 mb-1">
@@ -37,6 +37,7 @@
 <script setup>
 import { computed, defineProps } from 'vue'
 import { formatDate } from '@/utils'
+import { useStore } from '@/store';
 /* COMPONENTS */
 import Icon from '@/components/common/Icon.vue'
 import ButtonComp from '../common/Button.vue';
@@ -44,6 +45,8 @@ import ButtonComp from '../common/Button.vue';
 const props = defineProps({
   data: Object
 })
+
+const store = useStore()
 
 const totalGuests = computed(() => {
   return props.data.guestList.reduce((acc, curr) => acc + curr.number, 0)

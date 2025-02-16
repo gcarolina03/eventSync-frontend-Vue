@@ -98,7 +98,7 @@ const schema = yup.object({
 watchEffect(() => {
   if (props.event) {
     title.value = props.event.title
-    date.value = formatDate(props.event.event_date)
+		date.value = formatDate(props.event.event_date, store.language)
     start.value = props.event.start_time
     end.value = props.event.end_time
     editStatus.value = true
