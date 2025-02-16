@@ -21,7 +21,7 @@
 
 			<!-- Links de Ayuda -->
 			<div class="flex flex-col items-center text-sm mt-6 gap-2 text-center">
-				<p>{{ $t("haveAccount") }} <router-link to="signup" class="underline text-primary hover:text-primary-dark">{{
+				<p>{{ $t("haveAccount") }} <router-link :to="{ name: 'signup' }" class="underline text-primary hover:text-primary-dark">{{
 					$t("signup") }}</router-link></p>
 			</div>
 		</div>
@@ -60,8 +60,9 @@ const schema = yup.object({
 const submit = async (values) => {
 	try {
 		const res = await store.login(values.email, values.password)
-		if(res.success) router.push('/')
-		console.log({ res })
+		if (res.success) {
+			router.push({ name: 'home' })
+		}
 	} catch (error) {
 		const errorMessage = getErrorMessage('auth.' + error.message)
 		errorMsg.value = t(`errors.${errorMessage}`)

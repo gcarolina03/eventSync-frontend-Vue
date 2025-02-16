@@ -15,7 +15,7 @@
         <div v-for="(link, index) in links" :key="link.name" :class="[
           !showMenu && index !== links.length - 1 ? 'w-full border-r-2 border-neutral-100 border-opacity-40 pr-5' : ''
         ]">
-          <ButtonComp :to="link.path" :buttonStyle="navClass(link.path)">
+          <ButtonComp :to="link.path" :buttonStyle="navClass(link)">
             {{ $t(link.name) }}
           </ButtonComp>
         </div>
@@ -28,7 +28,7 @@
         <!-- <ButtonComp to="/signup" type="transparent" class="sm:text-base">
           {{ $t('signup') }}
         </ButtonComp> -->
-        <ButtonComp to="login" :buttonStyle="!showMenu ? 'white' : navClass('/auth/login')" additionalClass="sm:text-base">
+        <ButtonComp :to="{ name: 'login' }" :buttonStyle="!showMenu ? 'white' : navClass('/auth/login')" additionalClass="sm:text-base">
           {{ $t('login') }}
         </ButtonComp>
       </template>
@@ -58,15 +58,15 @@ const showMenu = ref(false);
 const showUserMenu = ref(false);
 const links = [
   {
-    path: '/',
+		path: { name: 'home' },
     name: 'home',
   },
   {
-    path: '/services',
+		path: { name: 'services' },
     name: 'services',
   },
   {
-    path: '/events',
+		path: { name: 'events' },
     name: 'events',
   }
 ]
@@ -84,8 +84,8 @@ const toggleUserMenu = () => {
   }
 };
 
-const navClass = (path) => {
-  return route.path == path ? 'menuActive' : 'menu';
+const navClass = (link) => {
+	return route.name == link.path.name ? 'menuActive' : 'menu';
 };
 
 watch(() => route.path, (to) => {

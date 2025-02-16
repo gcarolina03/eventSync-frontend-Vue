@@ -25,7 +25,7 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/events" class="block px-4 py-2 font-bold hover:text-primary">
+          <router-link :to="{ name: 'events' }" class="block px-4 py-2 font-bold hover:text-primary">
             {{ $t('userMenu.myEvents') }}
           </router-link>
         </li>
@@ -67,6 +67,6 @@ const user = store.user
 
 const handleLogout = () => {
   store.logout()
-  router.push('/')
+	router.push({ name: 'home' })
 }
 </script>

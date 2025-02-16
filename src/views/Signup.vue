@@ -46,7 +46,7 @@
 
 			<!-- Links de Ayuda -->
 			<div class="flex flex-col items-center text-sm mt-6 gap-2 text-center">
-				<p>{{ $t("alreadyRegistered") }} <router-link to="login"
+				<p>{{ $t("alreadyRegistered") }} <router-link :to="{ name: 'login' }"
 						class="underline text-primary hover:text-primary-dark">{{ $t("login") }}</router-link></p>
 			</div>
 		</div>
@@ -106,7 +106,9 @@ const handleFileChange = (event) => {
 const submit = async (values) => {
 	try {
 		const res = await store.signup(values.first_name, values.last_name, values.email, values.password, selectedFile.value)
-		console.log({ res })
+		if (res.success) {
+			router.push({ name: 'home' })
+		}
 	} catch (error) {
 		const errorMessage = getErrorMessage('auth.' + error.message)
 		errorMsg.value = t(`errors.${errorMessage}`)
