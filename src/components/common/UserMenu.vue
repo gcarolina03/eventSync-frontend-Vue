@@ -20,17 +20,17 @@
 
       <ul class="py-2">
         <li>
-          <router-link to="/profile" class="block px-4 py-2 font-bold hover:text-primary">
+          <router-link to="/profile" class="block px-4 py-2 font-bold hover:text-primary" @click="handleShow">
             {{ $t('userMenu.profile') }}
           </router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'events' }" class="block px-4 py-2 font-bold hover:text-primary">
+          <router-link :to="{ name: 'events' }" class="block px-4 py-2 font-bold hover:text-primary" @click="handleShow">
             {{ $t('userMenu.myEvents') }}
           </router-link>
         </li>
         <li>
-          <router-link to="/profile/services" class="block px-4 py-2 font-bold hover:text-primary">
+          <router-link to="/profile/services" class="block px-4 py-2 font-bold hover:text-primary" @click="handleShow">
             {{ $t('userMenu.myServices') }}
           </router-link>
         </li>
