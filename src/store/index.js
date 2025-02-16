@@ -20,10 +20,10 @@ export const useStore = defineStore('store', () => {
     try {
       const { data } = await api.post('/auth/login', { email, password })
       if (data.token) {
-				user.value = data.user
-				token.value = data.token
-			}
-			
+        user.value = data.user
+        token.value = data.token
+      }
+
       return data
     } catch (error) {
       console.error('Error logging in:', error)
