@@ -99,8 +99,10 @@ export const useStore = defineStore('store', () => {
       const { data } = await api.get(`/events/${eventId}`, {
         headers: {
           token: token.value,
-        },  
+        },
       })
+
+      selectedEvent.value = data.event
       return data.event
     } catch (error) {
       console.error('Error fetching user event:', error)
@@ -109,8 +111,6 @@ export const useStore = defineStore('store', () => {
 
   const createEvent = async (event) => {
     try {
-      console.log({ event })
-      console.log({ token:token.value })
       if (!token.value) return
       const { data } = await api.post('/events', event, {
         headers: {
@@ -124,8 +124,58 @@ export const useStore = defineStore('store', () => {
     }
   }
 
-  const setSelectedEvent = (event) => {
-    selectedEvent.value = event
+  const deleteEvent = async (eventId) => {
+    try {
+      if (!token.value) return
+      const { data } = await api.delete(`/events/${eventId}`, {
+        headers: {
+          token: token.value,
+        },
+      })
+
+      return data
+    } catch (error) {
+      console.error('Error deleting user event:', error)
+      throw error.response.data
+    }
+  }
+
+  /* GUESTS LIST ----------------------------------- */
+  const addGuest = async (eventId, name, phone, number) => {
+    try {
+      if (!token.value) return
+      console.log({ token: token.value })
+      console.log({ eventId })
+      const { data } = await api.put(
+        `/events/${eventId}/guest`,
+        { name, phone, number },
+        {
+          headers: {
+            token: token.value,
+          },
+        }
+      )
+
+      return data
+    } catch (error) {
+      console.error('Error adding guest to event:', error)
+      throw error.response.data
+    }
+  }
+  const removeGuest = async (eventId, guestId) => {
+    try {
+      if (!token.value) return
+      const { data } = await api.delete(`/events/${eventId}/guest/${guestId}`, {
+        headers: {
+          token: token.value,
+        },
+      })
+
+      return data
+    } catch (error) {
+      console.error('Error deleting guest from event:', error)
+      throw error.response.data
+    }
   }
 
   /* USER SERVICES --------------------------------- */
@@ -226,7 +276,10 @@ export const useStore = defineStore('store', () => {
     fetchEvents,
     fetchEvent,
     createEvent,
-    setSelectedEvent,
+    deleteEvent,
+    /* GUESTS LIST */
+    addGuest,
+    removeGuest,
     /* CATEGORIES */
     categories,
     activeCategory,
