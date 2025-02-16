@@ -10,6 +10,7 @@
   "endTime": "End Time",
   "buttons": {
     "update": "Update",
-    "start": "Start"
+    "start": "Start",
+		"action": "Action"
   }
 }

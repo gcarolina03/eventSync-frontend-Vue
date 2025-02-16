@@ -2,6 +2,7 @@
   "servicesCard": {
     "request": "Solicitar"
   },
+	"searchServices": "Buscar Servicios",
   "noServices": "Lo sentimos, no hay servicios con este filtro. Inténtelo de nuevo",
   "filter": "Filtrar",
   "ourServices": "Nuestros Servicios",

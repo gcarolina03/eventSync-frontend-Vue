@@ -2,10 +2,33 @@
   "eventsCard": {
     "see": "See"
   },
+  "eventDetails": {
+    "date": "Date",
+    "time": "Time",
+    "guests": "Guests",
+    "total": "Total"
+  },
   "yourEvents": "Your events",
   "createNewEvent": "Create new event",
   "updateEventTitle": "Update your event...",
   "newEventTitle": "New event...",
   "updateEventSubtitle": "Check out the details",
-  "newEventSubtitle": "Just need some details to start"
+  "newEventSubtitle": "Just need some details to start",
+  "guestList": {
+    "title": "Guest List",
+    "addGuest": "Add guest",
+    "guestName": "Guest or family name",
+    "guestPhone": "Phone number",
+    "guestNumber": "Number of people",
+    "guests": "Guests",
+    "noGuests": "No guests",
+    "goBack": "Go back"
+  },
+  "deleteEvent": {
+    "title": "Delete event",
+    "message": "Are you sure you want to delete this event?",
+    "alert": "This action cannot be undone.",
+    "cancel": "No, cancel",
+    "delete": "Yes, I'm sure"
+  }
 }

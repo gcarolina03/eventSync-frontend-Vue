@@ -20,6 +20,8 @@
     "dateInvalid": "Please provide a valid date",
     "eventNotFound": "Event not found",
     "eventNotCreated": "Event not created",
-    "eventNotUpdated": "Event not updated"
+    "eventNotUpdated": "Event not updated",
+		"guestNumberRequired": "Number of guests is required",
+		"guestNameRequired": "Guest name or family name is required"
   }
 }

@@ -1,11 +1,34 @@
-{ 
+{
   "eventsCard": {
     "see": "Ver"
   },
-  "yourEvenst": "Tus eventos",
+	"eventDetails": {
+		"date": "Fecha",
+		"time": "Hora",
+		"guests": "Invitados",
+		"total": "Total"
+	},
+  "yourEvents": "Tus eventos",
   "createNewEvent": "Crear nuevo evento",
   "updateEventTitle": "Actualiza tu evento...",
   "newEventTitle": "Nuevo evento...",
   "updateEventSubtitle": "Mira los detalles",
-  "newEventSubtitle": "Necesitas algunos detalles para empezar"
+  "newEventSubtitle": "Necesitas algunos detalles para empezar",
+  "guestList": {
+		"title": "Lista de invitados",
+		"addGuest": "Añadir invitado",
+    "guestName": "Invitado o familia",
+    "guestPhone": "Número de telefono",
+    "guestNumber": "Número de personas",
+    "guests": "Invitados",
+    "noGuests": "No hay invitados",
+		"goBack": "Volver"
+  },
+	"deleteEvent": {
+		"title": "Eliminar evento",
+		"message": "¿Estás segur@ que quieres eliminar este evento?",
+		"alert": "Esta accion no se puede deshacer.",
+		"cancel": "No, cancelar",
+		"delete": "Si, estoy segur@"
+	}
 }

@@ -2,6 +2,7 @@
   "servicesCard": {
     "request": "Request"
   },
+	"searchServices": "Search Services",
   "noServices": "Sorry, there are any services with this filter. Try Again",
   "filter": "Filter",
   "ourServices": "Our Services",

@@ -20,6 +20,8 @@
     "dateInvalid": "Por favor proporciona una fecha válida",
     "eventNotFound": "Evento no encontrado",
     "eventNotCreated": "Evento no creado",
-    "eventNotUpdated": "Evento no actualizado"
+    "eventNotUpdated": "Evento no actualizado",
+		"guestNumberRequired": "Numero de invitados es obligatorio",
+		"guestNameRequired": "Nombre del invitado o familia es obligatorio"
   }
 }
