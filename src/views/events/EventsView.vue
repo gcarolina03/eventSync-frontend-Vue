@@ -3,13 +3,13 @@
     <p class="font-bold text-[30px]">{{ $t('yourEvents') }}</p>
     <hr class="my-4  h-0.5 border-t-0 bg-gray-500 opacity-20" />
 
-    <div class="mt-4 flex flex-wrap gap-8">
-      <AddItem @click="openForm()" :text="$t('createNewEvent')">
-        <template #icon>
-          <Icon icon="calendar-plus"
-            class="fill-gray-500 mb-4 h-[2em] w-[2em] sm:h-[3em] sm:w-[3em] lg:h-[3.5em] lg:w-[3.5em]" />
-        </template>
-      </AddItem>
+		<div class="mt-4 flex flex-wrap gap-8">
+			<AddItem @handleClick="openForm" :text="$t('createNewEvent')">
+				<template #icon>
+					<Icon icon="calendar-plus"
+						className="fill-gray-500 mb-4 h-[2em] w-[2em] sm:h-[3em] sm:w-[3em] lg:h-[3.5em] lg:w-[3.5em]" />
+				</template>
+			</AddItem>
 
       <Card v-for="event in store.events" :key="event._id" :data="event" />
     </div>
