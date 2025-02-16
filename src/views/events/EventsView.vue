@@ -1,7 +1,7 @@
 <template>
   <div class="flex-grow w-full relative px-8 pt-10">
     <p class="font-bold text-[30px]">{{ $t('yourEvents') }}</p>
-    <hr class="m-4 h-0.5 border-t-0 bg-gray-500 opacity-20" />
+    <hr class="my-4  h-0.5 border-t-0 bg-gray-500 opacity-20" />
 
     <div class="mt-4 flex flex-wrap gap-8">
       <AddItem @click="openForm()" :text="$t('createNewEvent')">

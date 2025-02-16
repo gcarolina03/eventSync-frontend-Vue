@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import Login from '@/views/Login.vue'
 import Signup from '@/views/Signup.vue'
-import EventsView from '@/views/EventsView.vue'
+import EventsView from '@/views/events/EventsView.vue'
 import ServicesView from '@/views/ServicesView.vue'
 import { useStore } from '@/store'
 
