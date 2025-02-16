@@ -2,7 +2,7 @@
   <div
     class="rounded-lg relative bg-white border border-gray-300 p-6 w-full max-w-md lg:max-w-lg xl:max-w-md shadow-custom">
     <!-- Cerrar formulario -->
-    <button @click="closeForm()"
+    <button @click="closeForm"
       class="bg-white cursor-pointer rounded-md p-2 inline-flex absolute items-center justify-center top-4 right-4 text-gray-400 hover:text-gray-500 hover:bg-gray-100">
       <Icon icon="x-mark" class="h-6 w-6" />
     </button>
@@ -65,12 +65,13 @@ import * as yup from 'yup'
 import { useI18n } from 'vue-i18n'
 import { useStore } from '@/store'
 import { formatDate } from '@/utils'
+import { useRouter } from 'vue-router'
+import getErrorMessage from '@/utils/errors'
 /* COMPONENTS */
 import InputComp from '@/components/forms/Input.vue'
 import ButtonComp from '@/components/common/Button.vue'
 import ErrorMsg from '@/components/common/ErrorMsg.vue'
 import Icon from '@/components/common/Icon.vue'
-import getErrorMessage from '@/utils/errors'
 
 const props = defineProps({
   event: Object || null
@@ -110,20 +111,21 @@ const hideErrorMsg = () => {
 }
 
 const closeForm = () => {
-  emit('closeForm')
+	emit('closeForm')
 }
 
 const submit = async (values) => {
   try {
-    console.log({ values })
     const res = await store.createEvent({
+			userId: store.user._id,
       title: values.title,
       event_date: values.date,
       start_time: values.start,
       end_time: values.end
     })
-    if (res.success) {
-      emit('submitSuccess')
+
+		if (res.success) {
+			emit('submitSuccess')
     }
 
     console.log({ res })

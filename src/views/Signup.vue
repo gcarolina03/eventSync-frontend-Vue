@@ -12,8 +12,7 @@
 
 				<!-- firstname and lastname Input -->
 				<div class="flex gap-3">
-					<Field name="first_name" type="text" class="w-full h-10 border border-gray-800 rounded px-3"
-						:placeholder="t('firstname') + '*'" />
+					<Field name="first_name" type="text" class="w-full h-10 border border-gray-800 rounded px-3" :placeholder="t('firstname') + '*'" />
 					<InputComp name="last_name" type="text" :placeholder="t('lastname')" />
 				</div>
 				<!-- Mostrar mensaje de error de firstname debajo de ambos campos -->
@@ -89,6 +88,9 @@ const schema = yup.object({
 		.oneOf([yup.ref('password')], t("errors.passwordMismatch"))
 		.required(t("errors.passwordRequired")),
 	avatar: yup.mixed()
+		.test('fileSize', t('errors.fileSize'), value => {
+			return !value || value.size <= 5000000; // 5MB size limit
+		})
 		.test("fileType", t("errors.fileInvalid"), value => {
 			return !value || (value && ['image/jpeg', 'image/png'].includes(value.type))
 		})

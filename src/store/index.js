@@ -183,6 +183,7 @@ export const useStore = defineStore('store', () => {
   /* CATEGORIES ------------------------------------ */
   const categories = ref([])
   const activeCategory = ref('-1')
+  const locationCategoryId = ref(null)
 
   const fetchCategories = async () => {
     try {
@@ -194,6 +195,13 @@ export const useStore = defineStore('store', () => {
 
       if (data.success) {
         categories.value = data.categories
+
+        const locationCategory = data.categories.find(
+          (category) => category.title == 'location'
+        )
+        if (locationCategory) {
+          locationCategoryId.value = locationCategory._id
+        }
       } else {
         console.error('Cannot get categories', data)
       }
@@ -297,6 +305,7 @@ export const useStore = defineStore('store', () => {
     /* CATEGORIES */
     categories,
     activeCategory,
+    locationCategoryId,
     fetchCategories,
     setActiveCategory,
     /* SERVICES */
