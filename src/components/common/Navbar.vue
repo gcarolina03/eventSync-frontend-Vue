@@ -89,6 +89,6 @@ const navClass = (link) => {
 };
 
 watch(() => route.path, (to) => {
-  console.log(route.path)
+  
 });
 </script>
