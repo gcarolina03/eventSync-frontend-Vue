@@ -4,7 +4,7 @@
     <div class="bg-[#9CC0FA] rounded-t-lg relative h-[180px]">
       <div v-if="props.editMode" @click="props.edit(props.data)"
         class="cursor-pointer z-10 absolute top-[-10px] left-[-10px] gap-2 h-8 py-2 text-sm rounded-lg font-bold bg-gray-300 hover:bg-gray-400 text-gray-700 px-4">
-        <Icon name="pencil" />
+        <Icon icon="pencil" />
       </div>
       <div class="px-3 text-sm py-1 bg-gray-600 text-white font-bold top-2 left-2 rounded-lg absolute opacity-80">{{
         props.data.categoryId.title }}</div>
@@ -25,11 +25,11 @@
         </div>
       </div> -->
       <div v-if="props.data.min_capacity && props.data.max_capacity" class="flex gap-2 items-center text-gray-600">
-        <Icon name="user" />
+        <Icon icon="user" />
         <p class="font-normal">from {{ props.data.min_capacity }} to {{ props.data.max_capacity }}</p>
       </div>
       <div v-if="props.data.start_time && props.data.end_time" class="flex gap-2 items-center text-gray-600">
-        <Icon name="clock" />
+        <Icon icon="clock" />
         <p class="font-normal">{{ props.data.start_time }}h - {{ props.data.end_time }}h</p>
       </div>
     </div>
@@ -42,26 +42,26 @@
       <div @click="handleReviewService('up', props.data._id)" class="text-green-600 gap-1 font-bold flex text-lg items-center"
         :class="store.user ? 'cursor-pointer' : ''">
         <template v-if="store.user && reviewsCount().userUp">
-          <Icon name="thumbs-up" />
+          <Icon icon="thumbs-up" />
         </template>
         <template v-else-if="store.user && !reviewsCount().userUp">
-          <Icon name="thumbs-up-fill" />
+          <Icon icon="thumbs-up-fill" />
         </template>
         <template v-else>
-          <Icon name="thumbs-up" />
+          <Icon icon="thumbs-up" />
         </template>
         <span>{{ reviewsCount().up }}</span>
       </div>
       <div @click="handleReviewService('down', props.data._id)" class="text-red-600 gap-1 font-bold flex text-lg items-center"
         :class="store.user ? 'cursor-pointer' : ''">
         <template v-if="store.user && reviewsCount().userDown">
-          <Icon name="thumbs-down" />
+          <Icon icon="thumbs-down" />
         </template>
         <template v-else-if="store.user && !reviewsCount().userDown">
-          <Icon name="thumbs-down-fill" />
+          <Icon icon="thumbs-down-fill" />
         </template>
         <template v-else>
-          <Icon name="thumbs-down" />
+          <Icon icon="thumbs-down" />
         </template>
         <span>{{ reviewsCount().down }}</span>
       </div>
