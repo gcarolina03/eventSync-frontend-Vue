@@ -1,5 +1,9 @@
 <template>
-  <div :class="props.className" v-html="iconComponent"></div>
+	<span v-if="type == 'button'" :class="['cursor-pointer', classButton, 'rounded-xl flex items-center justify-center']" @click="handleClick" >
+		<div :class="props.className" v-html="iconComponent"></div>
+	</span>
+
+	<div v-else :class="props.className" v-html="iconComponent"></div>
 </template>
 
 <script setup>
@@ -43,51 +47,61 @@ import XMarkSvg from '@/assets/icons/x-mark.svg?raw'
 
 
 const props = defineProps({
-  className: String,
-  icon: String,
+	className: String,
+	icon: String,
+	type: {
+		type: String,
+		default: 'icon'
+	},
+	classButton: String
 })
 
 const allowedIcons = {
-  "arrow-down": ArrowDownSvg,
-  "arrow-left": ArrowLeftSvg,
-  "arrow-right-from-bracket": ArrowRightFromBracketSvg,
-  "arrow-right": ArrowRightSvg,
-  "arrow-up-and-down": ArrowUpAndDownSvg,
-  "bars": BarsSvg,
-  "calendar-plus": CalendarPlusSvg,
-  "calendar-days": CalendarDaysSvg,
-  "camera": CameraSvg,
-  "card": CardSvg,
-  "check": CheckSvg,
-  "circle-plus": CirclePlusSvg,
-  "circle-user": CircleUserSvg,
-  "clock": ClockSvg,
-  "couch": CouchSvg,
-  "exclamation-round": ExclamationRoundSvg,
-  "eye-slash": EyeSlashSvg,
-  "eye": EyeSvg,
-  "face-smile": FaceSmileSvg,
-  "food": FoodSvg,
-  "git": GitSvg,
-  "group-people": GroupPeopleSvg,
-  "linkedin": LinkedinSvg,
-  "map": MapSvg,
-  "no-filter": NoFilterSvg,
-  "pencil": PencilSvg,
-  "production": ProductionSvg,
-  "quote": QuoteSvg,
-  "search": SearchSvg,
-  "thumbs-down-fill": ThumbsDownFillSvg,
-  "thumbs-down": ThumbsDownSvg,
-  "thumbs-up-fill": ThumbsUpFillSvg,
-  "thumbs-up": ThumbsUpSvg,
-  "user": UserSvg,
-  "trash-can": TrashCanSvg,
-  "x-mark": XMarkSvg,
+	"arrow-down": ArrowDownSvg,
+	"arrow-left": ArrowLeftSvg,
+	"arrow-right-from-bracket": ArrowRightFromBracketSvg,
+	"arrow-right": ArrowRightSvg,
+	"arrow-up-and-down": ArrowUpAndDownSvg,
+	"bars": BarsSvg,
+	"calendar-plus": CalendarPlusSvg,
+	"calendar-days": CalendarDaysSvg,
+	"camera": CameraSvg,
+	"card": CardSvg,
+	"check": CheckSvg,
+	"circle-plus": CirclePlusSvg,
+	"circle-user": CircleUserSvg,
+	"clock": ClockSvg,
+	"couch": CouchSvg,
+	"exclamation-round": ExclamationRoundSvg,
+	"eye-slash": EyeSlashSvg,
+	"eye": EyeSvg,
+	"face-smile": FaceSmileSvg,
+	"food": FoodSvg,
+	"git": GitSvg,
+	"group-people": GroupPeopleSvg,
+	"linkedin": LinkedinSvg,
+	"map": MapSvg,
+	"no-filter": NoFilterSvg,
+	"pencil": PencilSvg,
+	"production": ProductionSvg,
+	"quote": QuoteSvg,
+	"search": SearchSvg,
+	"thumbs-down-fill": ThumbsDownFillSvg,
+	"thumbs-down": ThumbsDownSvg,
+	"thumbs-up-fill": ThumbsUpFillSvg,
+	"thumbs-up": ThumbsUpSvg,
+	"user": UserSvg,
+	"trash-can": TrashCanSvg,
+	"x-mark": XMarkSvg,
 }
 
 const iconComponent = computed(() => {
-  return allowedIcons[props.icon] || null
+	return allowedIcons[props.icon] || null
 })
+
+const emit = defineEmits(['handleClick'])
+const handleClick = () => {
+	emit('handleClick')
+}
 
 </script>
