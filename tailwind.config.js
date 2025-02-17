@@ -10,6 +10,7 @@ export default {
         dark: '#312a82',
         text: '#150D2C',
         'blue-light': '#9CC0FA',
+        'blue-light2': '#DEEBFF',
       },
       fontSize: {
         xs: '0.5rem', // 8px
@@ -24,7 +25,8 @@ export default {
       },
       boxShadow: {
         custom: '0px 3px 8px rgba(0, 0, 0, 0.24)',
-        custom2: '0px 10px 1px rgba(221, 221, 221, 1), 0 10px 20px rgba(204, 204, 204, 1)',
+        custom2:
+          '0px 10px 1px rgba(221, 221, 221, 1), 0 10px 20px rgba(204, 204, 204, 1)',
       },
     },
   },
