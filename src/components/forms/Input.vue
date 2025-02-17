@@ -1,6 +1,7 @@
 <template>
 	<div class="relative w-full">
-		<Field :name="name" :type="isPassword && isVisible ? 'text' : type" :class="inputClass" :placeholder="placeholder" :accept="accept" @change="checkChange" :min="min" :step="step" :disabled="disabled" />
+		<Field :name="name" :type="isPassword && isVisible ? 'text' : type" :class="inputClass" :placeholder="placeholder"
+			:accept="accept" @change="checkChange" :min="min" :step="step" :disabled="disabled" :value="modelValue" />
 		<div v-if="isPassword" class="absolute inset-y-0 right-0 mr-4 flex items-center cursor-pointer"
 			@click="togglePasswordVisibility">
 			<Icon icon="eye" v-if="isVisible" class="text-gray-400" />
@@ -47,6 +48,10 @@ const props = defineProps({
 	step: {
 		type: String,
 		default: ''
+	},
+	modelValue: {
+		type: String,
+		default: ''
 	}
 })
 
@@ -61,7 +66,7 @@ const inputClass = computed(() => {
 	let baseClass = '';
 	switch (props.type) {
 		case 'file':
-			baseClass = 'block w-full text-sm text-gray-500 border border-gray-400 rounded-lg cursor-pointer bg-gray-50 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white';
+			baseClass = 'block w-full h-10 text-sm text-gray-500 border border-gray-400 rounded-xl cursor-pointer bg-gray-50 file:h-10 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-secondary file:text-white';
 			break;
 		case 'text':
 		case 'password':
@@ -74,7 +79,7 @@ const inputClass = computed(() => {
 	return `${baseClass} ${props.additionalClass}`;
 });
 
-const emit = defineEmits(['fileChange'])
+const emit = defineEmits(['fileChange']);
 
 const checkChange = (event) => {
 	emit('fileChange', event)
