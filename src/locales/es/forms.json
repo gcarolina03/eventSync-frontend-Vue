@@ -12,6 +12,8 @@
     "update": "Actualizar",
     "start": "Comenzar",
 		"action": "Acción",
-		"publish": "Publicar"
+		"publish": "Publicar",
+		"cancel": "Cancelar",
+		"save": "Guardar"
   }
 }
