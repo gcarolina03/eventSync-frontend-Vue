@@ -12,7 +12,7 @@
 
 				<!-- firstname and lastname Input -->
 				<div class="flex gap-3">
-					<Field name="first_name" type="text" class="w-full h-10 border border-gray-800 rounded px-3" :placeholder="t('firstname') + '*'" />
+					<Field name="first_name" type="text" class="w-full h-10 border border-gray-400 focus:border-gray-600 focus:ring-0 focus:outline-none rounded px-3" :placeholder="t('firstname') + '*'" />
 					<InputComp name="last_name" type="text" :placeholder="t('lastname')" />
 				</div>
 				<!-- Mostrar mensaje de error de firstname debajo de ambos campos -->

@@ -61,13 +61,13 @@ const inputClass = computed(() => {
 	let baseClass = '';
 	switch (props.type) {
 		case 'file':
-			baseClass = 'block w-full text-sm text-gray-500 border border-gray-200 rounded-lg cursor-pointer bg-gray-50 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white';
+			baseClass = 'block w-full text-sm text-gray-500 border border-gray-400 rounded-lg cursor-pointer bg-gray-50 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white';
 			break;
 		case 'text':
 		case 'password':
 		case 'number':
 		default:
-			baseClass = 'w-full h-10 border border-gray-400 focus:border-gray-600 focus:ring-0 focus:outline-none rounded-xl px-3';
+			baseClass = 'w-full h-10 border border-gray-400 focus:border-secondary focus:ring-0 focus:outline-none rounded-xl px-3';
 			break;
 	}
 

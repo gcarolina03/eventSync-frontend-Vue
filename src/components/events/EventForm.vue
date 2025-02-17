@@ -26,11 +26,11 @@
       <div class="flex gap-5">
         <div class="flex flex-col w-full">
           <span class="text-gray-600 text-xs">{{ $t('startTime') + '*' }}</span>
-          <Field name="start" type="time" class="w-full h-10 border border-gray-800 rounded px-3" />
+          <Field name="start" type="time" class="w-full h-10 border border-gray-400 focus:border-secondary focus:ring-0 focus:outline-none rounded-xl px-3" />
         </div>
         <div class="flex flex-col w-full">
           <span class="text-gray-600 text-xs">{{ $t('endTime') + '*' }}</span>
-          <Field name="end" type="time" class="w-full h-10 border border-gray-800 rounded px-3" />
+          <Field name="end" type="time" class="w-full h-10 border border-gray-400 focus:border-secondary focus:ring-0 focus:outline-none rounded-xl px-3" />
         </div>
       </div>
       <!-- Time errors -->

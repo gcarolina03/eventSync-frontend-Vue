@@ -26,7 +26,7 @@
 			<!-- Category -->
 			<div class="relative">
 				<Field name="category" as="select"
-					class="w-full h-10 border border-gray-400 focus:border-gray-600 focus:ring-0 focus:outline-none rounded-xl px-3">
+					class="w-full h-10 border border-gray-400 focus:border-secondary focus:ring-0 focus:outline-none rounded-xl px-3">
 					<option value="none" selected="selected">{{ $t('serviceForm.category') }}</option>
 					<option v-for="category in store.categories" :key="category._id" :value="category._id">
 						{{ $t('categoriesList.' + category.title) }}
@@ -43,13 +43,13 @@
 					<div class="flex flex-col w-full">
 						<span class="text-gray-600 text-xs">{{ $t('serviceForm.minCapacity') }}*</span>
 						<Field name="min" type="number" min="1"
-							class="w-full h-10 border border-gray-400 focus:border-gray-600 focus:ring-0 focus:outline-none rounded-xl px-3"
+							class="w-full h-10 border border-gray-400 focus:border-secondary focus:ring-0 focus:outline-none rounded-xl px-3"
 							:placeholder="t('serviceForm.minCapacity') + '*'" />
 					</div>
 					<div class="flex flex-col w-full">
 						<span class="text-gray-600 text-xs">{{ $t('serviceForm.maxCapacity') }}*</span>
 						<Field name="max" type="number" min="1"
-							class="w-full h-10 border border-gray-400 focus:border-gray-600 focus:ring-0 focus:outline-none rounded-xl px-3"
+							class="w-full h-10 border border-gray-400 focus:border-secondary focus:ring-0 focus:outline-none rounded-xl px-3"
 							:placeholder="t('serviceForm.maxCapacity') + '*'" />
 					</div>
 				</div>
@@ -72,13 +72,13 @@
 					<div class="flex flex-col w-full">
 						<span class="text-gray-600 text-xs">{{ $t('serviceForm.startTime') }}*</span>
 						<Field name="start" type="time"
-							class="w-full h-10 border border-gray-400 focus:border-gray-600 focus:ring-0 focus:outline-none rounded-xl px-3"
+							class="w-full h-10 border border-gray-400 focus:border-secondary focus:ring-0 focus:outline-none rounded-xl px-3"
 							:placeholder="t('serviceForm.startTime') + '*'" />
 					</div>
 					<div class="flex flex-col w-full">
 						<span class="text-gray-600 text-xs">{{ $t('serviceForm.endTime') }}*</span>
 						<Field name="end" type="time"
-							class="w-full h-10 border border-gray-400 focus:border-gray-600 focus:ring-0 focus:outline-none rounded-xl px-3"
+							class="w-full h-10 border border-gray-400 focus:border-secondary focus:ring-0 focus:outline-none rounded-xl px-3"
 							:placeholder="t('serviceForm.endTime') + '*'" />
 					</div>
 				</div>
