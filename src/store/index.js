@@ -75,6 +75,26 @@ export const useStore = defineStore('store', () => {
     }
   }
 
+	const updateProfile = async (profile) => {
+		try {
+			if (!token.value) return
+			console.log({ profile })
+			const { data } = await api.put('/profile', profile, {
+        headers: {
+          token: token.value,
+        },
+      })
+
+			user.value = data.user
+			if(data.token) {
+				token.value = data.token
+			}
+		} catch (error) {
+			console.error('Error updating user data:', error)
+      throw error.response.data
+		}
+	}
+
   /* USER EVENTS ----------------------------------- */
   const events = ref([])
   const selectedEvent = ref(null)
@@ -359,6 +379,7 @@ export const useStore = defineStore('store', () => {
     logout,
     /* USER */
     fetchProfile,
+		updateProfile,
     /* USER EVENTS */
     events,
     selectedEvent,
