@@ -3,9 +3,7 @@
 		<div class="flex gap-8 items-center justify-between">
 			<p class="font-bold text-[30px]">{{ $t("myServices") }}</p>
 			<div class="flex gap-2">
-				<Icon v-if="!editMode" @handleClick="handleEdit" type="button" icon="pencil"
-					classButton="text-sm font-bold bg-gray-300 hover:bg-gray-400 text-gray-700"
-					className="flex items-center justify-center h-8 w-8" />
+				<Icon v-if="!editMode" @handleClick="handleEdit" type="button" icon="pencil" classButton="p-2.5 text-sm font-bold bg-gray-300 hover:bg-gray-400 text-gray-700" className="flex items-center justify-center h-3 w-3" />
 				<Icon v-else @handleClick="handleEdit" type="button" icon="check"
 					classButton="text-sm font-bold bg-green-300 hover:bg-green-400 text-green-700"
 					className="flex items-center justify-center h-8 w-8" />

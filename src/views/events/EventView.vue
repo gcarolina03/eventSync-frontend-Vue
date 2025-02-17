@@ -8,14 +8,14 @@
 						class="cursor-pointer flex items-center px-4 h-8 py-2 text-sm font-bold text-center bg-[#ADE0E4] rounded-xl hover:bg-[#79AEB1]">
 						{{ $t('guestList.title') }}
 					</div>
-					<Icon @handleClick="toggleEditForm" type="button" icon="pencil" classButton="text-sm font-bold bg-gray-300 hover:bg-gray-400 text-gray-700" className="flex items-center justify-center h-8 w-8" />
+					<Icon @handleClick="toggleEditForm" type="button" icon="pencil" classButton="px-2.5 text-sm font-bold bg-gray-300 hover:bg-gray-400 text-gray-700" className="flex items-center justify-center h-3 w-3" />
 					<Icon @handleClick="toggleDeleteConfirm" type="button" icon="trash-can" classButton="px-2.5 text-sm font-bold bg-red-300 hover:bg-red-400 text-red-700" className="flex items-center justify-center h-3 w-3" />
 				</div>
 				<div v-else class="flex gap-2">
 					<div @click="toggleGuestList" class="cursor-pointer flex items-center px-4 h-8 py-2 text-sm font-bold text-center bg-[#ADE0E4] rounded-xl hover:bg-[#79AEB1]">
 						{{ $t('guestList.goBack') }}
 					</div>
-					<Icon v-if="!editModeGuest" @handleClick="toggleEditGuest" type="button" icon="pencil" classButton="text-sm font-bold bg-gray-300 hover:bg-gray-400 text-gray-700" className="flex items-center justify-center h-8 w-8" />
+					<Icon v-if="!editModeGuest" @handleClick="toggleEditGuest" type="button" icon="pencil" classButton="px-2.5 text-sm font-bold bg-gray-300 hover:bg-gray-400 text-gray-700" className="flex items-center justify-center h-3 w-3" />
 					<Icon v-else @handleClick="toggleEditGuest" type="button" icon="check" classButton="text-sm font-bold bg-green-300 hover:bg-green-400 text-green-700" className="flex items-center justify-center h-8 w-8" />
 				</div>
 			</div>
