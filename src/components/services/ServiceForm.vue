@@ -29,7 +29,7 @@
 					class="w-full h-10 border border-gray-400 focus:border-gray-600 focus:ring-0 focus:outline-none rounded-xl px-3">
 					<option value="none" selected="selected">{{ $t('serviceForm.category') }}</option>
 					<option v-for="category in store.categories" :key="category._id" :value="category._id">
-						{{ $t('categoriesList.'+ category.title) }}
+						{{ $t('categoriesList.' + category.title) }}
 					</option>
 				</Field>
 				<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -112,7 +112,8 @@
 			<ErrorMsg v-if="showError" :message="errorMsg" @hide="hideErrorMsg" />
 
 			<!-- Submit Button -->
-			<ButtonComp buttonStyle="purple" type="submit" additionalClass="text-sm lg:text-base" @click.prevent="handleSubmit(submit)">
+			<ButtonComp buttonStyle="purple" type="button" additionalClass="text-sm lg:text-base"
+				@click.prevent="handleSubmit(submit)">
 				{{ editStatus ? $t('buttons.update') : $t('buttons.publish') }}
 			</ButtonComp>
 		</Form>
@@ -126,6 +127,7 @@ import { useStore } from '@/store'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import * as yup from 'yup'
 import { getDefaultAvatarUrl, isValidFileType } from '@/utils'
+import getErrorMessage from '@/utils/errors'
 import { useI18n } from 'vue-i18n'
 /* COMPONENTS */
 /* import Maps from '../common/Maps' */
@@ -135,14 +137,14 @@ import Icon from '@/components/common/Icon.vue'
 import ButtonComp from '@/components/common/Button.vue'
 
 const props = defineProps({
-	handleForm: Function,
-	service: Object
+	service: Object || null
 })
 
 const emit = defineEmits(['submitSuccess', 'closeForm'])
 
-const router = useRouter()
 const { t } = useI18n()
+const router = useRouter()
+const store = useStore()
 
 const category = ref('none')
 const avatarPreview = ref(null)
@@ -150,12 +152,10 @@ const selectedFile = ref(null)
 const errorMsg = ref('')
 const showError = ref(false)
 const editStatus = ref(false)
-const latitude = ref(null)
-const longitude = ref(null)
+const latitude = ref('')
+const longitude = ref('')
 
 /* const searchBoxRef = ref(null) */
-
-const store = useStore()
 
 onBeforeMount(async () => {
 	await store.fetchCategories()
@@ -189,31 +189,57 @@ const schema = yup.object({
 		.notOneOf(['none'], t('errors.categoryRequired')),
 	min: yup
 		.number()
-		.min(1, t('errors.minCapacity'))
 		.when('category', {
-			is: (category) => category == store.locationCategoryId,
-			then: yup.number().required(t('errors.minCapacityRequired')),
+			is: (cat) => cat == store.locationCategoryId,
+			then: (schema) =>
+				schema
+					.required(t('errors.minCapacityRequired'))
+					.min(1, t('errors.minCapacity')),
+			otherwise: (schema) => schema.notRequired(),
 		}),
 	max: yup
 		.number()
-		.min(1, t('errors.maxCapacity'))
 		.when('category', {
-			is: (category) => category == store.locationCategoryId,
-			then: yup.number().required(t('errors.maxCapacityRequired')),
-		})
-		.test('max-greater-than-min', t('errors.maxGreaterThanMin'), function (value) {
-			const { min } = this.parent;
-			return value > min;
+			is: (cat) => cat == store.locationCategoryId,
+			then: (schema) =>
+				schema
+					.required(t('errors.maxCapacityRequired'))
+					.min(1, t('errors.maxCapacity'))
+					.test('max-greater-than-min', t('errors.maxGreaterThanMin'), function (value) {
+						const { min, category } = this.parent;
+						if (category != store.locationCategoryId) {
+							return true;
+						}
+						return value > min;
+					}),
+			otherwise: (schema) => schema.notRequired(),
 		}),
 	start: yup
 		.string()
-		.required(t('errors.startRequired')),
+		.when('category', {
+			is: (cat) => cat == store.locationCategoryId,
+			then: (schema) =>
+				schema
+					.required(t('errors.startRequired')),
+			otherwise: (schema) =>
+				schema.notRequired(),
+		}),
 	end: yup
 		.string()
-		.required(t('errors.endRequired'))
-		.test('end-greater-than-start', t('errors.endGreaterThanStart'), function (value) {
-			const { start } = this.parent;
-			return value > start;
+		.when('category', {
+			is: (cat) => cat == store.locationCategoryId,
+			then: (schema) =>
+				schema
+					.required(t('errors.endRequired'))
+					.test('end-greater-than-start', t('errors.endGreaterThanStart'), function (value) {
+						const { start, category } = this.parent;
+						if (category != store.locationCategoryId) {
+							return true;
+						}
+						return value > start;
+					}),
+			otherwise: (schema) =>
+				schema.notRequired(),
 		}),
 	price: yup
 		.number()
@@ -228,8 +254,6 @@ const schema = yup.object({
 			return !value || (value && ['image/jpeg', 'image/png'].includes(value.type))
 		})
 });
-
-
 
 const handleFileChange = (event) => {
 	const selectedFile = event.target.files?.[0];
@@ -272,6 +296,7 @@ const closeForm = () => {
 
 const createService = async (values) => {
 	const data = {
+		userId: store.user._id,
 		title: values.title,
 		categoryId: values.category,
 		min_capacity: values.min,
@@ -279,7 +304,9 @@ const createService = async (values) => {
 		price: values.price,
 		start_time: values.start,
 		end_time: values.end,
-		img_url: selectedFile.value
+		img_url: selectedFile.value,
+		longitude: longitude.value,
+		latitude: latitude.value
 	}
 
 	try {
