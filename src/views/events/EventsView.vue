@@ -21,8 +21,9 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount } from 'vue'
+import { ref, onBeforeMount, onMounted } from 'vue'
 import { useStore } from '@/store'
+import { useRoute } from 'vue-router'
 /* COMPONENTS */
 import Card from '@/components/events/Card.vue'
 import AddItem from '@/components/common/AddItem.vue'
@@ -31,11 +32,18 @@ import Blur from '@/components/common/Blur.vue'
 import EventForm from '@/components/events/EventForm.vue'
 
 const store = useStore()
+const route = useRoute()
 const showForm = ref(false)
 const selectedEvent = ref(store.selectedEvent)
 
 onBeforeMount(async () => {
   await store.fetchEvents()
+})
+
+onMounted(() => {
+	if (route.query.showForm == 'true') {
+		openForm()
+	}
 })
 
 const openForm = (event = null) => {
