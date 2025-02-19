@@ -7,13 +7,13 @@
 			<Icon icon="x-mark" class="h-6 w-6" />
 		</button>
 
-		<h1 class="text-3xl font-medium">{{ editStatus ? $t('serviceForm.updateService') : $t('serviceForm.newService') }}
+		<h1 class="text-3xl font-medium">{{ props.editMode ? $t('serviceForm.updateService') : $t('serviceForm.newService') }}
 		</h1>
-		<p class="text-sm">{{ editStatus ? $t('serviceForm.updateServiceSubtitle') : $t('serviceForm.newServiceSubtitle') }}
+		<p class="text-sm">{{ props.editMode ? $t('serviceForm.updateServiceSubtitle') : $t('serviceForm.newServiceSubtitle') }}
 		</p>
 
-		<Form :validation-schema="schema" v-slot="{ handleSubmit, errors, values }" enctype="multipart/form-data"
-			class="space-y-4 mt-6">
+		<Form :initial-values="initialValues" :validation-schema="schema" v-slot="{ handleSubmit, errors, values }"
+			enctype="multipart/form-data" class="space-y-4 mt-6">
 			<!-- Avatar -->
 			<div class="flex justify-center">
 				<img :src="avatarPreview || getDefaultAvatarUrl('service')" alt="Avatar Preview"
@@ -35,6 +35,12 @@
 				<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
 					<Icon icon="arrow-down" class="h-4 w-4" />
 				</div>
+				<ErrorMessage v-slot="{ message }" name="start">
+					<div class="flex items-center text-red-500 text-sm gap-1">
+						<Icon icon="exclamation-round" className="w-3 color-red-500" />
+						<p>{{ message }}</p>
+					</div>
+				</ErrorMessage>
 			</div>
 
 			<!-- Conditional Fields for Certain Category -->
@@ -114,14 +120,14 @@
 			<!-- Submit Button -->
 			<ButtonComp buttonStyle="purple" type="button" additionalClass="text-sm lg:text-base"
 				@click.prevent="handleSubmit(submit)">
-				{{ editStatus ? $t('buttons.update') : $t('buttons.publish') }}
+				{{ props.editMode ? $t('buttons.update') : $t('buttons.publish') }}
 			</ButtonComp>
 		</Form>
 	</div>
 </template>
 
 <script setup>
-import { defineProps, ref, onBeforeMount } from 'vue'
+import { defineProps, ref, onBeforeMount, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from '@/store'
 import { Form, Field, ErrorMessage } from 'vee-validate'
@@ -137,7 +143,8 @@ import Icon from '@/components/common/Icon.vue'
 import ButtonComp from '@/components/common/Button.vue'
 
 const props = defineProps({
-	service: Object || null
+	service: Object || null,
+	editMode: Boolean
 })
 
 const emit = defineEmits(['submitSuccess', 'closeForm'])
@@ -146,12 +153,10 @@ const { t } = useI18n()
 const router = useRouter()
 const store = useStore()
 
-const category = ref('none')
 const avatarPreview = ref(null)
 const selectedFile = ref(null)
 const errorMsg = ref('')
 const showError = ref(false)
-const editStatus = ref(false)
 const latitude = ref('')
 const longitude = ref('')
 
@@ -159,25 +164,30 @@ const longitude = ref('')
 
 onBeforeMount(async () => {
 	await store.fetchCategories()
-	if (props.service) {
-		updateData()
-	}
+
 })
 
-// Update form with service data
-const updateData = () => {
-	if (props.service) {
-		avatar.value = props.service.img_url
-		title.value = props.service.title
-		category.value = props.service.categoryId._id
-		min.value = props.service.min_capacity
-		max.value = props.service.max_capacity
-		start.value = props.service.start_time
-		end.value = props.service.end_time
-		price.value = props.service.price
-		editStatus.value = true
+const initialValues = computed(() => {
+	return props.service ? {
+		title: props.service.title,
+		min: props.service.min_capacity,
+		max: props.service.max_capacity,
+		start: props.service.start_time,
+		end: props.service.end_time,
+		price: props.service.price,
+		category: props.service.categoryId._id,
+		avatar: '',
+	}	: {
+		title: '',
+		min: '',
+		max: '',
+		start: '',
+		end: '',
+		price: '',
+		avatar: '',
+		category: 'none',
 	}
-}
+})
 
 const schema = yup.object({
 	title: yup
@@ -274,7 +284,7 @@ const handleFileChange = (event) => {
 } */
 
 const submit = async (values) => {
-	if (editStatus.value) {
+	if (props.editMode.value) {
 		await updateService(values)
 	} else {
 		await createService(values)
@@ -336,7 +346,6 @@ const updateService = async (values) => {
 	try {
 		const res = await store.updateService(props.service._id, data)
 		if (res.success) {
-			editStatus.value = false
 			emit('submitSuccess')
 		}
 	} catch (error) {

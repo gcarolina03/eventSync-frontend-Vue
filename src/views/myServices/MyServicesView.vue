@@ -3,7 +3,9 @@
 		<div class="flex gap-8 items-center justify-between">
 			<p class="font-bold text-[30px]">{{ $t("myServices") }}</p>
 			<div class="flex gap-2">
-				<Icon v-if="!editMode" @handleClick="handleEdit" type="button" icon="pencil" classButton="p-2.5 text-sm font-bold bg-gray-300 hover:bg-gray-400 text-gray-700" className="flex items-center justify-center h-3 w-3" />
+				<Icon v-if="!editMode" @handleClick="handleEdit" type="button" icon="pencil"
+					classButton="p-2.5 text-sm font-bold bg-gray-300 hover:bg-gray-400 text-gray-700"
+					className="flex items-center justify-center h-3 w-3" />
 				<Icon v-else @handleClick="handleEdit" type="button" icon="check"
 					classButton="text-sm font-bold bg-green-300 hover:bg-green-400 text-green-700"
 					className="flex items-center justify-center h-8 w-8" />
@@ -25,11 +27,11 @@
 				</template>
 			</AddItem>
 
-			<Card v-for="service in services" :key="service._id" :data="service" />
+			<Card v-for="service in store.myServices" :key="service._id" :data="service" @openForm="openForm" @closeForm="closeForm" :editMode="editMode" />
 		</div>
 
 		<Blur v-if="showForm">
-			<ServiceForm @closeForm="closeForm" :service="serviceTo" @submitSuccess="handleFormSubmitted" />
+			<ServiceForm @closeForm="closeForm" :service="selectedService" @submitSuccess="handleFormSubmitted" :editMode="editMode" />
 		</Blur>
 	</div>
 </template>
@@ -47,21 +49,20 @@ import ServiceForm from '@/components/services/ServiceForm.vue'
 const store = useStore()
 
 const showForm = ref(false)
-const serviceTo = ref(null)
+const selectedService = ref(null)
 const editMode = ref(false)
-const services = ref(store.myServices)
 
 onBeforeMount(async () => {
 	await store.fetchMyServices()
 })
 
 const openForm = (service = null) => {
-	serviceTo.value = service
+	selectedService.value = service
 	showForm.value = true
 }
 
 const closeForm = () => {
-	serviceTo.value = null
+	selectedService.value = null
 	showForm.value = false
 }
 
