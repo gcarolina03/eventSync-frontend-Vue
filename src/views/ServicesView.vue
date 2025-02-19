@@ -2,7 +2,7 @@
   <div class="md:w-[95%] px-4 md:px-0 flex-grow py-8 mx-auto">
     <div class="flex flex-col md:grid md:grid-cols-12 gap-6">
       <!-- Sidebar de filtros -->
-      <div class="md:min-w-15 md:col-span-1 xl:col-span-3">
+      <div class="md:min-w-15 md:col-span-1 xl:col-span-2">
         <div class="flex flex-col gap-2 mt-3 text-base bg-white shadow rounded-lg">
           <CategoriesList :categories="store.categories" direction="vertical" />
         </div>
@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount, computed } from 'vue'
+import { ref, onBeforeMount, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from '@/store';
 /* COMPONENTS */
@@ -62,7 +62,10 @@ onBeforeMount(async () => {
   await store.fetchServices()
 })
 
-const services = ref(store.services)
+watch(() => store.activeCategory, () => {
+	activeCategory.value = store.activeCategory
+})
+
 const reload = ref(false)
 const userLog = ref(null)
 const showForm = ref(false)
@@ -92,9 +95,9 @@ const handleServiceTo = (data) => {
 // Filtrar servicios por categoría
 const filteredServices = computed(() => {
   if (activeCategory.value == '-1') {
-    return services.value
+		return store.services
   }
-  return services.value.filter((service) => service.categoryId._id == activeCategory.value)
+	return store.services.filter((service) => String(service.categoryId._id) === String(activeCategory.value))
 })
 
 </script>
