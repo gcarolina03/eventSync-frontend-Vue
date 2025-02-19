@@ -39,7 +39,12 @@
 
 			<template v-else>
 				<div class="mt-4 flex flex-wrap gap-8">
-					<AddItem @click="goToEvents" text="Go to events." :icon="CalendarPlus" />
+					<AddItem @click="goToEvents" :text="$t('createNewEvent')">
+						<template #icon>
+							<Icon icon="calendar-plus"
+								className="fill-gray-500 mb-4 h-[2em] w-[2em] sm:h-[3em] sm:w-[3em] lg:h-[3.5em] lg:w-[3.5em]" />
+						</template>
+					</AddItem>
 				</div>
 			</template>
 			<hr class="my-12 h-0.5 border-t-0 bg-gray-200 opacity-100 dark:opacity-50" />
