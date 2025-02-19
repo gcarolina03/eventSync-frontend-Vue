@@ -1,7 +1,7 @@
 <template>
 	<div class="relative w-full">
 		<Field :name="name" :type="isPassword && isVisible ? 'text' : type" :class="inputClass" :placeholder="placeholder"
-			:accept="accept" @change="checkChange" :min="min" :step="step" :disabled="disabled" :value="modelValue" />
+			:accept="accept" @change="checkChange" :min="min" :step="step" :disabled="disabled" />
 		<div v-if="isPassword" class="absolute inset-y-0 right-0 mr-4 flex items-center cursor-pointer"
 			@click="togglePasswordVisibility">
 			<Icon icon="eye" v-if="isVisible" class="text-gray-400" />
@@ -49,10 +49,6 @@ const props = defineProps({
 		type: String,
 		default: ''
 	},
-	modelValue: {
-		type: String,
-		default: ''
-	}
 })
 
 const isPassword = props.type == 'password'
