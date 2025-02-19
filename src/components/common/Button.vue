@@ -49,6 +49,9 @@ const buttonClass = computed(() => {
     case 'purple':
 			baseClass = 'w-full bg-secondary text-white font-bold py-2.5 rounded-xl transition-all hover:bg-dark focus:ring-2 focus:ring-secondary focus:ring-opacity-50 cursor-pointer flex items-center justify-center';
       break;
+		case 'darkPurple':
+			baseClass = 'w-full bg-dark text-white font-bold py-2.5 rounded-xl transition-all hover:bg-[#201B4F] focus:ring-2 focus:ring-[#201B4F] focus:ring-opacity-50 cursor-pointer flex items-center justify-center';
+			break;
     case 'menu':
       baseClass = 'block py-2 font-bold text-gray-400 hover:text-light'
       break;
