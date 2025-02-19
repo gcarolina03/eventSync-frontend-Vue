@@ -49,9 +49,8 @@ const closeForm = () => {
 }
 
 const handleFormSubmitted = async () => {
-  showForm.value = false
-  store.selectedEvent = null
-  await store.fetchEvents()
+	await store.fetchEvents()
+	closeForm()
 }
 
 </script>
