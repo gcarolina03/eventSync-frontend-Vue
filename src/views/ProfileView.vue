@@ -76,7 +76,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
 import { Field, Form } from 'vee-validate';
@@ -180,11 +180,9 @@ const submit = async (values) => {
 			password: values.password,
 			avatar: selectedFile.value,
 		}
-		console.log({ values })
 		const res = await store.updateProfile(data)
-		console.log({ res })
 		if (res.success) {
-			router.push({ name: 'profile' })
+			store.fetchProfile()
 		}
 	} catch (error) {
 		const errorMessage = getErrorMessage('auth.' + error.message)
@@ -192,5 +190,9 @@ const submit = async (values) => {
 		showError.value = true
 	}
 }
+
+watch(() => store.user, () => {
+	user.value = store.user
+})
 
 </script>

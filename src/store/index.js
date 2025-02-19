@@ -85,10 +85,7 @@ export const useStore = defineStore('store', () => {
         },
       })
 
-			user.value = data.user
-			if(data.token) {
-				token.value = data.token
-			}
+      return data
 		} catch (error) {
 			console.error('Error updating user data:', error)
       throw error.response.data
