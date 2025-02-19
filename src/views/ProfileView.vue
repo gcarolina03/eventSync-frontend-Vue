@@ -6,8 +6,7 @@
 
 		<!-- Profile Info Section -->
 		<div class="flex flex-col items-center mt-4 relative">
-			<img class="w-32 h-32 rounded-full " :class="[showEditForm ? '' : 'absolute top-[-95px]']"
-				:src="avatarPreview || getDefaultAvatarUrl()" alt="user avatar" />
+			<img class="w-32 h-32 rounded-full " :class="[showEditForm ? '' : 'absolute top-[-95px]']" :src="avatarPreview || getDefaultAvatarUrl()" alt="user avatar" />
 
 			<div class="mt-10 flex flex-col items-center">
 				<!-- User Name and Email -->
@@ -21,8 +20,7 @@
 
 				<!-- Stats -->
 				<div class="flex mt-4">
-					<div v-for="(detail, index) in userDetails" :key="index" class="text-center text-md min-w-28" :class="[index != userDetails.length - 1 ? 'w-full border-r-2 border-neutral-500 border-opacity-40' : ''
-					]">
+					<div v-for="(detail, index) in userDetails" :key="index" class="text-center text-md min-w-28" :class="[index != userDetails.length - 1 ? 'w-full border-r-2 border-neutral-500 border-opacity-40' : '']">
 						<p class="font-semibold text-xl">{{ detail.value }}</p>
 						<p class="text-md text-neutral-500">{{ detail.label }}</p>
 					</div>
@@ -30,12 +28,10 @@
 
 				<!-- Buttons -->
 				<div v-if="!showEditForm" class="flex gap-8 mt-6">
-					<ButtonComp buttonStyle="purple" additionalClass="min-w-32 text-center" type="button"
-						:to="{ name: 'events' }">
+					<ButtonComp buttonStyle="purple" additionalClass="min-w-32 text-center" type="button" :to="{ name: 'events' }">
 						{{ $t('events') }}
 					</ButtonComp>
-					<ButtonComp buttonStyle="white" additionalClass="min-w-32 text-center !border-secondary" type="button"
-						:to="{ name: 'myServices' }">
+					<ButtonComp buttonStyle="white" additionalClass="min-w-32 text-center !border-secondary" type="button" :to="{ name: 'myServices' }">
 						{{ $t('services') }}
 					</ButtonComp>
 				</div>
@@ -43,17 +39,15 @@
 		</div>
 
 		<!-- formulario -->
-		<Form v-if="showEditForm" :validation-schema="schema" v-slot="{ handleSubmit }" class="">
+		<Form v-if="showEditForm" :initial-values="initialValues" :validation-schema="schema" v-slot="{ handleSubmit }" class="">
 			<!-- Título del formulario -->
 			<div class="flex justify-between items-center mb-6">
 				<h2 class=" font-semibold">Basic Info</h2>
 				<div class="flex gap-3 text-sm">
-					<ButtonComp @click="toggleEditForm" buttonStyle="white"
-						additionalClass="min-w-20 text-center !border-secondary" type="button">
+					<ButtonComp @click="toggleEditForm" buttonStyle="white" additionalClass="min-w-20 text-center !border-secondary" type="button">
 						{{ $t('buttons.cancel') }}
 					</ButtonComp>
-					<ButtonComp buttonStyle="purple" additionalClass="min-w-20 text-center" type="button"
-						@click.prevent="handleSubmit(submit)">
+					<ButtonComp buttonStyle="purple" additionalClass="min-w-20 text-center" type="button" @click.prevent="handleSubmit(submit)">
 						{{ $t('buttons.save') }}
 					</ButtonComp>
 				</div>
@@ -63,14 +57,12 @@
 			<div class="flex flex-col gap-4 border-t-[0.5px] border-neutral-500 border-opacity-40 pt-8">
 				<!-- firstname and lastname Input -->
 				<div class="flex gap-3">
-					<Field name="first_name" type="text" :modelValue="user.first_name"
-						class="w-full h-10 border border-gray-400 focus:border-secondary focus:ring-0 focus:outline-none rounded-xl px-3"
-						:placeholder="t('firstname') + '*'" />
-					<InputComp name="last_name" :modelValue="user.last_name" type="text" :placeholder="t('lastname')" />
+					<Field name="first_name" type="text" class="w-full h-10 border border-gray-400 focus:border-secondary focus:ring-0 focus:outline-none rounded-xl px-3" :placeholder="t('firstname') + '*'" />
+					<InputComp name="last_name" type="text" :placeholder="t('lastname')" />
 				</div>
 
 				<!-- Email Input -->
-				<InputComp name="email" type="email" disabled="true" :modelValue="user.email" :placeholder="t('email') + '*'" />
+				<InputComp name="email" type="email" disabled="true" :placeholder="t('email') + '*'" />
 
 				<!-- Password Input -->
 				<InputComp name="password" type="password" :placeholder="t('password') + '*'" />
@@ -118,6 +110,24 @@ const avatarPreview = ref(user.img_url)
 const selectedFile = ref(null)
 const showError = ref(false)
 const errorMsg = ref('')
+
+const initialValues = computed(() => {
+	return store.user ? {
+		first_name: store.user.first_name,
+		last_name: store.user.last_name,
+		email: store.user.email,
+		password: '',
+		confirm_password: '',
+		avatar: ''
+	} : {
+		first_name: '',
+		last_name: '',
+		email: '',
+		password: '',
+		confirm_password: '',
+		avatar: ''
+	}
+})
 
 const schema = yup.object({
 	first_name: yup.string()
