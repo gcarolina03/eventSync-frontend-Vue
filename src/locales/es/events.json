@@ -12,6 +12,7 @@
   "createNewEvent": "Crear nuevo evento",
   "updateEventTitle": "Actualiza tu evento...",
   "newEventTitle": "Nuevo evento...",
+	"viewAllEvents": "Ver todos tus eventos",
   "updateEventSubtitle": "Mira los detalles",
   "newEventSubtitle": "Necesitas algunos detalles para empezar",
   "guestList": {

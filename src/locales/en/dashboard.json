@@ -1,3 +1,5 @@
 {
-  "dashboardTitle": "Are you looking for a specific service?"
+  "dashboardServicesTitle": "Are you looking for a specific service?",
+	"dashboardEventsTitle": "Check out your future events...",
+	"testimonialsTitle": "What our customers say about us"
 }
