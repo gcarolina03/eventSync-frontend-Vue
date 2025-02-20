@@ -7,9 +7,11 @@
 			<Icon icon="x-mark" class="h-6 w-6" />
 		</button>
 
-		<h1 class="text-3xl font-medium">{{ props.editMode ? $t('serviceForm.updateService') : $t('serviceForm.newService') }}
+		<h1 class="text-3xl font-medium">{{ props.editMode ? $t('serviceForm.updateService') : $t('serviceForm.newService')
+			}}
 		</h1>
-		<p class="text-sm">{{ props.editMode ? $t('serviceForm.updateServiceSubtitle') : $t('serviceForm.newServiceSubtitle') }}
+		<p class="text-sm">{{ props.editMode ? $t('serviceForm.updateServiceSubtitle') :
+			$t('serviceForm.newServiceSubtitle') }}
 		</p>
 
 		<Form :initial-values="initialValues" :validation-schema="schema" v-slot="{ handleSubmit, errors, values }"
@@ -103,10 +105,12 @@
 			</div>
 
 			<!-- Address -->
-			<!-- <StandaloneSearchBox @onPlacesChanged="handlePlacesChanged">
-				<input type="text" class="w-full h-12 border border-gray-800 rounded px-3" placeholder="Enter address" />
-			</StandaloneSearchBox> -->
-			<!-- <Maps v-if="latitude && longitude" :latitude="latitude" :longitude="longitude" /> -->
+			<GMapAutocomplete @place_changed="handlePlaceChanged">
+				<input type="text"
+					class="w-full h-10 border border-gray-400 focus:border-secondary focus:ring-0 focus:outline-none rounded-xl px-3"
+					placeholder="Enter address" />
+			</GMapAutocomplete>
+			<Maps v-if="latitude && longitude" :latitude="latitude" :longitude="longitude" />
 
 			<!-- Price -->
 			<InputComp name="price" type="number" min="1" step="0.01" :placeholder="t('serviceForm.price')" />
@@ -136,7 +140,7 @@ import { getDefaultAvatarUrl, isValidFileType } from '@/utils'
 import getErrorMessage from '@/utils/errors'
 import { useI18n } from 'vue-i18n'
 /* COMPONENTS */
-/* import Maps from '../common/Maps' */
+import Maps from '@/components/common/Maps.vue'
 import ErrorMsg from '@/components/common/ErrorMsg.vue'
 import InputComp from '@/components/forms/Input.vue'
 import Icon from '@/components/common/Icon.vue'
@@ -157,10 +161,8 @@ const avatarPreview = ref(null)
 const selectedFile = ref(null)
 const errorMsg = ref('')
 const showError = ref(false)
-const latitude = ref('')
-const longitude = ref('')
-
-/* const searchBoxRef = ref(null) */
+const latitude = ref(null)
+const longitude = ref(null)
 
 onBeforeMount(async () => {
 	await store.fetchCategories()
@@ -263,25 +265,17 @@ const schema = yup.object({
 		.test("fileType", t("errors.fileInvalid"), value => {
 			return !value || (value && ['image/jpeg', 'image/png'].includes(value.type))
 		})
-});
+})
 
-const handleFileChange = (event) => {
-	const selectedFile = event.target.files?.[0];
-	if (selectedFile && isValidFileType(selectedFile)) {
-		avatarPreview.value = URL.createObjectURL(selectedFile);
+function handlePlaceChanged(autocomplete) {
+	if (autocomplete && autocomplete.geometry && autocomplete.geometry.location) {
+		latitude.value = autocomplete.geometry.location.lat()
+		longitude.value = autocomplete.geometry.location.lng()
 	} else {
-		avatarPreview.value = getDefaultAvatarUrl();
+		latitude.value = null
+		longitude.value = null
 	}
 }
-
-/* const handlePlacesChanged = () => {
-	const place = searchBoxRef.value.getPlaces()[0]
-	if (place && place.geometry && place.geometry.location) {
-		const { lat, lng } = place.geometry.location
-		latitude.value = lat()
-		longitude.value = lng()
-	}
-} */
 
 const submit = async (values) => {
 	if (props.editMode.value) {
