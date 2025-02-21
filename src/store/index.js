@@ -82,6 +82,7 @@ export const useStore = defineStore('store', () => {
 			const { data } = await api.put('/profile', profile, {
         headers: {
           token: token.value,
+          'Content-Type': 'multipart/form-data'
         },
       })
 

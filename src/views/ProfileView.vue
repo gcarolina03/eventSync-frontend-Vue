@@ -62,7 +62,7 @@
 				</div>
 
 				<!-- Email Input -->
-				<InputComp name="email" type="email" disabled="true" :placeholder="t('email') + '*'" />
+				<InputComp name="email" type="email" :disabled="true" :placeholder="t('email') + '*'" />
 
 				<!-- Password Input -->
 				<InputComp name="password" type="password" :placeholder="t('password') + '*'" />
@@ -81,7 +81,7 @@ import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
 import { Field, Form } from 'vee-validate';
 import * as yup from 'yup';
-import { getDefaultAvatarUrl } from '@/utils';
+import { getDefaultAvatarUrl, isValidFileType } from '@/utils';
 import getErrorMessage from '@/utils/errors';
 /* COMPONENTS */
 import ButtonComp from '@/components/common/Button.vue';
@@ -106,7 +106,7 @@ const userDetails = computed(() => [
 ])
 
 const showEditForm = ref(false)
-const avatarPreview = ref(user.img_url)
+const avatarPreview = ref(user.value.img_url)
 const selectedFile = ref(null)
 const showError = ref(false)
 const errorMsg = ref('')
@@ -161,8 +161,8 @@ const schema = yup.object({
 
 const handleFileChange = (event) => {
 	selectedFile.value = event.target.files?.[0];
-	if (selectedFile && isValidFileType(selectedFile)) {
-		avatarPreview.value = URL.createObjectURL(selectedFile);
+	if (selectedFile.value && isValidFileType(selectedFile.value)) {
+		avatarPreview.value = URL.createObjectURL(selectedFile.value);
 	} else {
 		avatarPreview.value = getDefaultAvatarUrl();
 	}
@@ -174,13 +174,15 @@ const toggleEditForm = () => {
 
 const submit = async (values) => {
 	try {
-		const data = {
-			first_name: values.first_name,
-			last_name: values.last_name,
-			password: values.password,
-			avatar: selectedFile.value,
+		const formData = new FormData();
+		formData.append('first_name', values.first_name);
+		formData.append('last_name', values.last_name);
+		formData.append('password', values.password);
+		if (selectedFile.value) {
+			formData.append('avatar', selectedFile.value);
 		}
-		const res = await store.updateProfile(data)
+
+		const res = await store.updateProfile(formData)
 		if (res.success) {
 			store.fetchProfile()
 		}

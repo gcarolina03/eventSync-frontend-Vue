@@ -98,7 +98,7 @@ const schema = yup.object({
 
 const handleFileChange = (event) => {
 	const selectedFile = event.target.files?.[0];
-	if (selectedFile && isValidFileType(selectedFile)) {
+	if (selectedFile.value && isValidFileType(selectedFile.value)) {
 		avatarPreview.value = URL.createObjectURL(selectedFile);
 	} else {
 		avatarPreview.value = getDefaultAvatarUrl();
