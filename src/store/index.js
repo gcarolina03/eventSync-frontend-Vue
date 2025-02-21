@@ -236,6 +236,7 @@ export const useStore = defineStore('store', () => {
       const { data } = await api.post('/profile/services', service, {
         headers: {
           token: token.value,
+          'Content-Type': 'multipart/form-data'
         },
       })
       return data
@@ -248,12 +249,10 @@ export const useStore = defineStore('store', () => {
   const updateService = async (serviceId, service) => {
     try {
       if (!token.value) return
-      const { data } = await api.put(
-        `/profile/services/${serviceId}`,
-        service,
-        {
+      const { data } = await api.put(`/profile/services/${serviceId}`, service, { 
           headers: {
             token: token.value,
+            'Content-Type': 'multipart/form-data'
           },
         }
       )

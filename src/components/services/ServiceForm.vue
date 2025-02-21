@@ -29,7 +29,7 @@
 			<div class="relative">
 				<Field name="category" as="select"
 					class="w-full h-10 border border-gray-400 focus:border-secondary focus:ring-0 focus:outline-none rounded-xl px-3">
-					<option value="none" selected="selected">{{ $t('serviceForm.category') }}</option>
+					<option value="-1" selected="selected">{{ $t('serviceForm.category') }}</option>
 					<option v-for="category in store.categories" :key="category._id" :value="category._id">
 						{{ $t('categoriesList.' + category.title) }}
 					</option>
@@ -37,8 +37,8 @@
 				<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
 					<Icon icon="arrow-down" class="h-4 w-4" />
 				</div>
-				<ErrorMessage v-slot="{ message }" name="start">
-					<div class="flex items-center text-red-500 text-sm gap-1">
+				<ErrorMessage v-slot="{ message }" name="category">
+					<div class="flex items-center text-red-500 text-sm gap-1 mt-2">
 						<Icon icon="exclamation-round" className="w-3 color-red-500" />
 						<p>{{ message }}</p>
 					</div>
@@ -63,13 +63,13 @@
 				</div>
 				<!-- Mostrar mensaje de error de capacidad debajo de ambos campos -->
 				<ErrorMessage v-slot="{ message }" name="min">
-					<div class="flex items-center text-red-500 text-sm gap-1">
+					<div class="flex items-center text-red-500 text-sm gap-1  mt-2">
 						<Icon icon="exclamation-round" className="w-3 color-red-500" />
 						<p>{{ message }}</p>
 					</div>
 				</ErrorMessage>
 				<ErrorMessage v-slot="{ message }" name="max">
-					<div class="flex items-center text-red-500 text-sm gap-1">
+					<div class="flex items-center text-red-500 text-sm gap-1  mt-2">
 						<Icon icon="exclamation-round" className="w-3 color-red-500" />
 						<p>{{ message }}</p>
 					</div>
@@ -91,13 +91,13 @@
 					</div>
 				</div>
 				<ErrorMessage v-slot="{ message }" name="start">
-					<div class="flex items-center text-red-500 text-sm gap-1">
+					<div class="flex items-center text-red-500 text-sm gap-1  mt-2">
 						<Icon icon="exclamation-round" className="w-3 color-red-500" />
 						<p>{{ message }}</p>
 					</div>
 				</ErrorMessage>
 				<ErrorMessage v-slot="{ message }" name="end">
-					<div class="flex items-center text-red-500 text-sm gap-1">
+					<div class="flex items-center text-red-500 text-sm gap-1 mt-2">
 						<Icon icon="exclamation-round" className="w-3 color-red-500" />
 						<p>{{ message }}</p>
 					</div>
@@ -166,8 +166,13 @@ const longitude = ref(null)
 
 onBeforeMount(async () => {
 	await store.fetchCategories()
-
+	console.log(props.service)
+	if (props.editMode) {
+		latitude.value = props.service.latitude;
+		longitude.value = props.service.longitude;
+	}
 })
+
 
 const initialValues = computed(() => {
 	return props.service ? {
@@ -187,7 +192,7 @@ const initialValues = computed(() => {
 		end: '',
 		price: '',
 		avatar: '',
-		category: 'none',
+		category: '-1',
 	}
 })
 
@@ -198,11 +203,12 @@ const schema = yup.object({
 		.required(t('errors.titleRequired')),
 	category: yup
 		.string()
-		.notOneOf(['none'], t('errors.categoryRequired')),
+		.notOneOf(['-1'], t('errors.categoryRequired')),
 	min: yup
 		.number()
+		.transform((value, originalValue) => originalValue === '' ? undefined : value)
 		.when('category', {
-			is: (cat) => cat == store.locationCategoryId,
+			is: (cat) => cat == '679fae9b2fde9e5bbd6ceeee',
 			then: (schema) =>
 				schema
 					.required(t('errors.minCapacityRequired'))
@@ -211,15 +217,16 @@ const schema = yup.object({
 		}),
 	max: yup
 		.number()
+		.transform((value, originalValue) => originalValue === '' ? undefined : value)
 		.when('category', {
-			is: (cat) => cat == store.locationCategoryId,
+			is: (cat) => cat == '679fae9b2fde9e5bbd6ceeee',
 			then: (schema) =>
 				schema
 					.required(t('errors.maxCapacityRequired'))
 					.min(1, t('errors.maxCapacity'))
 					.test('max-greater-than-min', t('errors.maxGreaterThanMin'), function (value) {
 						const { min, category } = this.parent;
-						if (category != store.locationCategoryId) {
+						if (category != '679fae9b2fde9e5bbd6ceeee') {
 							return true;
 						}
 						return value > min;
@@ -228,8 +235,9 @@ const schema = yup.object({
 		}),
 	start: yup
 		.string()
+		.transform((value, originalValue) => originalValue === '' ? undefined : value)
 		.when('category', {
-			is: (cat) => cat == store.locationCategoryId,
+			is: (cat) => cat == '679fae9b2fde9e5bbd6ceeee', // Location
 			then: (schema) =>
 				schema
 					.required(t('errors.startRequired')),
@@ -238,14 +246,15 @@ const schema = yup.object({
 		}),
 	end: yup
 		.string()
+		.transform((value, originalValue) => originalValue === '' ? undefined : value)
 		.when('category', {
-			is: (cat) => cat == store.locationCategoryId,
+			is: (cat) => cat == '679fae9b2fde9e5bbd6ceeee', // Location
 			then: (schema) =>
 				schema
 					.required(t('errors.endRequired'))
 					.test('end-greater-than-start', t('errors.endGreaterThanStart'), function (value) {
 						const { start, category } = this.parent;
-						if (category != store.locationCategoryId) {
+						if (category != '679fae9b2fde9e5bbd6ceeee') {
 							return true;
 						}
 						return value > start;
@@ -277,11 +286,22 @@ function handlePlaceChanged(autocomplete) {
 	}
 }
 
-const submit = async (values) => {
-	if (props.editMode.value) {
-		await updateService(values)
+const handleFileChange = (event) => {
+	selectedFile.value = event.target.files?.[0];
+	if (selectedFile.value && isValidFileType(selectedFile.value)) {
+		avatarPreview.value = URL.createObjectURL(selectedFile.value);
 	} else {
-		await createService(values)
+		avatarPreview.value = getDefaultAvatarUrl('service');
+	}
+};
+
+const submit = async (values) => {
+	if (props.editMode) {
+		await handleUpdateService(values)
+		consele.log(values)
+		console.log(props)
+	} else {
+		await handleCreateService(values)
 	}
 }
 
@@ -298,48 +318,56 @@ const closeForm = () => {
 	emit('closeForm')
 }
 
-const createService = async (values) => {
-	const data = {
-		userId: store.user._id,
-		title: values.title,
-		categoryId: values.category,
-		min_capacity: values.min,
-		max_capacity: values.max,
-		price: values.price,
-		start_time: values.start,
-		end_time: values.end,
-		img_url: selectedFile.value,
-		longitude: longitude.value,
-		latitude: latitude.value
+const handleCreateService = async (values) => {
+	const formData = new FormData();
+	formData.append('title', values.title);
+	formData.append('categoryId', values.category);
+	formData.append('min_capacity', values.min);
+	formData.append('max_capacity', values.max);
+	formData.append('price', values.price);
+	formData.append('start_time', values.start);
+	formData.append('end_time', values.end);
+	if (latitude.value && longitude.value) {
+		formData.append('latitude', latitude.value);
+		formData.append('longitude', longitude.value);
 	}
-
+	if (selectedFile.value) {
+		formData.append('avatar', selectedFile.value);
+	}
 	try {
-		const res = await store.createService(data)
+		const res = await store.createService(formData)
 		if (res.success) {
 			emit('submitSuccess')
 		}
 	} catch (error) {
+		console.log(error)
 		const errorMessage = getErrorMessage('form.' + error.message)
 		errorMsg.value = t(`errors.${errorMessage}`)
 		showErrorMsg()
 	}
 }
 
-const updateService = async (values) => {
-	const data = {
-		title: values.title,
-		categoryId: values.category,
-		min_capacity: values.min,
-		max_capacity: values.max,
-		price: values.price,
-		start_time: values.start,
-		end_time: values.end,
-		img_url: selectedFile.value
+const handleUpdateService = async (values) => {
+	const formData = new FormData();
+	formData.append('title', values.title);
+	formData.append('categoryId', values.category);
+	formData.append('min_capacity', values.min);
+	formData.append('max_capacity', values.max);
+	formData.append('price', values.price);
+	formData.append('start_time', values.start);
+	formData.append('end_time', values.end);
+	if (latitude.value && longitude.value) {
+		formData.append('latitude', latitude.value);
+		formData.append('longitude', longitude.value);
+	}
+	if (selectedFile.value) {
+		formData.append('avatar', selectedFile.value);
 	}
 
 	try {
-		const res = await store.updateService(props.service._id, data)
+		const res = await store.updateService(props.service._id, formData)
 		if (res.success) {
+			console.log(res)
 			emit('submitSuccess')
 		}
 	} catch (error) {
