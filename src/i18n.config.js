@@ -11,6 +11,7 @@ import FormsEn from '@/locales/en/forms.json'
 import ServicesEn from '@/locales/en/services.json'
 import EventsEn from '@/locales/en/events.json'
 import TestimonialsEn from '@/locales/en/testimonials.json'
+import RequestsEn from '@/locales/en/requests.json'
 
 /* SPANISH */
 import navbarEs from '@/locales/es/navbar.json'
@@ -23,6 +24,7 @@ import FormsEs from '@/locales/es/forms.json'
 import ServicesEs from '@/locales/es/services.json'
 import EventsEs from '@/locales/es/events.json'
 import TestimonialsEs from '@/locales/es/testimonials.json'
+import RequestsEs from '@/locales/es/requests.json'
 
 const defaultLocale = localStorage.getItem('language') || 'es'
 
@@ -41,7 +43,8 @@ const i18n = createI18n({
       ...FormsEn,
       ...ServicesEn,
       ...EventsEn,
-			...TestimonialsEn
+			...TestimonialsEn,
+      ...RequestsEn
     },
     es: {
       ...navbarEs,
@@ -53,7 +56,8 @@ const i18n = createI18n({
       ...FormsEs,
       ...ServicesEs,
       ...EventsEs,
-			...TestimonialsEs
+			...TestimonialsEs,
+      ...RequestsEs
     },
   },
 })

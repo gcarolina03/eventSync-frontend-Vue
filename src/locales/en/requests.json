@@ -1,0 +1,10 @@
+{
+  "requestsForm": {
+    "title": "Select your event...",
+    "subtitle": "Just need some details to send the request",
+    "searchEvent": "Search by title",
+    "noEventsTitle": "Sorry, you don't have any event yet...",
+    "noEventsSubtitle": "Create an event first",
+    "noEventsButton": "Go to events"
+  }
+}
