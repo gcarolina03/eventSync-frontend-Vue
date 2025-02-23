@@ -8,6 +8,7 @@ import { useStore } from '@/store'
 import EventView from '@/views/events/EventView.vue'
 import MyServicesView from '@/views/myServices/MyServicesView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import RequestsView from '@/views/RequestsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +46,7 @@ const router = createRouter({
           children: [
 						{ path: '/profile', name: 'profile', component: ProfileView },
             { path: '/profile/services', name: 'myServices', component: MyServicesView },
+            { path: '/profile/requests', name: 'requests', component: RequestsView },
           ],
         },
       ],

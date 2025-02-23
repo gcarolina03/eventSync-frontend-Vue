@@ -366,7 +366,8 @@ export const useStore = defineStore('store', () => {
           token: token.value,
         },
       })
-      if (data.success) requests.value = data.requests
+      console.log({data})
+      if (data.success) requests.value = data.request
     } catch (error) {
       console.error('Cannot get requests', error)
     }
@@ -382,6 +383,20 @@ export const useStore = defineStore('store', () => {
       return data
     } catch (error) {
       console.error('Cannot create request', error)
+      throw error.response.data
+    }
+  }
+
+  const updateRequest = async (id, status) => {
+    try {
+      const { data } = await api.put(`/requests/${id}`, { status }, {
+        headers: {
+          token: token.value,
+        },
+      })
+      return data
+    } catch (error) {
+      console.error('Cannot update request', error)
       throw error.response.data
     }
   }
@@ -445,6 +460,7 @@ export const useStore = defineStore('store', () => {
     requests,
     fetchRequests,
     createRequest,
+    updateRequest,
     /* GOOGLE MAPS API */
     getAddress,
   }

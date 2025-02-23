@@ -3,17 +3,15 @@
 		<div class="flex gap-8 items-center justify-between">
 			<p class="font-bold text-[30px]">{{ $t("myServices") }}</p>
 			<div class="flex gap-2">
-				<Icon v-if="!editMode" @handleClick="handleEdit" type="button" icon="pencil"
-					classButton="p-2.5 text-sm font-bold bg-gray-300 hover:bg-gray-400 text-gray-700"
+				<Icon v-if="!editMode" @handleClick="handleEdit" type="button" icon="pencil" classButton="p-2 px-3 text-sm font-bold bg-gray-300 hover:bg-gray-400 text-gray-700"
 					className="flex items-center justify-center h-3 w-3" />
-				<Icon v-else @handleClick="handleEdit" type="button" icon="check"
-					classButton="text-sm font-bold bg-green-300 hover:bg-green-400 text-green-700"
-					className="flex items-center justify-center h-8 w-8" />
+				<Icon v-else @handleClick="handleEdit" type="button" icon="check" classButton="text-sm font-bold bg-green-300 hover:bg-green-400 text-green-700 p-2"
+					className="flex items-center justify-center h-4 w-4" />
 
-				<!-- <Link href='/profile/requests'
-					class="flex items-center px-6 h-9 text-white font-bold text-center bg-[#1CA987] rounded-lg hover:bg-[#23826B]">
-				Requests
-				</Link> -->
+				<router-link :to="{ name: 'requests' }"
+					class="text-base font-bold flex items-center px-6 h-9 text-white text-center bg-[#1CA987] rounded-lg hover:bg-[#23826B]">
+					{{ $t('requests') }}
+				</router-link>
 			</div>
 		</div>
 
@@ -27,11 +25,13 @@
 				</template>
 			</AddItem>
 
-			<Card v-for="service in store.myServices" :key="service._id" :data="service" @openForm="openForm" @closeForm="closeForm" :editMode="editMode" />
+			<Card v-for="service in store.myServices" :key="service._id" :data="service" @openForm="openForm"
+				@closeForm="closeForm" :editMode="editMode" />
 		</div>
 
 		<Blur v-if="showForm">
-			<ServiceForm @closeForm="closeForm" :service="selectedService" @submitSuccess="handleFormSubmitted" :editMode="editMode" />
+			<ServiceForm @closeForm="closeForm" :service="selectedService" @submitSuccess="handleFormSubmitted"
+				:editMode="editMode" />
 		</Blur>
 	</div>
 </template>

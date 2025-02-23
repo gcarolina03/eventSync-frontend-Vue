@@ -36,7 +36,7 @@
       </div>
     </div>
     <div>
-      <div :class="['absolute right-4 bottom-3 inline-flex items-center px-3 py-2 text-sm font-bold text-center text-white rounded-lg focus:outline-none', request.state === 'pending' ? 'bg-yellow-700' : request.state === 'confirmed' ? 'bg-green-700' : 'bg-red-800']">
+      <div :class="['absolute right-4 bottom-3 inline-flex items-center px-3 py-2 text-sm font-bold text-center text-white rounded-lg focus:outline-none', request.state == 'pending' ? 'bg-yellow-700' : request.state == 'confirmed' ? 'bg-green-700' : 'bg-red-800']">
         {{ $t('requestsStatus.' + request.state) }}
       </div>
     </div>

@@ -8,8 +8,26 @@
     "noEventsButton": "Go to events"
   },
   "requestsStatus": {
+    "all": "All",
     "pending": "Pending",
     "confirmed": "Confirmed",
     "rejected": "Rejected"
+  },
+  "requests": "Requests",
+  "requestsTable": {
+    "service": "Service",
+    "eventTitle": "Event title",
+    "requestDate": "Request date",
+    "eventDate": "Event date",
+    "guests": "Guests",
+    "user": "User",
+    "status": "Status",
+    "actions": "Actions",
+    "noRequests": "You don't have any request yet",
+    "state": "State",
+    "searchByService": "Search by service",
+    "sortBy": "Sort by",
+    "oldest": "Oldest",
+    "newest": "Newest"
   }
 }

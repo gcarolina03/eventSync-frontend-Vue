@@ -8,8 +8,26 @@
     "noEventsButton": "Ir a los eventos"
   },
   "requestsStatus": {
+    "all": "Todos",
     "pending": "Pendiente",
     "confirmed": "Confirmado",
     "rejected": "Rechazado"
+  },
+  "requests": "Solicitudes",
+  "requestsTable": {
+    "service": "Servicio",
+    "eventTitle": "Título del evento",
+    "requestDate": "Fecha de solicitud",
+    "eventDate": "Fecha del evento",
+    "guests": "Invitados",
+    "user": "Usuario",
+    "status": "Estado",
+    "actions": "Acciones",
+    "noRequests": "No tienes solicitudes pendientes",
+    "state": "Estado",
+    "searchByService": "Buscar por servicio",
+    "sortBy": "Ordenar por",
+    "oldest": "Antigua",
+    "newest": "Reciente"
   }
 }
