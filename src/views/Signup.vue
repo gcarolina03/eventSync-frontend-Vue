@@ -97,11 +97,11 @@ const schema = yup.object({
 })
 
 const handleFileChange = (event) => {
-	const selectedFile = event.target.files?.[0];
+	selectedFile.value = event.target.files?.[0];
 	if (selectedFile.value && isValidFileType(selectedFile.value)) {
-		avatarPreview.value = URL.createObjectURL(selectedFile);
+		avatarPreview.value = URL.createObjectURL(selectedFile.value);
 	} else {
-		avatarPreview.value = getDefaultAvatarUrl();
+		avatarPreview.value = getDefaultAvatarUrl('service');
 	}
 };
 
