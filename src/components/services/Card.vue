@@ -40,17 +40,17 @@
 		</div>
 		<div v-if="currentPath == '/services'"
 			class="absolute right-4 bottom-3 cursor-pointer inline-flex items-center px-3 py-2 text-sm font-bold text-center text-white bg-light rounded-lg hover:bg-dark focus:ring-4 focus:outline-none focus:ring-dark"
-			@click="props.requestTo(props.data)">
+			@click="handleRequestTo">
 			{{ $t("servicesCard.request") }}
 		</div>
 		<div class="absolute bottom-3 left-5 flex gap-4">
-			<div @click="store.user && props.data.userId != store.user._id ? handleReviewService('up', data._id) : null" class="text-green-600 gap-1 font-bold flex text-lg items-center"
+			<div @click="store.user && props.data.userId != store.user._id ? handleReviewService('up', props.data._id) : null" class="text-green-600 gap-1 font-bold flex text-lg items-center"
 				:class="[store.user && props.data.userId != store.user._id ? 'cursor-pointer' : 'cursor-default']">
 				<!-- Renderiza el ícono según si el usuario ya dio like -->
 				<Icon :icon="store.user && reviews.userUp ? 'thumbs-up-fill' : 'thumbs-up'" />
 				<span> {{ reviews.up }}</span>
 			</div>
-			<div @click="store.user && props.data.userId != store.user._id ? handleReviewService('down', data._id) : null" class="text-red-600 gap-1 font-bold flex text-lg items-center"
+			<div @click="store.user && props.data.userId != store.user._id ? handleReviewService('down', props.data._id) : null" class="text-red-600 gap-1 font-bold flex text-lg items-center"
 				:class="[store.user && props.data.userId != store.user._id ? 'cursor-pointer' : 'cursor-default']">
 				<!-- Renderiza el ícono según si el usuario ya dio dislike -->
 				<Icon :icon="store.user && reviews.userDown ? 'thumbs-down-fill' : 'thumbs-down'" />
@@ -71,7 +71,6 @@ import Maps from '@/components/common/Maps.vue'
 const props = defineProps({
 	data: Object,
 	editMode: Boolean,
-	requestTo: Function
 })
 
 const route = useRoute()
@@ -79,7 +78,7 @@ const store = useStore()
 const currentPath = route.path
 const location = ref('')
 
-const emit = defineEmits(['openForm', 'closeForm', 'update'])
+const emit = defineEmits(['openForm', 'closeForm', 'update', 'requestTo'])
 
 onBeforeMount(() => {
 	getAddress()
@@ -136,6 +135,8 @@ const handleReviewService = async (thumb, service) => {
 	}
 }
 
-
+const handleRequestTo = () => {
+	emit('requestTo', props.data)
+}
 
 </script>

@@ -356,6 +356,36 @@ export const useStore = defineStore('store', () => {
     }
   }
 
+  /* REQUESTS  ----------------------------------- */
+  const requests = ref([])
+
+  const fetchRequests = async () => {
+    try {
+      const { data } = await api.get('/requests', {
+        headers: {
+          token: token.value,
+        },
+      })
+      if (data.success) requests.value = data.requests
+    } catch (error) {
+      console.error('Cannot get requests', error)
+    }
+  }
+
+  const createRequest = async (eventId, serviceId) => {
+    try {
+      const { data } = await api.post('/requests', { eventId, serviceId }, {
+        headers: {
+          token: token.value,
+        },
+      })
+      return data
+    } catch (error) {
+      console.error('Cannot create request', error)
+      throw error.response.data
+    }
+  }
+
   /* GOGGLE MAPS API ----------------------------- */
   const getAddress = async (latitude, longitude) => {
     try {
@@ -411,6 +441,10 @@ export const useStore = defineStore('store', () => {
     fetchServices,
     giveReview,
     updateReview,
+    /* REQUESTS */
+    requests,
+    fetchRequests,
+    createRequest,
     /* GOOGLE MAPS API */
     getAddress,
   }

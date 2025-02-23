@@ -18,26 +18,19 @@
         <hr class="my-5 h-0.5 border-t-0 bg-gray-500 opacity-20" />
         <div class="mt-4 flex flex-wrap gap-8">
           <template v-if="filteredServices.length == 0">
-            <NoServices  />
+            <NoServices />
           </template>
           <template v-else>
-            <Card
-              v-for="service in filteredServices"
-              :key="service._id"
-              :data="service"
-              @update="handleReload"
-              :user="userLog"
-              :requestTo="handleServiceTo"
-            />
+            <Card v-for="service in filteredServices" :key="service._id" :data="service" @update="handleReload" @requestTo="handleServiceTo" />
           </template>
         </div>
       </div>
     </div>
 
     <!-- Formulario de solicitud de servicio -->
-    <!-- <Blur v-if="showForm">
-      <SelectEventForm :handleForm="handleForm" :service="serviceTo" />
-    </Blur> -->
+    <Blur v-if="showForm">
+      <SelectEventForm @handleForm="handleForm" :service="serviceTo" />
+    </Blur>
   </div>
 </template>
 
@@ -49,8 +42,8 @@ import { useStore } from '@/store';
 import CategoriesList from '@/components/categories/CategoriesList.vue'
 import NoServices from '@/components/services/NoServices.vue'
 import Card from '@/components/services/Card.vue'
-/* import SelectEventForm from '@/components/requests/SelectEventForm.vue'
-import Blur from '@/components/common/Blur.vue' */
+import SelectEventForm from '@/components/requests/SelectEventForm.vue'
+import Blur from '@/components/common/Blur.vue'
 
 
 const router = useRouter()
@@ -83,11 +76,11 @@ const handleReload = () => {
 
 // Manejo de servicio seleccionado
 const handleServiceTo = (data) => {
-  if (userLog.value) {
+  if (store.user) {
     serviceTo.value = data
     showForm.value = true
   } else {
-    router.push('/login')
+    router.push({ name: 'login' })
   }
 }
 
