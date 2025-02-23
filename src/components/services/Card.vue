@@ -80,11 +80,10 @@ const store = useStore()
 const currentPath = route.path
 const location = ref('')
 
-const emit = defineEmits(['openForm', 'closeForm', 'update', 'requestTo'])
+const emit = defineEmits(['openForm', 'closeForm', 'requestTo', 'reload'])
 
 onBeforeMount(async () => {
 	await getAddress()
-	console.log(props.data)
 })
 
 const handleOpen = () => {
@@ -134,7 +133,7 @@ const handleReviewService = async (thumb, service) => {
 		if (res.hasOwnProperty('reviewId')) {
 			await store.updateReview(res.reviewId, thumb)
 		}
-		emit('update')
+		emit('reload')
 	}
 }
 

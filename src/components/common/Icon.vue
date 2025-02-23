@@ -1,5 +1,5 @@
 <template>
-	<span v-if="type == 'button'" :class="['cursor-pointer', classButton, 'rounded-xl flex items-center justify-center']" @click="handleClick" >
+	<span v-if="props.type == 'button'" :class="['cursor-pointer', props.classButton, 'rounded-xl flex items-center justify-center']" @click="handleClick" >
 		<div :class="props.className" v-html="iconComponent"></div>
 	</span>
 

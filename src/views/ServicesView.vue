@@ -21,7 +21,7 @@
             <NoServices />
           </template>
           <template v-else>
-            <Card v-for="service in filteredServices" :key="service._id" :data="service" @update="handleReload" @requestTo="handleServiceTo" />
+            <Card v-for="service in filteredServices" :key="service._id" :data="service" @reload="handleReload" @requestTo="handleServiceTo" />
           </template>
         </div>
       </div>
@@ -59,8 +59,6 @@ watch(() => store.activeCategory, () => {
 	activeCategory.value = store.activeCategory
 })
 
-const reload = ref(false)
-const userLog = ref(null)
 const showForm = ref(false)
 const serviceTo = ref(null)
 
@@ -69,10 +67,7 @@ const handleForm = () => {
   showForm.value = !showForm.value
 }
 
-// Recargar servicios
-const handleReload = () => {
-  reload.value = true
-}
+const handleReload = async () => await store.fetchServices()
 
 // Manejo de servicio seleccionado
 const handleServiceTo = (data) => {

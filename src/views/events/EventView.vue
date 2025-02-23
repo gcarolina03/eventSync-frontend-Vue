@@ -16,7 +16,7 @@
 						{{ $t('guestList.goBack') }}
 					</div>
 					<Icon v-if="!editModeGuest" @handleClick="toggleEditGuest" type="button" icon="pencil" classButton="px-2.5 text-sm font-bold bg-gray-300 hover:bg-gray-400 text-gray-700" className="flex items-center justify-center h-3 w-3" />
-					<Icon v-else @handleClick="toggleEditGuest" type="button" icon="check" classButton="text-sm font-bold bg-green-300 hover:bg-green-400 text-green-700" className="flex items-center justify-center h-8 w-8" />
+					<Icon v-else @handleClick="toggleEditGuest" type="button" icon="check" classButton="text-sm font-bold bg-green-300 hover:bg-green-400 text-green-700 p-2" className="flex items-center justify-center h-4 w-4" />
 				</div>
 			</div>
 		</div>
@@ -95,11 +95,11 @@ const toggleGuestList = () => showGuestList.value = !showGuestList.value
 const toggleEditForm = () => showEditForm.value = !showEditForm.value
 const toggleDeleteConfirm = () => showDeleteConfirm.value = !showDeleteConfirm.value
 const toggleEditGuest = () => editModeGuest.value = !editModeGuest.value
-const handleReload = () => store.fetchEvent(eventId)
+const handleReload = async() => await store.fetchEvent(eventId)
 
 const handleRemoveGuest = async (guest) => {
 	const res = await store.removeGuest(event.value._id, guest)
-	if (res) handleReload()
+	if (res) await handleReload()
 }
 
 const deleteEvent = async () => {
