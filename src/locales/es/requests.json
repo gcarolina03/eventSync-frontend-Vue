@@ -6,5 +6,10 @@
     "noEventsTitle": "Lo sentimos, no tienes eventos...",
     "noEventsSubtitle": "Crea un evento primero",
     "noEventsButton": "Ir a los eventos"
+  },
+  "requestsStatus": {
+    "pending": "Pendiente",
+    "confirmed": "Confirmado",
+    "rejected": "Rechazado"
   }
 }

@@ -16,7 +16,7 @@
 
     <!-- Lista de eventos -->
     <div class="event-list overflow-y-auto h-48 mt-4">
-      <NoEvents v-if="store.events.length == 0" />
+      <NoEvents v-if="filteredEvents.length == 0" />
       <div v-else v-for="event in filteredEvents" :key="event._id" @click="handleCreateRequest(event._id)"
         class="p-2 border-b hover:bg-blue-100 cursor-pointer">
         <div>
@@ -52,16 +52,19 @@ const store = useStore()
 const { t } = useI18n()
 const search = ref('')
 
-onBeforeMount(() => {
-  store.fetchEvents()
+onBeforeMount(async () => {
+  await store.fetchEvents()
 })
 
 const emit = defineEmits(['handleForm'])
 
 const filteredEvents = computed(() => {
-  return store.events.value.filter(event =>
+  if (search.value === '') return store.events
+  const filteredEvents = store.events.filter(event =>
     event.title.toLowerCase().includes(search.value.toLowerCase())
   )
+
+  return filteredEvents
 })
 
 const handleCreateRequest = async (eventId) => {

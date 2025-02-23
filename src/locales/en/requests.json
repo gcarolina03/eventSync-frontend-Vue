@@ -6,5 +6,10 @@
     "noEventsTitle": "Sorry, you don't have any event yet...",
     "noEventsSubtitle": "Create an event first",
     "noEventsButton": "Go to events"
+  },
+  "requestsStatus": {
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "rejected": "Rejected"
   }
 }
