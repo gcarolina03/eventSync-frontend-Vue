@@ -19,8 +19,8 @@
 				class="carousel-container relative flex gap-8 overflow-hidden h-[220px] sm:h-[320px] lg:h-[345px] scroll-smooth snap-x snap-mandatory touch-pan-x z-0">
 				<template v-for="resource in props.data" :key="resource._id">
 					<div class="carousel-item text-center relative snap-start">
-						<CardServices v-if="type == 'services'" :data="resource" />
-						<CardEvents v-else-if="type == 'events'" :data="resource" />
+						<CardServices v-if="props.type == 'services'" :data="resource" />
+						<CardEvents v-else-if="props.type == 'events'" :data="resource" />
 					</div>
 				</template>
 			</div>

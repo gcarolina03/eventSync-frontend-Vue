@@ -1,7 +1,7 @@
 <template>
-	<GMapMap :center="{ lat: latitude, lng: longitude }" :zoom="15" map-type-id="roadmap"
+	<GMapMap :center="{ lat: props.latitude, lng: props.longitude }" :zoom="15" map-type-id="roadmap"
 		style="width: 100%; height: 150px">
-		<GMapMarker :position="{ lat: latitude, lng: longitude }" />
+		<GMapMarker :position="{ lat: props.latitude, lng: props.longitude }" />
 	</GMapMap>
 </template>
 

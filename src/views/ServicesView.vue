@@ -25,7 +25,7 @@
               v-for="service in filteredServices"
               :key="service._id"
               :data="service"
-              :update="handleReload"
+              @update="handleReload"
               :user="userLog"
               :requestTo="handleServiceTo"
             />
