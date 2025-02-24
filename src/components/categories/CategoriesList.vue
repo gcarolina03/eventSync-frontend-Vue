@@ -38,7 +38,7 @@
           direction == 'vertical' && index == 0 ? 'rounded-t-lg' : '',
           direction == 'horizontal' && index == 0 ? 'rounded-tl-lg rounded-bl-lg' : '',
         ]">
-        <Icon :icon="category.icon" className="flex items-center h-6 xl:h-full" />
+        <Icon :icon="category.icon" className="flex items-center h-6 min-w-4 xl:h-full" />
         <span :class="[direction == 'horizontal' ? 'hidden sm:inline' : 'hidden xl:inline']">
           {{ $t("categoriesList." + category.title) }}
         </span>
