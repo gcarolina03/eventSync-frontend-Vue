@@ -16,8 +16,11 @@
 			<h5 class="text-lg font-bold tracking-tight">{{ props.data.title }}</h5>
 			<div class="text-gray-600 mb-1">
 				<!-- Dirección: se muestra si se obtuvo la ubicación -->
-				<span v-if="location && location.length > 0">
+				<span v-if="Array.isArray(location) && location.length > 6">
 					{{ location[6].long_name }} &nbsp; • &nbsp; {{ location[2].long_name }}
+				</span>
+				<span v-else-if="location && location.length > 0">
+					{{ location[2].long_name }}
 				</span>
 				<!-- Icono de mapa con tooltip que muestra el mapa al hacer hover -->
 				<div v-if="props.data.latitude != undefined && props.data.longitude != undefined"
@@ -78,7 +81,7 @@ const props = defineProps({
 const route = useRoute()
 const store = useStore()
 const currentPath = route.path
-const location = ref('')
+const location = ref([])
 
 const emit = defineEmits(['openForm', 'closeForm', 'requestTo', 'reload'])
 
