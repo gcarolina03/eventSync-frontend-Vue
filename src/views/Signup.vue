@@ -12,7 +12,7 @@
 
 				<!-- firstname and lastname Input -->
 				<div class="flex gap-3">
-					<Field name="first_name" type="text" class="w-full h-10 border border-gray-400 focus:border-gray-600 focus:ring-0 focus:outline-none rounded px-3" :placeholder="t('firstname') + '*'" />
+					<Field name="first_name" type="text" class="w-full h-10 border border-gray-400 focus:border-secondary focus:ring-0 focus:outline-none rounded-xl px-3" :placeholder="t('firstname') + '*'" />
 					<InputComp name="last_name" type="text" :placeholder="t('lastname')" />
 				</div>
 				<!-- Mostrar mensaje de error de firstname debajo de ambos campos -->
@@ -58,6 +58,7 @@ import { Field, Form, ErrorMessage } from 'vee-validate'
 import * as yup from 'yup'
 import { useI18n } from 'vue-i18n'
 import { useStore } from '@/store'
+import { useRouter } from 'vue-router'
 /* COMPONENTS */
 import InputComp from '@/components/forms/Input.vue'
 import ErrorMsg from '@/components/common/ErrorMsg.vue'
@@ -68,6 +69,7 @@ import getErrorMessage from '@/utils/errors'
 
 const { t } = useI18n()
 const store = useStore()
+const router = useRouter()
 
 const showError = ref(false)
 const errorMsg = ref('')
