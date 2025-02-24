@@ -35,6 +35,6 @@ const options = computed(() => [
   { id: 'all-list', value: 'all', label: t('requestsStatus.all') },
   { id: 'confirmed-list', value: 'confirmed', label: t('requestsStatus.confirmed') },
   { id: 'pending-list', value: 'pending', label: t('requestsStatus.pending') },
-  { id: 'cancelled-list', value: 'cancelled', label: t('requestsStatus.rejected') }
+  { id: 'cancelled-list', value: 'cancelled', label: t('requestsStatus.cancelled') }
 ])
 </script>

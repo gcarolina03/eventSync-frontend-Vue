@@ -11,7 +11,7 @@
     "all": "Todos",
     "pending": "Pendiente",
     "confirmed": "Confirmado",
-    "rejected": "Rechazado"
+    "cancelled": "Rechazado"
   },
   "requests": "Solicitudes",
   "requestsTable": {

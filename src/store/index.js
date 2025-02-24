@@ -387,9 +387,9 @@ export const useStore = defineStore('store', () => {
     }
   }
 
-  const updateRequest = async (id, status) => {
+  const updateRequest = async (id, state) => {
     try {
-      const { data } = await api.put(`/requests/${id}`, { status }, {
+      const { data } = await api.put(`/requests/${id}`, { state }, {
         headers: {
           token: token.value,
         },

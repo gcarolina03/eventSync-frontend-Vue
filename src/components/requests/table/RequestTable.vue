@@ -47,8 +47,8 @@
             </td>
             <td v-if="request.state == 'pending'" class="py-4">
               <div class="flex gap-2">
-                <Icon icon="check" @handleClick="$emit('updateState', request._id, 'confirmed')" classButton="cursor-pointer p-2 text-sm rounded-lg font-bold bg-green-300 hover:bg-green-400 text-green-700 items-center" className="flex items-center justify-center h-4 w-4" />
-                <Icon icon="x-mark" @handleClick="$emit('updateState', request._id, 'cancelled')" classButton="cursor-pointer p-2 text-sm rounded-lg font-bold bg-red-300 hover:bg-red-400 text-red-700 "
+                <Icon icon="check" type="button" @handleClick="$emit('updateState', request._id, 'confirmed')" classButton="cursor-pointer p-2 text-sm rounded-lg font-bold bg-green-300 hover:bg-green-400 text-green-700 items-center" className="flex items-center justify-center h-4 w-4" />
+                <Icon icon="x-mark" type="button" @handleClick="$emit('updateState', request._id, 'cancelled')" classButton="cursor-pointer p-2 text-sm rounded-lg font-bold bg-red-300 hover:bg-red-400 text-red-700 "
                   className="flex items-center justify-center h-4 w-4" />
               </div>
             </td>
