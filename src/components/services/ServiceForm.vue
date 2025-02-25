@@ -132,7 +132,6 @@
 
 <script setup>
 import { defineProps, ref, onBeforeMount, computed, watch } from 'vue'
-import { useRouter } from 'vue-router'
 import { useStore } from '@/store'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import * as yup from 'yup'
@@ -154,7 +153,6 @@ const props = defineProps({
 const emit = defineEmits(['submitSuccess', 'closeForm'])
 
 const { t } = useI18n()
-const router = useRouter()
 const store = useStore()
 
 const avatarPreview = ref(null)
@@ -298,8 +296,6 @@ const handleFileChange = (event) => {
 const submit = async (values) => {
 	if (props.editMode) {
 		await handleUpdateService(values)
-		consele.log(values)
-		console.log(props)
 	} else {
 		await handleCreateService(values)
 	}
