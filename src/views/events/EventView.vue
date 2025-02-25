@@ -45,7 +45,7 @@
 
 		<!-- Modals for editing and deleting -->
 		<Blur v-if="showEditForm">
-			<EventForm :event="event" @handleForm="toggleEditForm" />
+			<EventForm :event="event" @closeForm="toggleEditForm" @submitSuccess="handleFormSubmitted" :editStatus="true"/>
 		</Blur>
 
 		<Blur v-if="showDeleteConfirm">
@@ -109,6 +109,11 @@ const deleteEvent = async () => {
 	} else {
 		console.log(res.message)
 	}
+}
+
+const handleFormSubmitted = async () => {
+	await store.fetchEvent()
+	toggleEditForm()
 }
 
 </script>
