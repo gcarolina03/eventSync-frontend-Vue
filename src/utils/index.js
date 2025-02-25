@@ -28,9 +28,11 @@ const formatDate = (date, format = 'es') => {
 	const [{ value: monthValue }, , { value: dayValue }, , { value: yearValue }] = formatter.formatToParts(parsedDate)
 	if (format == 'en') {
 		return `${monthValue}-${dayValue}-${yearValue}`
-	} else {
+	} else if(format == 'es') {
 		return `${dayValue}-${monthValue}-${yearValue}`
-	}
+	} else {
+    return `${yearValue}-${monthValue}-${dayValue}`
+  }
 }
 
 export { isValidFileType, getDefaultAvatarUrl, formatDate }
