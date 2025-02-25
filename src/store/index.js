@@ -148,6 +148,22 @@ export const useStore = defineStore('store', () => {
     }
   }
 
+  const updateEvent = async (eventId, event) => {
+    try {
+      if (!token.value) return
+      const { data } = await api.put(`/events/${eventId}`, event, {
+        headers: {
+          token: token.value,
+        },
+      })
+
+      return data
+    } catch (error) {
+      console.error('Error updating user event:', error)
+      throw error.response.data
+    }
+  }
+
   const deleteEvent = async (eventId) => {
     try {
       if (!token.value) return
@@ -434,6 +450,7 @@ export const useStore = defineStore('store', () => {
     fetchEvents,
     fetchEvent,
     createEvent,
+    updateEvent,
     deleteEvent,
     /* GUESTS LIST */
     addGuest,
