@@ -153,14 +153,16 @@ const handleCreateEvent = async (values) => {
 }
 
 const handleUpdateEvent = async (values) => {
-  const formData = new FormData();
-  formData.append('title', values.title);
-  formData.append('start_time', values.start);
-  formData.append('end_time', values.end);
+  const data = {
+    title: values.title,
+    start_time: values.start,
+    end_time: values.end
+  }
+
   try {
-    const res = await store.updateEvent(props.event._id, formData)
+    const res = await store.updateEvent(props.event._id, data)
     if (res.success) {
-      emit('submitSuccess')
+      emit('submitSuccess', props.event._id)
     }
   } catch (error) {
     const errorMessage = getErrorMessage('form.' + error.message)

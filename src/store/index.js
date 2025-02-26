@@ -151,9 +151,10 @@ export const useStore = defineStore('store', () => {
   const updateEvent = async (eventId, event) => {
     try {
       if (!token.value) return
-      const { data } = await api.put(`/events/${eventId}`, event, {
+      const { data } = await api.put(`/events/${eventId}`, JSON.stringify(event), {
         headers: {
           token: token.value,
+          'Content-Type': 'application/json',
         },
       })
 

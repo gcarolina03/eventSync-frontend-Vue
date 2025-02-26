@@ -111,8 +111,8 @@ const deleteEvent = async () => {
 	}
 }
 
-const handleFormSubmitted = async () => {
-	await store.fetchEvent()
+const handleFormSubmitted = async (eventId) => {
+	await store.fetchEvent(eventId)
 	toggleEditForm()
 }
 
