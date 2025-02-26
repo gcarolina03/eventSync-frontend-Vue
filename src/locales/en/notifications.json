@@ -6,5 +6,9 @@
   },
   "notificationsTitle": "Notifications",
   "notificationsSeeAll": "See all",
-  "notificationsEmpty": "You have no notifications."
+  "notificationsEmpty": "You have no notifications.",
+  "next": "Next",
+  "previous": "Previous",
+  "Page": "Page",
+  "of": "of"
 }

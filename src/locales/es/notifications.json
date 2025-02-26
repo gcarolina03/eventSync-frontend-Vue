@@ -6,5 +6,9 @@
   },
   "notificationsTitle": "Notificaciones",
   "notificationsSeeAll": "Ver todas",
-  "notificationsEmpty": "No tienes notificaciones."
+  "notificationsEmpty": "No tienes notificaciones.",
+  "next": "Siguiente",
+  "previous": "Anterior",
+  "Page": "Página",
+  "of": "de"
 }
