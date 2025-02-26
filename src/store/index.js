@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { api, getAddressFromLatLng } from '@/services/api'
 import { ref } from 'vue'
 import { useStorage } from '@vueuse/core'
+import { io } from 'socket.io-client'
 
 export const useStore = defineStore('store', () => {
   const language = useStorage('language', 'es', localStorage)
@@ -9,6 +10,31 @@ export const useStore = defineStore('store', () => {
   const user = useStorage('user.profile', null, localStorage, {
     serializer: { read: JSON.parse, write: JSON.stringify },
   })
+  const latestNotifications = useStorage('user.latestNotifications', null, localStorage, {
+    serializer: { read: JSON.parse, write: JSON.stringify },
+  })
+
+  /* SOCKET.IO ------------------------------- */
+  let socket
+  const initializeSocket = () => {
+    if (!socket && token.value) {
+      // Asegúrate de que la URL corresponda a tu servidor Socket.io
+      socket = io(import.meta.env.VITE_SOCKET_IO || 'http://localhost:2222', {
+        auth: { token: token.value },
+      })
+
+      socket.on('connect', () => {
+        console.log('Socket conectado:', socket.id)
+        socket.emit('register', user.value._id)
+      })
+
+      // Escucha el evento 'newNotification'
+      socket.on('newNotification', (notification) => {
+        console.log('Nueva notificación recibida:', notification)
+        latestNotifications.value.unshift(notification)
+      })
+    }
+  }
 
   /* LANGUAGE -------------------------------------- */
   const updateLanguage = (newLanguage) => {
@@ -22,7 +48,9 @@ export const useStore = defineStore('store', () => {
       if (data.token) {
         user.value = data.user
         token.value = data.token
+
         await fetchLatestNotifications()
+        initializeSocket()
       }
 
       return data
@@ -70,6 +98,8 @@ export const useStore = defineStore('store', () => {
     localStorage.removeItem('user.profile')
     localStorage.removeItem('token')
     localStorage.removeItem('user.latestNotifications')
+    socket && socket.disconnect()
+    socket = null
   }
 
   /* USERS ----------------------------------------- */
@@ -82,6 +112,7 @@ export const useStore = defineStore('store', () => {
         },
       })
       user.value = data.user
+      initializeSocket()
     } catch (error) {
       console.error('Error fetching user data:', error)
       logout()
@@ -390,7 +421,6 @@ export const useStore = defineStore('store', () => {
           token: token.value,
         },
       })
-      console.log({data})
       if (data.success) requests.value = data.request
     } catch (error) {
       console.error('Cannot get requests', error)
@@ -440,9 +470,6 @@ export const useStore = defineStore('store', () => {
   }
 
   /* NOTIFICATIONS -------------------------------- */
-  const latestNotifications = useStorage('user.latestNotifications', null, localStorage, {
-    serializer: { read: JSON.parse, write: JSON.stringify },
-  })
   const notifications = ref([])
   const notificationsPage = ref(0)
 
@@ -555,5 +582,7 @@ export const useStore = defineStore('store', () => {
     fetchLatestNotifications,
     fetchAllNotifications,
     markNotificationAsRead,
+    /* SOCKET.IO */
+    initializeSocket,
   }
 })
