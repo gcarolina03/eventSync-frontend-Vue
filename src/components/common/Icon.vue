@@ -14,6 +14,8 @@ import ArrowRightFromBracketSvg from '@/assets/icons/arrow-right-from-bracket.sv
 import ArrowRightSvg from '@/assets/icons/arrow-right.svg?raw'
 import ArrowUpAndDownSvg from '@/assets/icons/arrow-up-and-down.svg?raw'
 import BarsSvg from '@/assets/icons/bars.svg?raw'
+import BellSvg from '@/assets/icons/bell.svg?raw'
+import BellRingSvg from '@/assets/icons/bell-ring.svg?raw'
 import CalendarPlusSvg from '@/assets/icons/calendar-plus.svg?raw'
 import CalendarDaysSvg from '@/assets/icons/calendar-days.svg?raw'
 import CameraSvg from '@/assets/icons/camera.svg?raw'
@@ -63,6 +65,8 @@ const allowedIcons = {
 	"arrow-right": ArrowRightSvg,
 	"arrow-up-and-down": ArrowUpAndDownSvg,
 	"bars": BarsSvg,
+	"bell": BellSvg,
+	"bell-ring": BellRingSvg,
 	"calendar-plus": CalendarPlusSvg,
 	"calendar-days": CalendarDaysSvg,
 	"camera": CameraSvg,
