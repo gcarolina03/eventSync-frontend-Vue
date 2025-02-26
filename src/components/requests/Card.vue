@@ -11,7 +11,7 @@
       </div>
       <img class="rounded-t-lg w-full h-full object-cover mx-auto" :src="request.serviceId.img_url" alt="" />
     </div>
-    <div class="p-5">
+    <div class="px-3 py-4">
       <h5 class="text-lg font-bold tracking-tight">
         {{ request.serviceId.title }}
       </h5>

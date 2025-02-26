@@ -2,7 +2,7 @@
 	<div class="p-6 flex flex-col justify-between">
 		<div class="flex flex-col">
 			<div class="flex flex-col items-center">
-				<img :src="event.img_url" class="w-40 h-40 bg-[#9CC0FA] rounded-full mb-4 shrink-0 object-contain" />
+				<img :src="eventImage" class="w-40 h-40 bg-[#9CC0FA] rounded-full mb-4 shrink-0 object-cover" />
 				<div class="mt-2 flex flex-wrap gap-4 text-center">
 					<span v-if="location.length > 0">
 						{{ location[6].long_name }} • {{ location[2].long_name }}
@@ -93,4 +93,15 @@ const setAddress = () => {
 		})
 	}
 }
+
+const eventImage = computed(() => {
+  if (props.event && props.event.eventRequests) {
+    const locationRequest = props.event.eventRequests.find(
+      request => request.serviceId.categoryId.title == 'location' && request.state == 'confirmed'
+    );
+
+    return locationRequest ? locationRequest.serviceId.img_url : props.event.img_url;
+  }
+  return props.event.img_url;
+});
 </script>
