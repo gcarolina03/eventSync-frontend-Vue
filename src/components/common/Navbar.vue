@@ -23,16 +23,20 @@
     </div>
     <!-- Botones de autenticación o UserMenu -->
     <div class="flex items-center lg:w-auto flex-row sm:gap-4"
-      :class="[showMenu ? 'w-full justify-center' : 'hidden lg:block']">
+      :class="[showMenu ? 'w-full justify-center' : 'hidden lg:flex']">
       <template v-if="!store.user">
         <!-- <ButtonComp to="/signup" type="transparent" class="sm:text-base">
           {{ $t('signup') }}
         </ButtonComp> -->
-        <ButtonComp :to="{ name: 'login' }" :buttonStyle="!showMenu ? 'white' : navClass('/auth/login')" additionalClass="sm:text-base">
+        <ButtonComp :to="{ name: 'login' }" :buttonStyle="!showMenu ? 'white' : navClass('/auth/login')"
+          additionalClass="sm:text-base">
           {{ $t('login') }}
         </ButtonComp>
       </template>
-      <UserMenu v-else :user="store.user" :handleShow="toggleUserMenu" :menu="showUserMenu" />
+      <template v-else>
+        <UserNotifications :notifications="store.latestNotifications" :handleShow="toggleNotifications" :showNotifications="showNotifications" />
+        <UserMenu :user="store.user" :handleShow="toggleUserMenu" :menu="showUserMenu" />
+      </template>
     </div>
 
     <!-- Botón de menú hamburguesa -->
@@ -50,12 +54,14 @@ import { useStore } from '@/store';
 import Icon from '@/components/common/Icon.vue'
 import ButtonComp from '@/components/common/Button.vue'
 import UserMenu from '@/components/common/UserMenu.vue'
+import UserNotifications from '@/components/common/UserNotifications.vue';
 
 const route = useRoute();
 const router = useRouter();
 const store = useStore();
 const showMenu = ref(false);
 const showUserMenu = ref(false);
+const showNotifications = ref(false);
 const links = [
   {
 		path: { name: 'home' },
@@ -82,6 +88,10 @@ const toggleUserMenu = () => {
   } else {
     showUserMenu.value = !showUserMenu.value;
   }
+};
+
+const toggleNotifications = () => {
+  showNotifications.value = !showNotifications.value;
 };
 
 const navClass = (link) => {
