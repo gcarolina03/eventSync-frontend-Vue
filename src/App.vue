@@ -6,10 +6,13 @@ import { onMounted } from 'vue'
 import Navbar from '@/components/common/Navbar.vue'
 import Footer from '@/components/common/Footer.vue'
 
-const { fetchProfile } = useStore()
+const store = useStore()
 
-onMounted(() => {
-	fetchProfile()
+onMounted( async () => {
+	await store.fetchProfile()
+	if(store.user) {
+		await store.fetchLatestNotifications()
+	}
 })
 </script>
 
