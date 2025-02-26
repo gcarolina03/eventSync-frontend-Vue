@@ -9,6 +9,7 @@ import EventView from '@/views/events/EventView.vue'
 import MyServicesView from '@/views/myServices/MyServicesView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import RequestsView from '@/views/RequestsView.vue'
+import NotificationsView from '@/views/NotificationsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,6 +50,13 @@ const router = createRouter({
             { path: '/profile/requests', name: 'requests', component: RequestsView },
           ],
         },
+        {
+          path: '/notifications',
+          meta: { requiresAuth: true },
+          children: [
+            { path: '/notifications', name: 'notifications', component: NotificationsView },
+          ],
+        }
       ],
     },
   ],
