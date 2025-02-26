@@ -1,7 +1,7 @@
 {
   "notifications": {
-    "newRequest": "Has recibido una nueva solicitud para el servicio <span class=\"font-bold\">{nombre servicio}</span>",
-    "requestRejected": "Tu solicitud del servicio <span class=\"font-bold\">{nombre servicio}</span> para el evento <span class=\"font-bold\">{nombre evento}</span>, ha sido <span class=\"text-red-500\">rechazada</span>",
-    "requestConfirmed": "Tu solicitud del servicio <span class=\"font-bold\">{nombre servicio}</span> para el evento <span class=\"font-bold\">{nombre evento}</span>, ha sido <span class=\"text-green-500\">aceptada</span>"
+    "newRequest": "Has recibido una nueva solicitud para el servicio <span class=\"font-bold\">{serviceTitle}</span>",
+    "requestRejected": "Tu solicitud del servicio <span class=\"font-bold\">{serviceTitle}</span> para el evento <span class=\"font-bold\">{eventTitle}</span>, ha sido <span class=\"text-red-500\">rechazada</span>",
+    "requestConfirmed": "Tu solicitud del servicio <span class=\"font-bold\">{serviceTitle}</span> para el evento <span class=\"font-bold\">{eventTitle}</span>, ha sido <span class=\"text-green-500\">aceptada</span>"
   }
 }
