@@ -135,13 +135,15 @@ const submit = async (values) => {
 } 
 
 const handleCreateEvent = async (values) => {
-  const formData = new FormData();
-  formData.append('title', values.title);
-  formData.append('event_date', values.date);
-  formData.append('start_time', values.start);
-  formData.append('end_time', values.end);
+  const data = {
+    title: values.title,
+    start_time: values.start,
+    end_time: values.end,
+    event_date: values.date
+  }
+  
   try {
-    const res = await store.createEvent(formData)
+    const res = await store.createEvent(data)
     if (res.success) {
       emit('submitSuccess')
     }
