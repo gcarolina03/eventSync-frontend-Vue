@@ -22,6 +22,8 @@ export const useStore = defineStore('store', () => {
       if (data.token) {
         user.value = data.user
         token.value = data.token
+        
+        await fetchLatestNotifications()
       }
 
       return data
@@ -51,6 +53,8 @@ export const useStore = defineStore('store', () => {
       if (data.token) {
         token.value = data.token
         user.value = data.user
+
+        await fetchLatestNotifications()
       }
 
       return data
@@ -432,6 +436,66 @@ export const useStore = defineStore('store', () => {
     }
   }
 
+  /* NOTIFICATIONS -------------------------------- */
+  const latestNotifications = useStorage('user.latestNotifications', null, localStorage, {
+    serializer: { read: JSON.parse, write: JSON.stringify },
+  })
+  const notifications = ref([])
+  const notificationsPage = ref(0)
+
+  const fetchLatestNotifications = async () => { // last 5
+    try {
+      const { data } = await api.get('/notifications/latest', {
+        headers: {
+          token: token.value
+        }
+      });
+
+      if (data.success) {
+        latesdNotifications.value = data.notifications
+      }
+    } catch (error) {
+      console.error('Cannot get notifications', error)
+      throw error.response.data
+    }
+  };
+
+  const fetchAllNotifications = async () => {
+    try {
+      const { data } = await api.get('/notifications', {
+        headers: {
+          token: token.value
+        }
+      });
+
+      if (data.success) {
+        notifications.value = data.notifications;
+        notificationsPage.value = data.page
+      }
+    } catch (error) {
+      console.error('Cannot get notifications', error)
+      throw error.response.data
+    }
+  };
+
+  const markNotificationAsRead = async (id) => {
+    try {
+      const { data } = await api.put(`/notifications/${id}`, null, {
+        headers: {
+          token: token.value
+        }
+      });
+
+      if (data.success) {
+        fetchLatestNotifications()
+        fetchAllNotifications()
+      }
+    } catch (error) {
+      console.error('Cannot mark notification as read', error)
+      throw error.response.data
+    }
+  };
+
   return {
     /* LANGUAGE */
     language,
@@ -481,5 +545,12 @@ export const useStore = defineStore('store', () => {
     updateRequest,
     /* GOOGLE MAPS API */
     getAddress,
+    /* NOTIFICATIONS */
+    latestNotifications,
+    notifications,
+    notificationsPage,
+    fetchLatestNotifications,
+    fetchAllNotifications,
+    markNotificationAsRead,
   }
 })
