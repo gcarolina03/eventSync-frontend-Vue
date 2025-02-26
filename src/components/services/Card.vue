@@ -98,7 +98,6 @@ const closeForm = () => {
 }
 
 const getAddress = async () => {
-	console.log(props.data.latitude, props.data.longitude)
 	if (props.data.latitude == undefined || props.data.longitude == undefined) return
 	const res = await store.getAddress(props.data.latitude, props.data.longitude)
 	if (res) {

@@ -164,7 +164,6 @@ const longitude = ref(null)
 
 onBeforeMount(async () => {
 	await store.fetchCategories()
-	console.log(props.service)
 	if (props.editMode) {
 		latitude.value = props.service.latitude;
 		longitude.value = props.service.longitude;
@@ -336,7 +335,6 @@ const handleCreateService = async (values) => {
 			emit('submitSuccess')
 		}
 	} catch (error) {
-		console.log(error)
 		const errorMessage = getErrorMessage('form.' + error.message)
 		errorMsg.value = t(`errors.${errorMessage}`)
 		showErrorMsg()
@@ -363,7 +361,6 @@ const handleUpdateService = async (values) => {
 	try {
 		const res = await store.updateService(props.service._id, formData)
 		if (res.success) {
-			console.log(res)
 			emit('submitSuccess')
 		}
 	} catch (error) {

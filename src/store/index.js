@@ -29,13 +29,11 @@ export const useStore = defineStore('store', () => {
       })
 
       socket.on('connect', () => {
-        console.log('Socket conectado:', socket.id)
         socket.emit('register', user.value._id)
       })
 
       // Escucha el evento 'newNotification'
       socket.on('newNotification', (notification) => {
-        console.log('Nueva notificación recibida:', notification)
         latestNotifications.value.unshift(notification)
       })
     }
@@ -232,8 +230,6 @@ export const useStore = defineStore('store', () => {
   const addGuest = async (eventId, name, phone, number) => {
     try {
       if (!token.value) return
-      console.log({ token: token.value })
-      console.log({ eventId })
       const { data } = await api.put(
         `/events/${eventId}/guest`,
         { name, phone, number },

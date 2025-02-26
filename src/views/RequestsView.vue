@@ -65,7 +65,6 @@ const handleOrder = () => {
 const sortedRequests = computed(() => {
   let sorted = []
   const allRequests = [...store.requests]
-  console.log(allRequests)
   if (sortByOldest.value) {
     sorted = allRequests
       .sort((a, b) => parseInt(a.eventId.event_date) - parseInt(b.eventId.event_date))
@@ -86,7 +85,6 @@ const sortedRequests = computed(() => {
 
 const updateState = async (id, state) => {
   const res = await store.updateRequest(id, state)
-  console.log(res)
   if (res.success) {
     await store.fetchRequests()
   }

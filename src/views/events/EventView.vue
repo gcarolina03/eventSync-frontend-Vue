@@ -107,7 +107,6 @@ const deleteEvent = async () => {
 	if (res.success) {
 		router.push({ name: 'events' })
 	} else {
-		console.log(res.message)
 	}
 }
 

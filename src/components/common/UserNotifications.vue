@@ -51,9 +51,6 @@ const { t } = useI18n()
 
 const computedNotifications = computed(() => {
   return props.notifications.map(notification => {
-    console.log({ notification })
-    console.log(notification.data.service.title)
-    console.log(notification.data.event.title)
     const params = {
       serviceTitle: notification.data.service.title || '',
       eventTitle: notification.data.event.title || ''
