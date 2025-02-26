@@ -487,7 +487,7 @@ export const useStore = defineStore('store', () => {
 
   /* NOTIFICATIONS -------------------------------- */
   const notifications = ref([])
-  const notificationsPage = ref(0)
+  const limit = 10;
 
   const fetchLatestNotifications = async () => {
     // last 5
@@ -509,7 +509,7 @@ export const useStore = defineStore('store', () => {
 
   const fetchAllNotifications = async () => {
     try {
-      const { data } = await api.get('/notifications', {
+      const { data } = await api.get('/notifications/all', {
         headers: {
           token: token.value,
         },
@@ -517,8 +517,9 @@ export const useStore = defineStore('store', () => {
 
       if (data.success) {
         notifications.value = data.notifications
-        notificationsPage.value = data.page
       }
+
+      return data
     } catch (error) {
       console.error('Cannot get notifications', error)
       throw error.response.data
@@ -595,7 +596,6 @@ export const useStore = defineStore('store', () => {
     /* NOTIFICATIONS */
     latestNotifications,
     notifications,
-    notificationsPage,
     fetchLatestNotifications,
     fetchAllNotifications,
     markNotificationAsRead,
