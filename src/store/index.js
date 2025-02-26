@@ -10,9 +10,14 @@ export const useStore = defineStore('store', () => {
   const user = useStorage('user.profile', null, localStorage, {
     serializer: { read: JSON.parse, write: JSON.stringify },
   })
-  const latestNotifications = useStorage('user.latestNotifications', null, localStorage, {
-    serializer: { read: JSON.parse, write: JSON.stringify },
-  })
+  const latestNotifications = useStorage(
+    'user.latestNotifications',
+    null,
+    localStorage,
+    {
+      serializer: { read: JSON.parse, write: JSON.stringify },
+    }
+  )
 
   /* SOCKET.IO ------------------------------- */
   let socket
@@ -73,8 +78,8 @@ export const useStore = defineStore('store', () => {
 
       const { data } = await api.post('/auth/signup', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
 
       if (data.token) {
@@ -119,23 +124,22 @@ export const useStore = defineStore('store', () => {
     }
   }
 
-	const updateProfile = async (profile) => {
-		try {
-			if (!token.value) return
-			console.log({ profile })
-			const { data } = await api.put('/profile', profile, {
+  const updateProfile = async (profile) => {
+    try {
+      if (!token.value) return
+      const { data } = await api.put('/profile', profile, {
         headers: {
           token: token.value,
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
         },
       })
 
       return data
-		} catch (error) {
-			console.error('Error updating user data:', error)
+    } catch (error) {
+      console.error('Error updating user data:', error)
       throw error.response.data
-		}
-	}
+    }
+  }
 
   /* USER EVENTS ----------------------------------- */
   const events = ref([])
@@ -174,11 +178,12 @@ export const useStore = defineStore('store', () => {
   const createEvent = async (event) => {
     try {
       if (!token.value) return
-      const { data } = await api.post('/events', event, {
-				headers: {
-					token: token.value,
-				},
-			})
+      const { data } = await api.post('/events', JSON.stringify(event), {
+        headers: {
+          token: token.value,
+          'Content-Type': 'application/json',
+        },
+      })
       return data
     } catch (error) {
       console.error('Error creating user event:', error)
@@ -189,12 +194,16 @@ export const useStore = defineStore('store', () => {
   const updateEvent = async (eventId, event) => {
     try {
       if (!token.value) return
-      const { data } = await api.put(`/events/${eventId}`, JSON.stringify(event), {
-        headers: {
-          token: token.value,
-          'Content-Type': 'application/json',
-        },
-      })
+      const { data } = await api.put(
+        `/events/${eventId}`,
+        JSON.stringify(event),
+        {
+          headers: {
+            token: token.value,
+            'Content-Type': 'application/json',
+          },
+        }
+      )
 
       return data
     } catch (error) {
@@ -297,7 +306,7 @@ export const useStore = defineStore('store', () => {
       const { data } = await api.post('/profile/services', service, {
         headers: {
           token: token.value,
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
         },
       })
       return data
@@ -310,10 +319,13 @@ export const useStore = defineStore('store', () => {
   const updateService = async (serviceId, service) => {
     try {
       if (!token.value) return
-      const { data } = await api.put(`/profile/services/${serviceId}`, service, { 
+      const { data } = await api.put(
+        `/profile/services/${serviceId}`,
+        service,
+        {
           headers: {
             token: token.value,
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
           },
         }
       )
@@ -429,11 +441,15 @@ export const useStore = defineStore('store', () => {
 
   const createRequest = async (eventId, serviceId) => {
     try {
-      const { data } = await api.post('/requests', { eventId, serviceId }, {
-        headers: {
-          token: token.value,
-        },
-      })
+      const { data } = await api.post(
+        '/requests',
+        { eventId, serviceId },
+        {
+          headers: {
+            token: token.value,
+          },
+        }
+      )
       return data
     } catch (error) {
       console.error('Cannot create request', error)
@@ -443,11 +459,15 @@ export const useStore = defineStore('store', () => {
 
   const updateRequest = async (id, state) => {
     try {
-      const { data } = await api.put(`/requests/${id}`, { state }, {
-        headers: {
-          token: token.value,
-        },
-      })
+      const { data } = await api.put(
+        `/requests/${id}`,
+        { state },
+        {
+          headers: {
+            token: token.value,
+          },
+        }
+      )
       return data
     } catch (error) {
       console.error('Cannot update request', error)
@@ -473,13 +493,14 @@ export const useStore = defineStore('store', () => {
   const notifications = ref([])
   const notificationsPage = ref(0)
 
-  const fetchLatestNotifications = async () => { // last 5
+  const fetchLatestNotifications = async () => {
+    // last 5
     try {
       const { data } = await api.get('/notifications/latest', {
         headers: {
-          token: token.value
-        }
-      });
+          token: token.value,
+        },
+      })
 
       if (data.success) {
         latestNotifications.value = data.notifications
@@ -488,33 +509,33 @@ export const useStore = defineStore('store', () => {
       console.error('Cannot get notifications', error)
       throw error.response.data
     }
-  };
+  }
 
   const fetchAllNotifications = async () => {
     try {
       const { data } = await api.get('/notifications', {
         headers: {
-          token: token.value
-        }
-      });
+          token: token.value,
+        },
+      })
 
       if (data.success) {
-        notifications.value = data.notifications;
+        notifications.value = data.notifications
         notificationsPage.value = data.page
       }
     } catch (error) {
       console.error('Cannot get notifications', error)
       throw error.response.data
     }
-  };
+  }
 
   const markNotificationAsRead = async (id) => {
     try {
       const { data } = await api.put(`/notifications/${id}/read`, null, {
         headers: {
-          token: token.value
-        }
-      });
+          token: token.value,
+        },
+      })
 
       if (data.success) {
         fetchLatestNotifications()
@@ -524,7 +545,7 @@ export const useStore = defineStore('store', () => {
       console.error('Cannot mark notification as read', error)
       throw error.response.data
     }
-  };
+  }
 
   return {
     /* LANGUAGE */
@@ -538,7 +559,7 @@ export const useStore = defineStore('store', () => {
     logout,
     /* USER */
     fetchProfile,
-		updateProfile,
+    updateProfile,
     /* USER EVENTS */
     events,
     selectedEvent,
