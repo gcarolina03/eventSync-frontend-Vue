@@ -22,7 +22,6 @@ export const useStore = defineStore('store', () => {
       if (data.token) {
         user.value = data.user
         token.value = data.token
-        
         await fetchLatestNotifications()
       }
 
@@ -67,6 +66,10 @@ export const useStore = defineStore('store', () => {
   const logout = () => {
     user.value = null
     token.value = null
+    latestNotifications.value = null
+    localStorage.removeItem('user.profile')
+    localStorage.removeItem('token')
+    localStorage.removeItem('user.latestNotifications')
   }
 
   /* USERS ----------------------------------------- */
@@ -452,7 +455,7 @@ export const useStore = defineStore('store', () => {
       });
 
       if (data.success) {
-        latesdNotifications.value = data.notifications
+        latestNotifications.value = data.notifications
       }
     } catch (error) {
       console.error('Cannot get notifications', error)
