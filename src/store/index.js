@@ -483,7 +483,7 @@ export const useStore = defineStore('store', () => {
 
   const markNotificationAsRead = async (id) => {
     try {
-      const { data } = await api.put(`/notifications/${id}`, null, {
+      const { data } = await api.put(`/notifications/${id}/read`, null, {
         headers: {
           token: token.value
         }
