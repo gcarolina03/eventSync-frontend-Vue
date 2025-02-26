@@ -1,0 +1,7 @@
+{
+  "notifications": {
+    "newRequest": "You have received a new request for the service <span class=\"font-bold\">{nombre servicio}</span>",
+    "requestRejected": "Your request for the service <span class=\"font-bold\">{nombre servicio}</span> for the event <span class=\"font-bold\">{nombre evento}</span>, has been <span class=\"text-red-500\">rejected</span>",
+    "requestConfirmed": "Your request for the service <span class=\"font-bold\">{nombre servicio}</span> for the event <span class=\"font-bold\">{nombre evento}</span>, has been <span class=\"text-green-500\">accepted</span>"
+  }
+}
