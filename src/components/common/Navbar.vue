@@ -86,11 +86,13 @@ const toggleUserMenu = () => {
   if (isSmallScreen) {
     router.push('/myprofile');
   } else {
+    showNotifications.value = false
     showUserMenu.value = !showUserMenu.value;
   }
 };
 
 const toggleNotifications = () => {
+  showUserMenu.value = false
   showNotifications.value = !showNotifications.value;
 };
 
