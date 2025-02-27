@@ -101,6 +101,8 @@ const navClass = (link) => {
 };
 
 watch(() => route.path, (to) => {
-  
+  showMenu.value = false;
+  showUserMenu.value = false;
+  showNotifications.value = false;
 });
 </script>
