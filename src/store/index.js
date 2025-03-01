@@ -23,7 +23,6 @@ export const useStore = defineStore('store', () => {
   let socket
   const initializeSocket = () => {
     if (!socket && token.value) {
-      // Asegúrate de que la URL corresponda a tu servidor Socket.io
       socket = io(import.meta.env.VITE_SOCKET_IO || 'http://localhost:2222', {
         auth: { token: token.value },
       })
