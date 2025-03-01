@@ -36,13 +36,35 @@ Start the backend server with the following command: **`npm start`**
 To install and run the front-end app locally, follow these steps:
 
 1. Clone this repository to your local machine.
-2. Navigate to the project's root directory and install the necessary dependencies by running the following command: **`npm i`**
-3. Create a **`.env`** file based on the provided **`.env.example`** file. Specify the values for the environment variables required by the application to work.
-4. Once the installation is complete, start the development server with the following command: **`npm run dev`**
+2. **Set up Google Maps API**
+  - Go to the [Google Cloud Console](https://console.cloud.google.com/).
+  - Create a new project (or select an existing one).
+  - Navigate to **APIs & Services > Library**, and search for **Maps JavaScript API**.
+  - Enable the **Maps JavaScript API** and other APIs you might need (e.g., **Geocoding API**, **Places API**).
+  - Go to **APIs & Services > Credentials**, then create a new API Key under **Create Credentials**.
+  - Copy the API key.
+3. **Run the `setup.sh` script**
+  - This script will set up all the necessary environment variables and install the required dependencies.
+  - Make sure the script has execution permissions:
+    ```bash
+    chmod +x setup.sh
+    ```
+  - Then, execute the script to configure your environment and install dependencies:
+    ```bash
+    ./setup.sh
+    ```
+  - During execution, the script will ask for the following credentials:
+    - **Google Maps API Key**, paste the **Google Maps API Key** when prompted.
+
+  This script will create a `.env` file and install project dependencies.
+4. **Start the development server**
+   - After the configurations are executed, you can start the development server using the following command:
+     ```bash
+     npm run dev
+     ```
+   - The app will now be running at **`http://localhost:5173`**.
 
 After completing these steps, you should have both the front-end and backend of EventSync app up and running locally.
-
-5. Open your web browser and visit **`http://localhost:5173`** to access the app.
 
 ## Author
 EventSync was created by:
